@@ -1,0 +1,4 @@
+print hello on a page
+set html template and render it
+template variables ( like jinja2 template language ) = if, for 
+filters
