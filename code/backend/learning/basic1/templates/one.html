@@ -9,7 +9,7 @@
     <h1>Pass data from server to html</h1>
     <br>
 <!-- pass var -->
-    <h1>Title : {{ title }}</h1>
+    <h1>Title : {{ title | title }}</h1>
     <p>Summary : {{ summary }}</p>
     <h4>Year : {{ year }}</h4>
     {% if sucess %}
@@ -21,8 +21,8 @@
     <br><hr><br>
 <!-- for lop -->
     {% for movie_obj in movies %}
-        <h1>Title : {{ movie_obj.title }}</h1>
-        <p>Summary : {{ movie_obj.summary }}</p>
+        <h1>Title : {{ movie_obj.title | upper }}</h1>
+        <p>Summary : {{ movie_obj.summary | default:"Information unavailable" | lower }}</p>
         <h4>Year : {{ movie_obj.year }}</h4>
         <h4 style="display:inline;">Success status :
             {% if movie_obj.success %}

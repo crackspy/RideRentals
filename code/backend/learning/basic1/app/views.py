@@ -4,6 +4,11 @@ from django.http import HttpResponse
 # Create your views here.
 
 # return text to html
+
+def index_page(request):
+    return render(request, 'index.html')
+
+
 def print_hello(request):
     return HttpResponse("hello")
 
@@ -16,9 +21,9 @@ def one_page(request):
     movie_details = {
         'movies': [
             {
-            'title': 'God Father',
+            'title': 'god Father',
             'year': '1990',
-            'summary': 'story of a underworld king',
+            'summary': 'Story of a underworld king',
             'success': True
         },
         {
@@ -30,13 +35,13 @@ def one_page(request):
         {
             'title': 'on2',
             'year': '1990',
-            'summary': 'story of a underworld king',
+            'summary': 'Story of a underworld king',
             'success': True
         },
         {
             'title': 'Gon4',
             'year': '1990',
-            'summary': 'story',
+            'summary': 'Story',
             'success': False
         }
     ]}

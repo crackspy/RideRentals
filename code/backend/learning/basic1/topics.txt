@@ -1,4 +1,10 @@
 print hello on a page
 set html template and render it
 template variables ( like jinja2 template language ) = if, for 
-filters
+
+
+filters : lower, upper, default:"value", length
+
+eg : { variable | <filter> }
+<h1>Title : {{ movie_obj.title | upper }}</h1>
+
