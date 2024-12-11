@@ -20,8 +20,10 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index_page),
     path('test-hello/', views.print_hello),
     path('hello/', views.hello_page),
     path('one/', views.one_page),
-    path(' ', views.index_page)
+    path('image/', views.show_image),
 ]
+
