@@ -50,6 +50,9 @@ def one_page(request):
     return render(request, 'one.html', movie_details)
 
 
+# return static files
+def show_image(request):
+    return render(request, 'image.html')
 
 
 
