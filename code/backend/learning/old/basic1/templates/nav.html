@@ -27,10 +27,11 @@
 <body>
     <div>
         <li><a href="admin">Admin</a></li>
-        <li><a href="app/test-hello">test-hello</a></li>
-        <li><a href="app/hello">hello</a></li>
-        <li><a href="app/one">one</a></li>
-        <li><a href="app/one">CRUD</a></li>
+        <li><a href="{% url 'print_hello' %}">print-hello</a></li>
+        <li><a href="{% url 'hello' %}">hello</a></li>
+        <li><a href="{% url 'one' %}">one</a></li>
+        <li><a href="{% url 'image' %}">Image</a></li>
+        <li><a href="{% url 'crud' %}">CRUD</a></li>
            
     </div>
 </body>

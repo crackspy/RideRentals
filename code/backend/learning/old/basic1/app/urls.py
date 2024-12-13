@@ -19,8 +19,14 @@ from . import views
 
 urlpatterns = [
     path('', views.index_page),
-    path('test-hello/', views.print_hello),
-    path('hello/', views.hello_page),
-    path('one/', views.one_page),
-    path('image/', views.show_image),
+    path('print-hello/', views.print_hello, name='print_hello'),
+    path('hello/', views.hello_page, name='hello'),
+    path('one/', views.one_page, name='one'),
+    path('image/', views.show_image, name='image'),
+    path('crud/', views.crud, name='crud'),
+    path('crud/create/', views.crud_create, name='create'),
+    path('crud/delete/', views.crud_delete, name='delete'),
+    path('crud/modify/', views.crud_modify, name='modify'),
+    path('crud/update/', views.crud_update, name='update')
+
 ]

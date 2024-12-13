@@ -54,11 +54,31 @@ def one_page(request):
 def show_image(request):
     return render(request, 'image.html')
 
+def crud(request):
+    return render(request, 'crud/crud.html')
 
 
+# get data from frontend
+def crud_create(request):
+    if request.POST:
+        # print(request.POST)
+        # print(request.POST.get('title'))
+        # print(request.POST.get('year'))
 
+        title =  request.POST.get('title')
+        year = request.POST.get('year')
+        summary = request.POST.get
 
+    return render(request, 'crud/create.html')
 
+def crud_delete(request):
+    return render(request, 'crud/delete.html')
+
+def crud_modify(request):
+    return render(request, 'crud/modify.html')
+
+def crud_update(request):
+    return render(request, 'crud/update.html')
 
 
 
