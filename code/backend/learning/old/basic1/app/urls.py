@@ -27,6 +27,7 @@ urlpatterns = [
     path('crud/create/', views.crud_create, name='create'),
     path('crud/delete/', views.crud_delete, name='delete'),
     path('crud/modify/', views.crud_modify, name='modify'),
-    path('crud/update/', views.crud_update, name='update')
+    path('crud/update/', views.crud_update, name='update'),
+    path('crud/list/', views.crud_list, name='list')
 
 ]

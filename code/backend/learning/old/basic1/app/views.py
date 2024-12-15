@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from . models import MovieInfo
 
 # Create your views here.
 
@@ -57,6 +58,9 @@ def show_image(request):
 def crud(request):
     return render(request, 'crud/crud.html')
 
+def crud_list(request):
+    movie_set = MovieInfo.objects.all()
+    return render(request, 'crud/list.html', {'movies': movie_set})
 
 # get data from frontend
 def crud_create(request):
@@ -67,7 +71,11 @@ def crud_create(request):
 
         title =  request.POST.get('title')
         year = request.POST.get('year')
-        summary = request.POST.get
+        summary = request.POST.get('summary')
+
+        Movie_obj = MovieInfo(title=title, year=year, summary=summary)
+        Movie_obj.save()
+
 
     return render(request, 'crud/create.html')
 
