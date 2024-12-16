@@ -1,0 +1,31 @@
+1.
+Land rover range rover velar
+Engine
+1997 cc, 4 Cylinders Inline, 4 Valves/Cylinder, DOHC
+Fuel Type
+Petrol
+Mileage (ARAI)
+12.1 kmpl
+
+2.
+Maruti Suzuki Ertiga ZXi AT
+Engine
+1462 cc, 4 Cylinders Inline, 4 Valves/Cylinder, DOHC
+Mileage (ARAI)
+17.99 kmpl
+
+3.
+2018 Jaguar F-Pace
+Engine
+1997 cc, 4 Cylinders Inline, 4 Valves/Cylinder, DOHC
+Fuel Type
+Petrol
+Mileage (ARAI)
+14.38 kmpl
+
+4.
+2022 Mahindra XUV700 AX 5 Petrol AT 5 STR [2021]
+Engine
+1997 cc, 4 Cylinders Inline, 4 Valves/Cylinder, DOHC
+Fuel Type
+Petrol
