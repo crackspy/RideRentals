@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f8fafc;
+  font-family: Poppins, "sans-serif";
+  line-height: 1.5;
+}
+
+.tabs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 360px;
+}
+.tabs__header {
+  display: flex;
+  padding: 4px;
+  background-color: #475569;
+  border-radius: 4px;
+}
+.tabs__title {
+  font-size: 1.5rem;
+  color: #020617;
+}
+.tabs__description {
+  font-size: 0.75rem;
+  color: #475569;
+}
+.tabs__tab {
+  width: 50%;
+  border: none;
+  background-color: transparent;
+  padding: 8px;
+  color: #f1f5f9;
+  font-weight: bold;
+}
+.tabs__tab:hover {
+  cursor: pointer;
+}
+.tabs__tab--active {
+  background-color: #fefefe;
+  border-radius: 4px;
+  color: #020617;
+}
+.tabs__content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+}
+.tabs__form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tabs__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tabs__label {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.tabs__input {
+  padding: 8px;
+  border: none;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  color: #475569;
+}
+.tabs__button {
+  width: 128px;
+  border: none;
+  margin-top: 4px;
+  align-self: flex-start;
+  padding: 8px 24px;
+  background-color: #020617;
+  color: #fefefe;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.tabs__button:hover {
+  cursor: pointer;
+}

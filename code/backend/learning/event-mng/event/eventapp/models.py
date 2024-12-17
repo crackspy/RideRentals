@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 # Create your models here.
 
 class Event(models.Model):
@@ -19,3 +20,8 @@ class Booking(models.Model):
     # if any event deleted then delete record data realted to foreign key
     booking_date = models.DateField()
     booked_on = models.DateField(auto_now=True)
+
+@receiver(post_delete, sender=Event)
+def delete_event_image(sender, instance, **kwargs):
+    if instance.img:
+        instance.img.delete(save=False)

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block head %}
+<style>
+    .container {
+        text-align: center;
+        padding: 3px;
+        width: 400px;
+        margin: 50px auto 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .forgot-password {
+        margin-top: 10px;
+        font-size: 0.9rem;
+    }
+
+    .forgot-password a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .forgot-password a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Login</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <!-- Username Field -->
+        <input type="text" name="username" placeholder="Username" required>
+        <!-- Password Field -->
+        <input type="password" name="password" placeholder="Password" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Login</button>
+
+        <!-- Forgot Password Link -->
+        <div class="forgot-password">
+            <a href="">Forgot Password?</a>
+        </div>
+    </form>
+
+    {% for message in messages %}
+        <script>
+            alert("{{ message }}")
+        </script>
+    {% endfor %}
+
+</div>
+{% endblock %}
