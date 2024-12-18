@@ -10,5 +10,7 @@ def login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-    
     return render(request, 'mainapp/login/login.html')
+
+def auth_page(request):
+    return render(request, 'mainapp/login/main.html')
