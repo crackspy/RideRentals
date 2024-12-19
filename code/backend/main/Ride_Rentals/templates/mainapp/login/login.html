@@ -2,40 +2,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="{% static 'mainapp/css/login2.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'mainapp/css/login.css' %}">
+  <link href="{% static 'mainapp/css/font-awesome/css/all.min.css' %}" rel="stylesheet">
 </head>
 <body>
-    <!-- Background Image -->
-    <div class="background-image"></div>
 
-    <!-- Login Form Container -->
-    <div class="login-container">
-        <h2>Login</h2>
-        <form>
-            <!-- Username Field -->
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Enter your username" name="username" required>
-            </div>
-            <!-- Password Field -->
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" name="password" required>
-            </div>
-            <!-- Forgot Password -->
-            <div class="form-group">
-                <a href="#" class="forgot-password">Forgot Password?</a>
-            </div>
-            <div class="form-group">
-                <p>New to RideRentals?</p>
-                <a href="#" class="forgot-password">Create an account</a>
-            </div>
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Login</button>
-        </form>
+  <!-- Background Image -->
+  <div class="background-image"></div>
+
+  <div class="container">
+
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="openTab('login')">Login</button>
+      <button class="tab-button" onclick="openTab('register')">Register</button>
     </div>
+
+    <!-- Login Tab Content -->
+    <div id="login" class="login-container tab-content active">
+      <div class="login-header">
+        <h1>Welcome Back</h1>
+        <p>Login to continue your journey</p>
+      </div>
+
+      <form id="loginForm" action="/login/" method="post">
+          {% csrf_token %}
+        <!-- Username Input -->
+        <div class="form-group">
+          <input type="text" class="form-input" id="username"
+            name="username" placeholder="Enter your username" required>
+          <i class="input-icon fas fa-user"></i>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <input type="password" class="form-input" id="password"
+            name="password" placeholder="Password" required>
+          <i class="input-icon fas fa-lock"></i>
+        </div>
+
+        <button type="submit" class="submit-button">Login</button>
+      </form>
+
+      <div class="additional-options">
+        <a href="#">Forgot password?</a>
+      </div>
+    </div>
+
+    <!-- Register Tab Content -->
+    <div id="register" class="login-container tab-content">
+      <div class="login-header">
+        <h1>Welcome Back</h1>
+        <p>Register to continue your journey</p>
+      </div>
+
+      <form id="registerForm" action="/register/" method="post">
+          {% csrf_token %}
+        <!-- Username Input -->
+        <div class="form-group">
+          <input type="text" class="form-input" id="reg_username"
+            name="username" placeholder="Enter your username" required>
+          <i class="input-icon fas fa-user"></i>
+        </div>
+
+        <!-- Email Input -->
+        <div class="form-group">
+          <input type="email" class="form-input" id="email"
+            name="email" placeholder="Email address" required>
+          <i class="input-icon fas fa-envelope"></i>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <input type="password" class="form-input" id="reg_password"
+            name="password" placeholder="Enter your password" required>
+          <i class="input-icon fas fa-lock"></i>
+        </div>
+
+        <!-- Confirm Password Input -->
+        <div class="form-group">
+          <input type="password" class="form-input" id="confirm_password"
+            name="confirm_password" placeholder="Confirm your password" required>
+          <i class="input-icon fas fa-rotate"></i>
+        </div>
+
+        <button type="submit" class="submit-button">Register</button>
+      </form>
+
+    </div>
+
+  </div>
+  {% for message in messages %}
+    <p>{{ message }}</p>
+  {% endfor %}
+
+  <script>
+    // Tab Switching Logic
+    function openTab(tabName) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-button');
+
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(button => button.classList.remove('active'));
+
+      document.getElementById(tabName).classList.add('active');
+      document.querySelector(`[onclick="openTab('${tabName}')"]`).classList.add('active');
+    }
+
+  </script>
+
 </body>
 </html>

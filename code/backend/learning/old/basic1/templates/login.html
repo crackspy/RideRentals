@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="{% static 'mainapp/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/login2.css' %}">
 </head>
 <body>
     <!-- Background Image -->
@@ -13,21 +13,25 @@
 
     <!-- Login Form Container -->
     <div class="login-container">
-        <h2>Register</h2>
+        <h2>Login</h2>
         <form>
             <!-- Username Field -->
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Enter your username" required>
+                <input type="text" id="username" placeholder="Enter your username" name="username" required>
             </div>
             <!-- Password Field -->
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="password" id="password" placeholder="Enter your password" name="password" required>
             </div>
             <!-- Forgot Password -->
             <div class="form-group">
                 <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            <div class="form-group">
+                <p>New to RideRentals?</p>
+                <a href="#" class="forgot-password">Create an account</a>
             </div>
             <!-- Submit Button -->
             <button type="submit" class="submit-btn">Login</button>

@@ -115,7 +115,7 @@ body {
 
 .form-input {
   width: 100%;
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
@@ -187,39 +187,68 @@ body {
   opacity: 0.8;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    width: 90%;
-    margin: 1rem;
-    padding: 2rem;
-  }
+
+/* Responsive Styles */
+
+@media screen and (max-width: 768px) {
 
   .login-header h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
-}
 
-@media (max-width: 480px) {
+  .login-header p {
+    font-size: 0.8rem;
+  }
+
   .form-input {
-    padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem; /* Adjust padding for smaller fields */
   }
 
-  .input-icon {
-    left: 0.8rem;
-  }
-
-  .login-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .tabs {
-    flex-direction: column;
-    align-items: center;
+  .submit-button {
+    font-size: 0.9rem;
+    padding: 0.7rem;
   }
 
   .tab-button {
-    font-size: 14px;
-    margin-bottom: 5px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+    .container {
+        width: 330px;
+        padding: 15px;
+    }
+  .login-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .login-header p {
+    font-size: 0.75rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.8rem;
+  }
+
+  .form-input {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.4rem 0.4rem 2.5rem;
+  }
+
+  .submit-button {
+    font-size: 0.8rem;
+    padding: 0.6rem;
+  }
+
+  .additional-options {
+    font-size: 0.8rem;
+  }
+
+  .tab-button {
+    font-size: 11px;
+    padding: 8px;
   }
 }

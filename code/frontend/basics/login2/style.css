@@ -35,7 +35,7 @@ body {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
-    padding: 3rem;
+    padding: 5px 40px 20px;
     color: white;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     overflow: hidden;
@@ -72,11 +72,10 @@ body {
     }
 }
 
-
 .tabs {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .tab-button {
@@ -96,21 +95,17 @@ body {
 
 .tab-content {
     display: none;
-    height: calc(100% - 50px); 
+    height: calc(100% - 50px);
 }
 
 .tab-content.active {
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
 
-
-
-
-
 .login-header {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 15px;
 }
 
 .login-header h1 {
@@ -207,72 +202,11 @@ body {
     left: 100%;
 }
 
-.social-login {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
-.social-button {
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.social-button::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(100%);
-    transition: 0.3s ease;
-}
-
-.social-button:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.social-button:hover::before {
-    transform: translateY(0);
-}
-
-.divider {
-    display: flex;
-    align-items: center;
-    margin: 2rem 0;
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.divider::before,
-.divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.divider span {
-    padding: 0 1rem;
-    font-size: 0.9rem;
-}
-
 .additional-options {
     text-align: center;
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.6);
+    margin-top: 10px;
 }
 
 .additional-options a {
