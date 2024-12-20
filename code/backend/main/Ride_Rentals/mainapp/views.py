@@ -19,16 +19,16 @@ def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
-        password = request.POST.get('password')
+        password = request.POST.get('reg_password')
         confirm_password = request.POST.get('confirm_password')
 
         if password == confirm_password :
             if User.objects.filter(username=username).exists():
                 messages.info(request, "Username already taken")
-                return redirect('register')
+                return redirect('auth')
             elif User.objects.filter(email=email).exists():
                 messages.info(request, "Email already taken")
-                return redirect('register')
+                return redirect('auth')
             else:
                 user_reg = User.objects.create_user(
                     username = username,
@@ -39,8 +39,9 @@ def register(request):
                 return redirect('home')
         else:
             messages.info(request, 'password doesnot match')
-            return redirect('register')
-
+            return redirect('auth')
+    else:
+        return render(request, 'mainapp/login/login.html')
 
 # login
 def login(request):
