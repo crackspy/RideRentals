@@ -983,7 +983,7 @@ button, a { transition: var(--transition); }
 
   .hero-banner {
     display: block;
-    background: url("../images/hero-banner.jpg") no-repeat;
+    background: url("../images/home/hero-banner.jpg") no-repeat;
     background-size: cover;
     background-position: left;
     position: absolute;
@@ -1162,7 +1162,7 @@ button, a { transition: var(--transition); }
 
 
   /**
-   * FEATURED CAR 
+   * FEATURED CAR
    */
 
   .featured-car-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }

@@ -8,6 +8,9 @@ from django.contrib import messages
 def index(request):
     return render(request, 'mainapp/index.html')
 
+def index_home(request):
+    return render(request, 'mainapp/home/index.html')
+
 
 #---------------------  Authentication ----------------
 
@@ -66,6 +69,7 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
+# -------------------------------------------------------
 
 def test(request):
     return render(request, 'mainapp/test.html')
