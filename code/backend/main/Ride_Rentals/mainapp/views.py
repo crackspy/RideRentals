@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+
+from . models import Car_info, Booking
 
 # Create your views here.
 
@@ -11,6 +13,14 @@ def index(request):
 def index_home(request):
     return render(request, 'mainapp/home/index.html')
 
+def explore_cars(request):
+    featured_cars = Car_info.objects.all()  # Replace with your desired filtering logic
+    return render(request, 'mainapp/home/cars.html', {'car_list': featured_cars})
+
+
+def car_detail(request, slug):
+    car = get_object_or_404(Car_info, slug=slug) 
+    return render(request, 'mainapp/home/car_detail.html', {'car': car}) 
 
 #---------------------  Authentication ----------------
 

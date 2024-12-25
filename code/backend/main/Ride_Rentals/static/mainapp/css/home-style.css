@@ -357,6 +357,10 @@ button, a { transition: var(--transition); }
   margin-bottom: 15px;
 }
 
+.hero-content {
+  margin-left: -120px;
+}
+
 .hero-text {
   color: var(--independence);
   line-height: 1.8;
@@ -364,44 +368,6 @@ button, a { transition: var(--transition); }
 }
 
 .hero-banner { display: none; }
-
-.hero-form {
-  background: var(--gradient);
-  border: 1px solid var(--white);
-  box-shadow: var(--shadow-1);
-  border-radius: var(--radius-18);
-  font-family: var(--ff-nunito);
-}
-
-.input-wrapper { padding: 15px 20px; }
-
-.input-wrapper:not(:last-of-type) { border-bottom: 1px solid hsla(0, 0%, 0%, 0.08); }
-
-.input-label {
-  color: var(--manatee);
-  font-size: var(--fs-6);
-  margin-bottom: 10px;
-}
-
-.input-field {
-  color: var(--space-cadet);
-  outline: 2px solid transparent;
-  outline-offset: 5px;
-  border-radius: 4px;
-  transition: var(--transition);
-}
-
-.input-field:focus { outline-color: var(--carolina-blue); }
-
-.input-field::placeholder { color: var(--independence); }
-
-.hero-form .btn {
-  --width: calc(100% - 40px);
-  --height: 50px;
-  margin: 20px;
-  text-transform: uppercase;
-}
-
 
 
 
@@ -892,6 +858,9 @@ button, a { transition: var(--transition); }
 
 }
 
+.hero-content {
+  margin-left: 0;
+}
 
 
 
@@ -965,20 +934,8 @@ button, a { transition: var(--transition); }
     z-index: 1;
   }
 
-  .hero-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 0.8fr;
-  }
-
-  .input-wrapper:not(:last-of-type) {
-    border-bottom: none;
-    border-right: 1px solid hsla(0, 0%, 0%, 0.08);
-  }
-
-  .input-label {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .hero-content {
+    margin-left: -120px;
   }
 
   .hero-banner {
@@ -1057,6 +1014,9 @@ button, a { transition: var(--transition); }
    */
 
   .hero .container { width: 100%; }
+  .hero-content{
+    margin-left: 5px;
+  }
 
 
 
@@ -1144,19 +1104,14 @@ button, a { transition: var(--transition); }
 
   .hero { min-height: 100vh; }
 
+  .hero-content {
+    margin-left: 2px;
+  }
+
   .hero-banner {
     left: auto;
     right: 50px;
     width: 630px;
-  }
-
-  .hero-form { max-width: 900px; }
-
-  .hero-form .btn {
-    --width: calc(100% - 40px);
-    --height: 50px;
-    margin: 20px;
-    text-transform: uppercase;
   }
 
 
