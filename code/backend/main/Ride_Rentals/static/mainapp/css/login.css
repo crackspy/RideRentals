@@ -7,13 +7,8 @@
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;  
   background: #0a0a0a;
-  position: relative;
-  overflow: hidden;
 }
 
 /* Background Image */
@@ -27,8 +22,15 @@ body {
   z-index: -1;
 }
 
+.body-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
 /* Container Styling */
-.container {
+.main-container {
   position: relative;
   z-index: 2;
   width: 100%;
