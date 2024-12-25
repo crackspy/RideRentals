@@ -77,7 +77,7 @@ Rent now
 
 alt = BMW 3 Series 2019
 
-BMW 3 Series
+
 2019
 
 Gasoline
