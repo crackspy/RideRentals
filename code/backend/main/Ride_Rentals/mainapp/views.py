@@ -10,19 +10,7 @@ from . models import Car_info, Booking
 def index(request):
     return render(request, 'mainapp/index.html')
 
-def index_home(request):
-    return render(request, 'mainapp/home/index.html')
-
-def explore_cars(request):
-    featured_cars = Car_info.objects.all()  # Replace with your desired filtering logic
-    return render(request, 'mainapp/home/cars.html', {'car_list': featured_cars})
-
-
-def car_detail(request, slug):
-    car = get_object_or_404(Car_info, slug=slug) 
-    return render(request, 'mainapp/home/car_detail.html', {'car': car}) 
-
-#---------------------  Authentication ----------------
+#--------------------  Authentication -------------------
 
 # login or register page
 def auth_page(request):
@@ -78,6 +66,22 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home')
+
+# -------------------------------------------------------
+
+#-----------------------  Rental  -----------------------
+
+def explore_cars(request):
+    featured_cars = Car_info.objects.all()  # Replace with your desired filtering logic
+    return render(request, 'mainapp/rental/cars.html', {'car_list': featured_cars})
+
+def booking(request):
+    return render(request, 'mainapp/rental/booking.html')
+
+
+def car_detail(request, slug):
+    car = get_object_or_404(Car_info, slug=slug)
+    return render(request, 'mainapp/rental/car_detail.html', {'car': car})
 
 # -------------------------------------------------------
 

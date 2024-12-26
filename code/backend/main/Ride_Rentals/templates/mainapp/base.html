@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
-  
+
     <!--
       - favicon
     -->
     <link rel="shortcut icon" href="{% static 'mainapp/images/favicon.svg' %}" type="image/svg+xml">
-  
+
     <!--
       - custom css link
     -->
-    <link rel="stylesheet" href="{% static 'mainapp/css/home-style.css' %}">
-  
+    <link rel="stylesheet" href="{% static 'mainapp/css/base-style.css' %}">
+
     <!--
       - google font link
     -->
@@ -35,12 +35,12 @@
   -->
 
   <header class="header" data-header>
-    <div class="container">
+    <div class="header-container">
 
       <div class="overlay" data-overlay></div>
 
       <a href="#" class="logo">
-        <span 
+        <span
         style="
             text-decoration: none;
             color: var(--space-cadet);
@@ -54,7 +54,7 @@
         <ul class="navbar-list">
 
           <li>
-            <a href="#home" class="navbar-link" data-nav-link>Home</a>
+            <a href="{% url 'home' %}" class="navbar-link" data-nav-link>Home</a>
           </li>
 
           <li>
@@ -107,7 +107,7 @@
   -->
 
   <footer class="footer">
-    <div class="container">
+    <div class="footer-container">
 
       <div class="footer-top">
 
@@ -230,7 +230,7 @@
   -->
   <script type="module" src="{% static 'mainapp/js/ionicons/ionicons.esm.js' %}"></script>
   <script nomodule src="{% static 'mainapp/js/ionicons/ionicons.js' %}"></script>
-  
+
 
 
 </body>

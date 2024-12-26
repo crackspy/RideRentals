@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Softer off-white background */
+            color: black;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #ffffff; /* White background for cards */
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        h2 {
+            color: #333;
+        }
+        button {
+            background-color: skyblue;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #007bb5;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .accordion-button {
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .accordion-button:hover {
+            background-color: #e1e1e1;
+        }
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .password-fields {
+            display: none;
+            animation: slideDown 0.5s ease-in-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dark-theme {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>User Profile Settings</h1>
+    </header>
+
+    <!-- Profile Picture Section -->
+    <div class="card">
+        <h2>Profile Picture</h2>
+        <img src="{% static 'images/profile-placeholder.jpg' %}" alt="Profile Picture" class="profile-img">
+        <button>Upload Picture (Coming Soon)</button>
+    </div>
+
+    <!-- Editable Profile Info Section -->
+    <div class="card">
+        <h2>Profile Information</h2>
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="John Doe">
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="john@example.com">
+        
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" placeholder="+1 234 567 890">
+        
+        <button>Save Changes (Coming Soon)</button>
+    </div>
+
+    <!-- Theme Customization Section -->
+    <div class="card">
+        <h2>Theme Customization</h2>
+        <label for="theme">Choose Theme</label>
+        <select id="theme" onchange="changeTheme(this)">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+    </div>
+
+    <script>
+        function changeTheme(select) {
+            if (select.value === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        }
+    </script>
+
+    <!-- Notification Preferences Section -->
+    <div class="card">
+        <h2>Notification Preferences</h2>
+        <label>
+            <input type="checkbox" id="email_notifications">
+            Email Notifications
+        </label>
+        <label>
+            <input type="checkbox" id="sms_notifications">
+            SMS Notifications
+        </label>
+        <button>Save Preferences (Coming Soon)</button>
+    </div>
+
+    <!-- Booking History Section -->
+    <div class="card">
+        <h2>Booking History</h2>
+        <ul>
+            <li>
+                <strong>Car:</strong> Tesla Model S<br>
+                <strong>Date:</strong> 2024-12-01 to 2024-12-05<br>
+                <strong>Status:</strong> Completed
+            </li>
+            <li>
+                <strong>Car:</strong> BMW 5 Series<br>
+                <strong>Date:</strong> 2024-11-15 to 2024-11-20<br>
+                <strong>Status:</strong> Completed
+            </li>
+        </ul>
+        <button>View All Bookings (Coming Soon)</button>
+    </div>
+
+    <!-- Reset Password Section (with Expand Animation) -->
+    <div class="card">
+        <h2>Reset Password</h2>
+        <button class="accordion-button" onclick="togglePasswordFields()">Change Password</button>
+        <div class="password-fields" id="password-fields">
+            <label for="old_password">Old Password</label>
+            <input type="password" id="old_password" placeholder="Enter your old password">
+            
+            <label for="new_password">New Password</label>
+            <input type="password" id="new_password" placeholder="Enter your new password">
+            
+            <label for="confirm_password">Confirm New Password</label>
+            <input type="password" id="confirm_password" placeholder="Confirm your new password">
+            
+            <button>Reset Password (Coming Soon)</button>
+        </div>
+    </div>
+
+    <!-- Account Settings Section -->
+    <div class="card">
+        <h2>Account Settings</h2>
+        <button onclick="alert('Account deactivation will be available soon!')">Deactivate Account (Coming Soon)</button>
+    </div>
+
+    <!-- Contact/Support Section -->
+    <div class="card">
+        <h2>Need Help?</h2>
+        <button onclick="window.location.href='/contact'">Contact Support</button>
+    </div>
+
+</div>
+
+<script>
+    function togglePasswordFields() {
+        const passwordFields = document.getElementById('password-fields');
+        passwordFields.style.display = passwordFields.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+
+</body>
+</html>
