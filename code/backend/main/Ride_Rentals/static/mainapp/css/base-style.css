@@ -170,7 +170,7 @@ body {
 
 button, a { transition: var(--transition); }
 
-.btn {
+.head-btn {
   position: relative;
   background: var(--background, var(--carolina-blue));
   color: var(--color, var(--white));
@@ -186,12 +186,12 @@ button, a { transition: var(--transition); }
   overflow: hidden;
 }
 
-.btn ion-icon {
+.head-btn ion-icon {
   font-size: 22px;
   --ionicon-stroke-width: 40px;
 }
 
-.btn::before {
+.head-btn::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -201,9 +201,9 @@ button, a { transition: var(--transition); }
   transition: var(--transition);
 }
 
-.btn:is(:hover, :focus) { box-shadow: var(--shadow-2); }
+.head-btn:is(:hover, :focus) { box-shadow: var(--shadow-2); }
 
-.btn:is(:hover, :focus)::before { opacity: 1; }
+.head-btn:is(:hover, :focus)::before { opacity: 1; }
 
 .section { padding-block: var(--section-padding); }
 
@@ -264,7 +264,7 @@ button, a { transition: var(--transition); }
   gap: 20px;
 }
 
-.header-actions .btn span { display: none; }
+.header-actions .head-btn span { display: none; }
 
 .user-btn {
   --color: var(--independence);
@@ -450,13 +450,13 @@ button, a { transition: var(--transition); }
    * HEADER
    */
 
-  .header-actions .btn span {
+  .header-actions .head-btn span {
     display: block;
     font-weight: var(--fw-400);
     padding-inline: 15px;
   }
 
-  .header-actions .btn:first-of-type ion-icon { display: none; }
+  .header-actions .head-btn:first-of-type ion-icon { display: none; }
 
 }
 

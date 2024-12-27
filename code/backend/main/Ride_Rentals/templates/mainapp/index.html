@@ -61,11 +61,18 @@
         <div class="title-wrapper">
           <h2 class="h2 section-title">Featured cars</h2>
 
-          <a href="#" class="featured-car-link">
-            <span>View more</span>
+          {% if user.is_authenticated %}
+              <a href="{% url 'explore_cars' %}" class="featured-car-link">
+                <span>View more</span>
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </a>
+          {% else %}
+              <a href="{% url 'auth' %}" class="featured-car-link">
+                <span>View more</span>
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </a>
+          {% endif %}
 
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-          </a>
         </div>
 
         <ul class="featured-car-list">
