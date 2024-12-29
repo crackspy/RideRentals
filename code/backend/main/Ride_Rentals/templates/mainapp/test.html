@@ -1,14 +1,330 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>test</title>
-</head>
-    <body>
-        <p>hello</p>
-        {% if user.is_authenticated %}
-            <p>{{ user.username }}</p>
-        {% endif %}
-    </body>
-</html>
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %} Book Your Ride {% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'mainapp/css/home-style.css' %}" />
+
+<style>
+    body {
+        background: linear-gradient(to right, #141e30, #243b55);
+        /* color: #ffffff; */
+    }
+
+    .main-container {
+        margin-top: 100px;
+    }
+
+    .booking-form {
+        width: 50%;
+        margin: 50px auto;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    h1 {
+        text-align: center;
+        color: #ffffff;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #f0f0f0;
+    }
+
+    .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+        outline: none;
+        box-shadow: 0 0 8px rgba(79, 172, 254, 0.8);
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+        background: linear-gradient(to right, #ff416c, #ff4b2b);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        text-align: center;
+        transition: transform 0.3s, background 0.3s;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        background: linear-gradient(to right, #ff4b2b, #ff416c);
+    }
+
+    .form-group textarea {
+        resize: none;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 20px;
+        color: #cccccc;
+        font-size: 0.9em;
+    }
+    /* -----------------------------------*\
+     /* #FEATURED CAR */
+    /* ----------------------------------*/
+
+    .featured-car .title-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px 15px;
+      margin-bottom: 30px;
+    }
+
+    .featured-car-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--independence);
+      font-size: var(--fs-6);
+    }
+
+    .featured-car-link span { transition: var(--transition); }
+
+    .featured-car-link:is(:hover, :focus) span { color: var(--space-cadet); }
+
+    .featured-car-link ion-icon {
+      margin-top: 3px;
+      transition: var(--transition);
+    }
+
+    .featured-car-link:is(:hover, :focus) ion-icon { color: var(--carolina-blue); }
+
+    .featured-car-list {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 30px;
+    }
+
+    .featured-car-card {
+      background: var(--gradient);
+      border: 1px solid var(--white);
+      border-radius: var(--radius-18);
+      padding: 10px;
+      box-shadow: var(--shadow-1);
+    }
+
+    .featured-car-card .card-banner {
+      background: hsla(0, 0%, 0%, 0.2);
+      aspect-ratio: 3 / 2;
+      border-radius: var(--radius-18);
+      overflow: hidden;
+    }
+
+    .featured-car-card .card-banner > img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .featured-car-card .card-content { padding: 20px 10px 10px; }
+
+    .featured-car-card .card-title-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 15px;
+    }
+
+    .featured-car-card .card-title { width: calc(100% - 60px); }
+
+    .featured-car-card .card-title > a {
+      color: inherit;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .featured-car-card .card-title > a:is(:hover, :focus) { color: var(--carolina-blue); }
+
+    .featured-car-card .year {
+      font-family: var(--ff-nunito);
+      font-size: var(--fs-6);
+      font-weight: var(--fw-600);
+      padding: 3px 12px;
+      border: 2px dashed hsla(204, 91%, 53%, 0.4);
+      border-radius: var(--radius-14);
+    }
+
+    .featured-car-card .card-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+      margin-bottom: 15px;
+    }
+
+    .featured-car-card .card-list-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .featured-car-card .card-list-item ion-icon {
+      font-size: 20px;
+      color: var(--carolina-blue);
+      --ionicon-stroke-width: 38px;
+    }
+
+    .featured-car-card .card-item-text {
+      color: var(--independence);
+      font-size: var(--fs-6);
+    }
+
+    .featured-car-card .card-price-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .featured-car-card .card-price {
+      font-family: var(--ff-nunito);
+      font-size: var(--fs-6);
+      color: var(--space-cadet);
+    }
+
+    .featured-car-card .card-price strong {
+      font-size: var(--fs-3);
+      font-weight: var(--fw-400);
+    }
+
+    .featured-car-card .btn:last-child {
+      --height: 36px;
+      min-width: 100%;
+    }
+
+    .featured-car-card .fav-btn {
+      --background: var(--beau-blue);
+      --color: var(--blue-jeans);
+      --height: 36px;
+      --width: 36px;
+      --shadow-2: none;
+    }
+
+    .featured-car-card .fav-btn ion-icon { font-size: 18px; }
+
+    .featured-car-card .fav-btn:is(:hover, :focus) {
+      --background: var(--lavender-blush);
+      --color: var(--red-salsa);
+    }
+
+
+
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="main-container">
+
+        <div style="padding-top: 20px;">
+            <section class="section featured-car" id="featured-car">
+                <div class="container">
+
+                  <ul class="featured-car-list">
+                      <li>
+                        <div class="featured-car-card">
+
+                          <figure class="card-banner">
+                            <img src="{{ car.img.url }}" alt="{{ car.name }}" loading="lazy" width="440" height="300"
+                                 class="w-100">
+                          </figure>
+
+                          <div class="card-content">
+
+                            <div class="card-title-wrapper">
+                              <h3 class="h3 card-title">
+                                <a href="#">{{ car.name }}</a>
+                              </h3>
+
+                              <data class="year" value="{{ car.year }}">{{ car.year }}</data>
+                            </div>
+
+                            <ul class="card-list">
+
+                              <li class="card-list-item">
+                                <ion-icon name="people-outline"></ion-icon>
+
+                                <span class="card-item-text">{{ car.capacity }} People</span>
+                              </li>
+
+                              <li class="card-list-item">
+                                <ion-icon name="flash-outline"></ion-icon>
+
+                                <span class="card-item-text">{{ car.engine }}</span>
+                              </li>
+
+                              <li class="card-list-item">
+                                <ion-icon name="speedometer-outline"></ion-icon>
+
+                                <span class="card-item-text">{{ car.mileage }} km / 1-litre</span>
+                              </li>
+
+                              <li class="card-list-item">
+                                <ion-icon name="hardware-chip-outline"></ion-icon>
+
+                                <span class="card-item-text">{{ car.gear }}</span>
+                              </li>
+
+                            </ul>
+
+                            <div class="card-price-wrapper">
+
+                              <p class="card-price">
+                                <strong>₹{{ car.price }}</strong> / month
+                              </p>
+
+                              <!-- <button class="btn fav-btn" aria-label="Add to favourite list">
+                                <ion-icon name="heart-outline"></ion-icon>
+                              </button> -->
+                              <a href="{% url 'booking' car.slug %}" class="btn">Rent now</a>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </li>
+
+                  </ul>
+
+                </div>
+              </section>
+{% endblock %}

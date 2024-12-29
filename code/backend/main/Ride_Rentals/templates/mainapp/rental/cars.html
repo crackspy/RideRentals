@@ -77,12 +77,11 @@
                             <strong>₹{{ car.price }}</strong> / month
                           </p>
 
-                          <!-- <button class="btn fav-btn" aria-label="Add to favourite list">
-                            <ion-icon name="heart-outline"></ion-icon>
-                          </button> -->
+                          <a href="{% url 'add_to_wishlist' car.slug %}" class="btn fav-btn" aria-label="Add to favourite list">
+                              <ion-icon name="heart-outline"></ion-icon>
+                          </a>
 
-                          <a href="{% url 'car_detail' car.slug %}" class="btn">Rent now</a>
-
+                          <a href="{% url 'booking' car.slug %}" class="btn">Rent now</a>
                         </div>
 
                       </div>

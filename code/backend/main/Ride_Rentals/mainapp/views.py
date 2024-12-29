@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-from . models import Car_info, Booking
+from datetime import datetime
+from . models import Car_info, Booking, Wishlist
 
 # Create your views here.
 
@@ -63,6 +64,7 @@ def login(request):
 
     return render(request, 'mainapp/login/login.html')
 
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect('home')
@@ -70,18 +72,89 @@ def logout(request):
 # -------------------------------------------------------
 
 #-----------------------  Rental  -----------------------
-
+@login_required
 def explore_cars(request):
     featured_cars = Car_info.objects.all()  # Replace with your desired filtering logic
     return render(request, 'mainapp/rental/cars.html', {'car_list': featured_cars})
 
-def booking(request):
-    return render(request, 'mainapp/rental/booking.html')
-
-
-def car_detail(request, slug):
+@login_required
+def booking(request, slug):
+    # Fetch the car details using the slug
     car = get_object_or_404(Car_info, slug=slug)
-    return render(request, 'mainapp/rental/car_detail.html', {'car': car})
+    if request.method == "POST":
+        # Get logged-in user
+        logged_in_user = request.user  # This gives the logged-in User instance
+
+# Extract form data
+        cus_name = request.POST['full_name']
+        cus_ph = request.POST['phone']
+        cus_email = request.POST['email']
+        pickup_date = request.POST['pickup_date']
+        return_date = request.POST['return_date']
+        notes = request.POST.get('notes', '')
+
+        # Convert pickup_date and return_date to date objects
+        pickup_date_obj = datetime.strptime(pickup_date, '%Y-%m-%d').date()
+        return_date_obj = datetime.strptime(return_date, '%Y-%m-%d').date()
+
+        # Validate dates
+        if return_date_obj <= pickup_date_obj:
+            raise ValueError("Return date must be after pickup date.")
+
+            # Calculate the number of days
+        days_difference = (return_date_obj - pickup_date_obj).days
+
+        prin(days_difference)
+
+            # Calculate total rent
+        price_per_month = car.price
+        price_per_day = price_per_month / 30  # Assuming 1 month = 30 days
+        total_rent = price_per_day * days_difference
+
+        # Create and save booking
+        booking = Booking(
+            cus_name=cus_name,
+            cus_ph=cus_ph,
+            cus_email=cus_email,
+            car=car,
+            cus_username=logged_in_user,
+            pickup_date=pickup_date_obj,
+            return_date=return_date_obj,
+            notes=notes,
+            price=price_per_month,
+            total_rent=total_rent,
+        )
+        booking.save()
+
+        print(total_rent)
+
+        # return redirect('booking_success', booking_id=booking.id)
+
+        # Redirect to a success page or another appropriate page
+        return redirect('success_page')
+    else:
+        return render(request, 'mainapp/rental/booking.html', {'car': car})
+
+@login_required
+def success_page(request):
+    return render(request, 'mainapp/rental/success.html')
+
+@login_required
+def add_to_wishlist(request, slug):
+    # Fetch the car object by its slug
+    car = get_object_or_404(Car_info, slug=slug)
+
+    # Create a new Wishlist entry for the logged-in user
+    wishlist_item, created = Wishlist.objects.get_or_create(user=request.user, car=car)
+
+    if created:
+        message = "Car added to wishlist!"
+    else:
+        message = "Car is already in your wishlist."
+
+    # Optionally, redirect to the user's wishlist page or show a success message
+    return redirect('home')  # Redirect to the wishlist view or use a message
+
 
 # -------------------------------------------------------
 

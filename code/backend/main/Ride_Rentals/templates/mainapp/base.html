@@ -17,13 +17,7 @@
     -->
     <link rel="stylesheet" href="{% static 'mainapp/css/base-style.css' %}">
 
-    <!--
-      - google font link
-    -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap"
-      rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'mainapp/css/fonts.css' %}">
 
     {% block head %} {% endblock %}
 
@@ -64,7 +58,7 @@
 
           {% else %}
               <li>
-                <a href="#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+                <a href="{% url 'home' %}/#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
               </li>
           {% endif %}
 
