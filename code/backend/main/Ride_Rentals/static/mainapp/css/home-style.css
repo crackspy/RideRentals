@@ -620,103 +620,6 @@ button, a { transition: var(--transition); }
 
 
 
-
-
-/*-----------------------------------*\
-  #BLOG
-\*-----------------------------------*/
-
-.blog .section-title { margin-bottom: 30px; }
-
-.blog-card {
-  background: var(--alice-blue-2);
-  border-radius: var(--radius-18);
-  border: 1px solid var(--white);
-  box-shadow: var(--shadow-1);
-  overflow: hidden;
-}
-
-.blog-card .card-banner {
-  aspect-ratio: 3 / 2;
-  position: relative;
-  overflow: hidden;
-}
-
-.blog-card .card-banner a:first-child { height: 100%; }
-
-.blog-card .card-banner img {
-  height: 100%;
-  object-fit: cover;
-}
-
-.blog-card .card-badge {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  --height: 30px;
-  --width: 92px;
-}
-
-.blog-card .card-content { padding: 20px; }
-
-.blog-card .card-title { margin-bottom: 20px; }
-
-.blog-card .card-title > a { color: inherit; }
-
-.blog-card .card-title > a:is(:hover, :focus) { color: var(--carolina-blue); }
-
-.blog-card .card-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.blog-card :is(.publish-date, .comments) {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: var(--fs-6);
-  color: var(--independence);
-}
-
-.blog-card :is(.publish-date, .comments) ion-icon {
-  font-size: 15px;
-  --ionicon-stroke-width: 50px;
-}
-
-.blog .has-scrollbar {
-  display: flex;
-  gap: 20px;
-  scroll-snap-type: inline mandatory;
-  overflow-x: auto;
-  padding-bottom: 20px;
-}
-
-.blog .has-scrollbar > li {
-  flex-shrink: 0;
-  max-width: 330px;
-  width: 100%;
-  scroll-snap-align: start;
-}
-
-.has-scrollbar::-webkit-scrollbar-track {
-  background: var(--alice-blue-1);
-  outline: 2px solid var(--carolina-blue);
-  border-radius: 10px;
-}
-
-.has-scrollbar::-webkit-scrollbar-thumb {
-  border-color: var(--alice-blue-1);
-  background: var(--carolina-blue);
-  border-radius: 10px;
-}
-
-.has-scrollbar::-webkit-scrollbar-button { width: calc(25% - 40px); }
-
-
-
-
-
 /*-----------------------------------*\
   #FOOTER
 \*-----------------------------------*/
@@ -1020,13 +923,7 @@ button, a { transition: var(--transition); }
 
 
 
-  /**
-   * BLOG
-   */
 
-  .blog .has-scrollbar { padding-bottom: 50px; }
-
-  .blog .has-scrollbar > li { max-width: 450px; }
 
 
 
@@ -1129,19 +1026,6 @@ button, a { transition: var(--transition); }
    */
 
   .get-start-list { grid-template-columns: repeat(4, 1fr); }
-
-
-
-  /**
-   * BLOG
-   */
-
-  .blog .has-scrollbar > li {
-    max-width: 340px;
-    scroll-snap-align: center;
-  }
-
-
 
   /**
    * FOOTER

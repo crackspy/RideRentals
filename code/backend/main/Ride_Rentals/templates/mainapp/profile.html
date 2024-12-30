@@ -1,0 +1,291 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %} Profile Dashboard {% endblock %}
+
+{% block head %}
+  <style>
+    .dashboard-container {
+        width: 100%;
+        height: 100vh;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: flex-start;
+        align-items: stretch;
+        margin-top: 70px;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 210px;
+      height: 100%;
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .sidebar .profile-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #6c757d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+
+    .sidebar button {
+      width: 100%;
+      margin: 10px 0;
+      background-color: #495057;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: left;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .sidebar button:hover {
+      background-color: #adb5bd;
+    }
+
+    /* Content Styles */
+    .content {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .card {
+      width: 250px;
+      height: 250px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card h5 {
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .card p {
+      color: #777;
+    }
+
+    .profile {
+      width: 250px;
+      height: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      text-align: center;
+    }
+
+    .profile h5 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .profile p {
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .change-password-btn {
+      background-color: #495057;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .change-password-btn:hover {
+      background-color: #adb5bd;
+    }
+
+    .usrname {
+        font-size: 18px;
+    }
+
+    .usrname, .email {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        margin-bottom: 10px;
+    }
+    .wishlist-head {
+        margin-bottom: 10px;
+    }
+
+    .wishlist-head h5 {
+        font-size: 1rem;
+    }
+
+    /* Popup Styles */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        width: 100%;
+        min-height: 250px;
+        flex-direction: column;
+        max-width: 420px;
+        align-content: ;
+        align-items: center;
+    }
+
+    .popup .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .popup-content {
+      max-height: 300px;
+      overflow-y: auto;
+      width: 100%;
+    padding: 20px;
+    }
+
+    .popup-content p {
+        font-size: 17px;
+    }
+
+    .popup-content .item {
+        margin-bottom: 10px;
+        border-bottom: solid black 1px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="profile-icon">P</div>
+      <h5 class="usrname m-b-10 fz-18">{{ user.username| title }}</h5>
+      <p class="email m-b-10">{{ user.email }}</p>
+      <button>Settings</button>
+      <button>Logout</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+      
+      <!-- Wishlist Card -->
+      <div class="card">
+        <h5>Wishlist</h5>
+        {% if wishlist_item %}
+          <p>{{ wishlist_item.car.name }}</p>
+        {% else %}
+          <p>Your wishlist is empty.</p>
+        {% endif %}
+        <button onclick="openWishlistPopup()">View All Wishlist</button>
+      </div>
+
+      <!-- Bookings Card -->
+      <div class="card">
+        <h5>Your Bookings</h5>
+        {% if bookings %}
+          <p>Your recent bookings will appear here.</p>
+          <button onclick="openBookingPopup()">View All Bookings</button>
+        {% else %}
+          <p>You have no bookings yet.</p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Popup for All Wishlist Items -->
+  <div id="wishlistPopup" class="popup">
+    <div class="wishlist-head">
+        <h5>Your Wishlist</h5>
+        <span class="close" onclick="closeWishlistPopup()">&times;</span>
+    </div>
+
+    <div class="popup-content">
+      {% for item in all_wishlist_items %}
+      <div class="item">
+        <p>{{ item.car.name }} - Added on: {{ item.added_on|date:"F j, Y" }}</p>
+      </div> 
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Popup for All Bookings -->
+  <div id="bookingPopup" class="popup">
+    <div class="wishlist-head">
+        <h5>Your Bookings</h5>
+        <span class="close" onclick="closeBookingPopup()">&times;</span>
+    </div>
+
+    <div class="popup-content">
+      {% for booking in bookings %}
+      <div class="item">
+            <p>Car: {{ booking.car.name }}</p>
+            <p>Pick-up Date: {{ booking.pickup_date }}</p>
+            <p>Return Date: {{ booking.return_date }}</p>
+            <p>Total Rent: {{ booking.total_rent }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    // Function to open the wishlist popup
+    function openWishlistPopup() {
+      document.getElementById('wishlistPopup').style.display = 'flex';
+    }
+
+    // Function to close the wishlist popup
+    function closeWishlistPopup() {
+      document.getElementById('wishlistPopup').style.display = 'none';
+    }
+
+    // Function to open the booking popup
+    function openBookingPopup() {
+      document.getElementById('bookingPopup').style.display = 'flex';
+    }
+
+    // Function to close the booking popup
+    function closeBookingPopup() {
+      document.getElementById('bookingPopup').style.display = 'none';
+    }
+  </script>
+
+{% endblock %}
