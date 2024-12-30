@@ -104,8 +104,6 @@ def booking(request, slug):
             # Calculate the number of days
         days_difference = (return_date_obj - pickup_date_obj).days
 
-        prin(days_difference)
-
             # Calculate total rent
         price_per_month = car.price
         price_per_day = price_per_month / 30  # Assuming 1 month = 30 days
@@ -155,8 +153,21 @@ def add_to_wishlist(request, slug):
     # Optionally, redirect to the user's wishlist page or show a success message
     return redirect('home')  # Redirect to the wishlist view or use a message
 
+@login_required
+def profile_dashboard(request):
+    user = request.user
+    bookings = Booking.objects.filter(cus_username=user)  # Fetch bookings associated with the user
+    wishlist_items = Wishlist.objects.filter(user=user)  # Fetch wishlist items
+
+    return render(request, 'mainapp/profile.html', {
+        'user': user,
+        'bookings': bookings,
+        'wishlist_item': wishlist_items.first(),  # Assuming only one item is shown as an example
+        'all_wishlist_items': wishlist_items,
+    })
+
 
 # -------------------------------------------------------
 
 def test(request):
-    return render(request, 'mainapp/test.html')
+    return render(request, 'mainapp/profile.html')
