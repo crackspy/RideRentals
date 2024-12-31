@@ -3,7 +3,11 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from datetime import datetime
-from . models import Car_info, Booking, Wishlist
+from .models import Car_info, Booking, Wishlist
+from .utils import send_booking_email
+
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -124,6 +128,9 @@ def booking(request, slug):
         )
         booking.save()
 
+        booking_details = f"Car: {car.name}\nPickup Date: {pickup_date}\nReturn Date: {return_date}\nTotal Rent: {total_rent}"
+        send_booking_email(cus_email, booking_details)
+
         # Set the car as unavailable
         car.available = False
         car.save()
@@ -172,3 +179,14 @@ def profile_dashboard(request):
 
 def test(request):
     return render(request, 'mainapp/profile.html')
+
+def send_test_email(request):
+    subject = 'Test Email from Django'
+    message = 'This is a test email sent from your Django application.'
+    recipient_list = ['crackspy.log232@gmail.com']  # Replace with the recipient's email
+
+    try:
+        send_mail(subject, message, 'your_email@gmail.com', recipient_list)
+        return HttpResponse('Test email sent successfully.')
+    except Exception as e:
+        return HttpResponse(f'Error: {e}')
