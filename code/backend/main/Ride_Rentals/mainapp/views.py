@@ -85,7 +85,7 @@ def booking(request, slug):
         # Get logged-in user
         logged_in_user = request.user  # This gives the logged-in User instance
 
-# Extract form data
+        # Extract form data
         cus_name = request.POST['full_name']
         cus_ph = request.POST['phone']
         cus_email = request.POST['email']
@@ -101,10 +101,10 @@ def booking(request, slug):
         if return_date_obj <= pickup_date_obj:
             raise ValueError("Return date must be after pickup date.")
 
-            # Calculate the number of days
+        # Calculate the number of days
         days_difference = (return_date_obj - pickup_date_obj).days
 
-            # Calculate total rent
+        # Calculate total rent
         price_per_month = car.price
         price_per_day = price_per_month / 30  # Assuming 1 month = 30 days
         total_rent = price_per_day * days_difference
@@ -124,12 +124,13 @@ def booking(request, slug):
         )
         booking.save()
 
-        print(total_rent)
-
-        # return redirect('booking_success', booking_id=booking.id)
+        # Set the car as unavailable
+        car.available = False
+        car.save()
 
         # Redirect to a success page or another appropriate page
         return redirect('success_page')
+
     else:
         return render(request, 'mainapp/rental/booking.html', {'car': car})
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Error, Warning, Information, Success</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - CreatorSpace</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-header">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+            </div>
+            <div class="error-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h1 class="error-title">Oops! Something went wrong</h1>
+            <p class="error-subtitle">We encountered an unexpected error</p>
+        </div>
+
+        <div class="error-content">
+            <div class="error-details">
+                <div class="error-message">
+                    Error: Unable to connect to server [ERR_CONNECTION_REFUSED]
+                </div>
+            </div>
+
+            <div class="error-steps">
+                <h3>Try these steps to resolve the issue:</h3>
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-text">
+                        <h4>Check your connection</h4>
+                        <p>Ensure you have a stable internet connection</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-text">
+                        <h4>Refresh the page</h4>
+                        <p>Try refreshing the page or clearing your browser cache</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-text">
+                        <h4>Try again later</h4>
+                        <p>If the problem persists, wait a few minutes and try again</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-actions">
+                <button class="error-button button-secondary" onclick="window.history.back()">
+                    <i class="fas fa-arrow-left"></i> Go Back
+                </button>
+                <button class="error-button button-primary" onclick="window.location.reload()">
+                    <i class="fas fa-redo"></i> Try Again
+                </button>
+            </div>
+
+            <div class="contact-support">
+                Still having issues? <a href="#support">Contact Support</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
