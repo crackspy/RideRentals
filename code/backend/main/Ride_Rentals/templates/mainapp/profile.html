@@ -73,7 +73,8 @@
       height: 250px;
       background-color: white;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 15px;
+      border: solid #80808042 7px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       text-align: center;
       margin: 10px;
@@ -149,20 +150,21 @@
     .popup {
         display: none;
         position: fixed;
-        top: 50%;
+        top: 55%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: white;
         padding: 20px;
-        border-radius: 10px;
+        border-radius: var(--radius-18);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         z-index: 1000;
-        width: 100%;
-        min-height: 250px;
+        width: 90%;
+        height: 80%;
         flex-direction: column;
-        max-width: 420px;
         align-content: ;
         align-items: center;
+        border: solid #1a9df4 3px;
+        background-color: greenyellow;
     }
 
     .popup .close {
@@ -174,10 +176,10 @@
     }
 
     .popup-content {
-      max-height: 300px;
-      overflow-y: auto;
-      width: 100%;
-    padding: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+        width: 100%;
+        padding: 20px;
     }
 
     .popup-content p {
@@ -185,9 +187,25 @@
     }
 
     .popup-content .item {
+        display: flex;
         margin-bottom: 10px;
-        border-bottom: solid black 1px;
+        padding-bottom: 10px;
+        border-bottom: solid #1a9df4 3px;
     }
+
+    .popup-content .item-icon img {
+        border-radius: var(--radius-18);
+        height: 125px;
+        width: 175px;
+        object-fit: cover;
+
+    }
+
+    .popup-content .item-content {
+        width: 100%;
+        padding: 10px;
+    }
+
   </style>
 {% endblock %}
 
@@ -196,7 +214,9 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <div class="profile-icon">P</div>
+      <div class="profile-icon">
+          <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="">
+      </div>
       <h5 class="usrname m-b-10 fz-18">{{ user.username| title }}</h5>
       <p class="email m-b-10">{{ user.email }}</p>
       <button>Settings</button>
@@ -205,7 +225,7 @@
 
     <!-- Main Content -->
     <div class="content">
-      
+
       <!-- Wishlist Card -->
       <div class="card">
         <h5>Wishlist</h5>
@@ -241,8 +261,23 @@
     <div class="popup-content">
       {% for item in all_wishlist_items %}
       <div class="item">
-        <p>{{ item.car.name }} - Added on: {{ item.added_on|date:"F j, Y" }}</p>
-      </div> 
+          <div class="item-icon">
+                <img src="{{ item.car.img.url }}" alt="{{ car.name }}" loading="lazy" width="200" height="150">
+          </div>
+          <div class="item-content">
+              <h1>{{ item.car.name }} - {{ item.car.year }}</h1>
+              <span>
+                    <ul>
+                        li
+                    </ul>
+              </span>
+                <p>- Added on: {{ item.added_on|date:"F j, Y" }}</p>
+                {% if not item.car.available %}
+                    <span class="not-available">Not Available</span>
+                {% endif %}
+
+          </div>
+      </div>
       {% endfor %}
     </div>
   </div>

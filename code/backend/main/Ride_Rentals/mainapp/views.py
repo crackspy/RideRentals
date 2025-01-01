@@ -56,11 +56,10 @@ def login(request):
         password = request.POST.get('password')
 
         user = auth.authenticate(username=username, password=password)
-        print(user)
         if user is not None:
             auth.login(request, user)
             messages.info(request, "Login Success")
-            return redirect('test')
+            return redirect('home')
         else:
             print("error")
             messages.info(request, "User not found")
