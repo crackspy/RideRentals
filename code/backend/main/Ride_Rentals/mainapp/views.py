@@ -8,6 +8,7 @@ from .utils import send_booking_email
 
 from django.core.mail import send_mail
 from django.http import HttpResponse
+import json
 
 # Create your views here.
 
@@ -30,10 +31,10 @@ def register(request):
 
         if password == confirm_password :
             if User.objects.filter(username=username).exists():
-                messages.info(request, "Username already taken")
+                messages.error(request, "Username already taken")
                 return redirect('auth')
             elif User.objects.filter(email=email).exists():
-                messages.info(request, "Email already taken")
+                messages.error(request, "Email already taken")
                 return redirect('auth')
             else:
                 user_reg = User.objects.create_user(
@@ -44,7 +45,7 @@ def register(request):
                 user_reg.save()
                 return redirect('home')
         else:
-            messages.info(request, 'password doesnot match')
+            messages.error(request, "password doesnot match")
             return redirect('auth')
     else:
         return render(request, 'mainapp/login/login.html')
@@ -58,11 +59,11 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            messages.info(request, "Login Success")
+            messages.success(request, "Login Success")
             return redirect('home')
         else:
             print("error")
-            messages.info(request, "User not found")
+            messages.error(request, "User not found")
             return redirect('auth')
 
     return render(request, 'mainapp/login/login.html')
@@ -153,9 +154,9 @@ def add_to_wishlist(request, slug):
     wishlist_item, created = Wishlist.objects.get_or_create(user=request.user, car=car)
 
     if created:
-        message = "Car added to wishlist!"
+        messages.success(request, "Car added to wishlist!")
     else:
-        message = "Car is already in your wishlist."
+        messages.warning(request, "Car is already in your wishlist.")
 
     return redirect('explore_cars') 
 
@@ -168,11 +169,9 @@ def remove_from_wishlist(request, slug):
 
     if wishlist_item:
         wishlist_item.delete()
-        message = "Car removed from wishlist!"
+        messages.success(request, "Car removed from wishlist!")
     else:
-        message = "Car was not in your wishlist."
-
-    messages.success(request, message)
+        messages.warning(request, "Car was not in your wishlist.")
 
     return redirect('profile')
 
@@ -193,7 +192,12 @@ def profile_dashboard(request):
 # -------------------------------------------------------
 
 def test(request):
-    return render(request, 'mainapp/profile.html')
+    # Add some messages
+    messages.success(request, "Your booking was successful!")
+    messages.error(request, "Payment failed. Please try again.")
+    messages.warning(request, "Booking confirmation is pending.")
+
+    return render(request, 'mainapp/test.html')
 
 def send_test_email(request):
     subject = 'Test Email from Django'

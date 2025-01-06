@@ -135,62 +135,67 @@ Dashboard {% endblock %} {% block head %}
         word-break: break-word;
         margin-bottom: 10px;
     }
-    .wishlist-head {
+
+    .popup-head {
         margin-bottom: 10px;
     }
 
-    .wishlist-head h5 {
+    .popup-head h5 {
         font-size: 1rem;
     }
 
     /* Popup Styles */
     .popup {
         display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: var(--radius-18);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    width: 90%;
-    max-width: 700px;
-    height: auto;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ebebeb;
-    overflow: hidden; /* Hide overflow to ensure the scroll is controlled in content */
-}
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: var(--radius-18);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        width: 90%;
+        max-width: 700px;
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        background-color: #ebebeb;
+        overflow: hidden;
+        /* Hide overflow to ensure the scroll is controlled in content */
+    }
 
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
 
-.popup .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    color: #333;
-}
+    .popup .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        color: #333;
+    }
 
-.popup-content {
-    max-height: 70vh; /* Limit the max height of content */
-    overflow-y: auto; /* Enable vertical scrolling */
-    width: 100%;
-    padding: 0 20px 20px;
-    text-align: center;
-    box-sizing: border-box; /* Ensure padding does not overflow */
-}
+    .popup-content {
+        max-height: 70vh;
+        /* Limit the max height of content */
+        overflow-y: auto;
+        /* Enable vertical scrolling */
+        width: 100%;
+        padding: 0 20px 20px;
+        text-align: center;
+        box-sizing: border-box;
+        /* Ensure padding does not overflow */
+    }
 
     .popup-content p {
         font-size: 17px;
@@ -206,33 +211,35 @@ Dashboard {% endblock %} {% block head %}
 
 
     .item-icon img {
-    object-fit: cover;
-    width: 200px; /* Fixed width */
-    height: 150px; /* Fixed height */
-    border-right: 1px solid #ddd;
-}
+        object-fit: cover;
+        width: 200px;
+        /* Fixed width */
+        height: 150px;
+        /* Fixed height */
+        border-right: 1px solid #ddd;
+    }
 
-.item-content {
-    flex-grow: 1;
-    padding: 10px;
-}
+    .item-content {
+        flex-grow: 1;
+        padding: 10px;
+    }
 
-.item-content h1 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    text-align: center;
-}
+    .item-content h1 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
-.item-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-}
+    .item-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+    }
 
-.item-content ul li {
-    margin-bottom: 5px;
-}
+    .item-content ul li {
+        margin-bottom: 5px;
+    }
 
 
 
@@ -254,10 +261,6 @@ Dashboard {% endblock %} {% block head %}
         display: flex;
         justify-content: space-around;
         align-items: center;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
         width: 100%;
         font-size: 18px;
     }
@@ -276,45 +279,46 @@ Dashboard {% endblock %} {% block head %}
         background-color: #ff00004d;
         width: 150px;
         border-radius: 4px;
-   }
+    }
+
+    .popup-content .pos-b {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 
     .btn {
-  position: relative;
-  background: var(--background, var(--carolina-blue));
-  color: var(--color, var(--white));
-  min-width: var(--width, 40px);
-  min-height: var(--height, 40px);
-  padding: 10px 15px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-14);
-  font-family: var(--ff-nunito);
-  font-size: var(--fs-6);
-  font-weight: var(--fw-600);
-  overflow: hidden;
-}
+        position: relative;
+        background: var(--background, var(--carolina-blue));
+        color: var(--color, var(--white));
+        min-width: var(--width, 40px);
+        min-height: var(--height, 40px);
+        padding: 10px 15px;
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-14);
+        font-family: var(--ff-nunito);
+        font-size: var(--fs-6);
+        font-weight: var(--fw-600);
+        overflow: hidden;
+    }
 
-.fav-btn {
-  --background: var(--beau-blue);
-  --color: var(--blue-jeans);
-  --height: 36px;
-  --width: 36px;
-  --shadow-2: none;
-  font-size: 23px;
-}
-
-
+    .fav-btn {
+        --background: var(--beau-blue);
+        --color: var(--blue-jeans);
+        --height: 36px;
+        --width: 36px;
+        --shadow-2: none;
+        font-size: 23px;
+    }
 </style>
 {% endblock %} {% block content %}
 <div class="dashboard-container">
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="profile-icon">
-            <img
-                src="{% static 'mainapp/images/home/profile.png' %}"
-                height="90px"
-                alt=""
-            />
+            <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="" />
         </div>
         <h5 class="usrname m-b-10 fz-18">{{ user.username| title }}</h5>
         <p class="email m-b-10">{{ user.email }}</p>
@@ -333,7 +337,7 @@ Dashboard {% endblock %} {% block head %}
             {% else %}
             <p>Your wishlist is empty.</p>
             {% endif %}
-            
+
         </div>
 
         <!-- Bookings Card -->
@@ -351,7 +355,7 @@ Dashboard {% endblock %} {% block head %}
 
 <!-- Popup for All Wishlist Items -->
 <div id="wishlistPopup" class="popup">
-    <div class="wishlist-head">
+    <div class="popup-head">
         <h5>Your Wishlist</h5>
         <span class="close" onclick="closeWishlistPopup()">&times;</span>
     </div>
@@ -360,19 +364,13 @@ Dashboard {% endblock %} {% block head %}
         {% for item in all_wishlist_items %}
         <div class="item">
             <div class="item-icon">
-                <img
-                    src="{{ item.car.img.url }}"
-                    alt="{{ car.name }}"
-                    loading="lazy"
-                    width="200"
-                    height="150"
-                />
+                <img src="{{ item.car.img.url }}" alt="{{ car.name }}" loading="lazy" width="200" height="150" />
             </div>
             <div class="item-content">
                 <h1 style="text-align: center">
                     {{ item.car.name }} - {{ item.car.year }}
                 </h1>
-                <div>
+                <div class="pos-b">
                     <ul>
                         <li>Rent : ₹{{ item.car.price }}/ month</li>
                     </ul>
@@ -394,7 +392,7 @@ Dashboard {% endblock %} {% block head %}
 
 <!-- Popup for All Bookings -->
 <div id="bookingPopup" class="popup">
-    <div class="wishlist-head">
+    <div class="popup-head">
         <h5>Your Bookings</h5>
         <span class="close" onclick="closeBookingPopup()">&times;</span>
     </div>
@@ -403,13 +401,7 @@ Dashboard {% endblock %} {% block head %}
         {% for item in bookings %}
         <div class="item">
             <div class="item-icon">
-                <img
-                    src="{{ item.car.img.url }}"
-                    alt="{{ car.name }}"
-                    loading="lazy"
-                    width="200"
-                    height="150"
-                />
+                <img src="{{ item.car.img.url }}" alt="{{ car.name }}" loading="lazy" width="200" height="150" />
             </div>
             <div class="item-content">
                 <h1 style="text-align: center">
@@ -453,66 +445,66 @@ Dashboard {% endblock %} {% block head %}
 
 
     // Function to open the wishlist popup
-function openWishlistPopup() {
-    // Show popup and overlay
-    document.getElementById("wishlistPopup").style.display = "flex";
-    document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
-    
-    // Add overlay
-    var overlay = document.createElement("div");
-    overlay.id = "popup-overlay";
-    overlay.className = "popup-overlay";
-    document.body.appendChild(overlay);
+    function openWishlistPopup() {
+        // Show popup and overlay
+        document.getElementById("wishlistPopup").style.display = "flex";
+        document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
 
-    // Close popup when clicking outside
-    overlay.onclick = function() {
-        closeWishlistPopup();
-    };
-}
+        // Add overlay
+        var overlay = document.createElement("div");
+        overlay.id = "popup-overlay";
+        overlay.className = "popup-overlay";
+        document.body.appendChild(overlay);
 
-// Function to close the wishlist popup
-function closeWishlistPopup() {
-    // Hide popup and overlay
-    document.getElementById("wishlistPopup").style.display = "none";
-    document.body.style.overflow = "auto";  // Allow body to scroll again
-    
-    // Remove overlay
-    var overlay = document.getElementById("popup-overlay");
-    if (overlay) {
-        overlay.remove();
+        // Close popup when clicking outside
+        overlay.onclick = function () {
+            closeWishlistPopup();
+        };
     }
-}
 
-// Function to open the booking popup
-function openBookingPopup() {
-    // Show popup and overlay
-    document.getElementById("bookingPopup").style.display = "flex";
-    document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
-    
-    // Add overlay
-    var overlay = document.createElement("div");
-    overlay.id = "popup-overlay";
-    overlay.className = "popup-overlay";
-    document.body.appendChild(overlay);
+    // Function to close the wishlist popup
+    function closeWishlistPopup() {
+        // Hide popup and overlay
+        document.getElementById("wishlistPopup").style.display = "none";
+        document.body.style.overflow = "auto";  // Allow body to scroll again
 
-    // Close popup when clicking outside
-    overlay.onclick = function() {
-        closeBookingPopup();
-    };
-}
-
-// Function to close the booking popup
-function closeBookingPopup() {
-    // Hide popup and overlay
-    document.getElementById("bookingPopup").style.display = "none";
-    document.body.style.overflow = "auto";  // Allow body to scroll again
-    
-    // Remove overlay
-    var overlay = document.getElementById("popup-overlay");
-    if (overlay) {
-        overlay.remove();
+        // Remove overlay
+        var overlay = document.getElementById("popup-overlay");
+        if (overlay) {
+            overlay.remove();
+        }
     }
-}
+
+    // Function to open the booking popup
+    function openBookingPopup() {
+        // Show popup and overlay
+        document.getElementById("bookingPopup").style.display = "flex";
+        document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
+
+        // Add overlay
+        var overlay = document.createElement("div");
+        overlay.id = "popup-overlay";
+        overlay.className = "popup-overlay";
+        document.body.appendChild(overlay);
+
+        // Close popup when clicking outside
+        overlay.onclick = function () {
+            closeBookingPopup();
+        };
+    }
+
+    // Function to close the booking popup
+    function closeBookingPopup() {
+        // Hide popup and overlay
+        document.getElementById("bookingPopup").style.display = "none";
+        document.body.style.overflow = "auto";  // Allow body to scroll again
+
+        // Remove overlay
+        var overlay = document.getElementById("popup-overlay");
+        if (overlay) {
+            overlay.remove();
+        }
+    }
 
 
 
