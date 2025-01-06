@@ -58,14 +58,14 @@
 
           {% else %}
               <li>
-                <a href="{% url 'home' %}/#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+                <a href="#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
               </li>
           {% endif %}
 
 
 
           <li>
-            <a href="#" class="navbar-link" data-nav-link>About us</a>
+            <a href="#about-us" class="navbar-link" data-nav-link>About us</a>
           </li>
 
         </ul>
@@ -108,7 +108,7 @@
    <!--
     - #FOOTER
   -->
-
+<section class="footer" id="about-us">
   <footer class="footer">
     <div class="footer-container">
 
@@ -116,11 +116,18 @@
 
         <div class="footer-brand">
           <a href="#" class="logo">
-            <img src="{% static 'mainapp/images/home/logo.svg' %}" alt="Ridex logo">
+            <span
+            style="
+                text-decoration: none;
+                color: var(--space-cadet);
+                font-family: var(--ff-nunito);
+                font-size: var(--fs-3);
+                font-weight: bold;">
+                Ride Rentals</span>
           </a>
 
           <p class="footer-text">
-            Search for cheap rental cars in India. With a diverse fleet of 19,000 vehicles, Waydex offers its
+            Search for premium rental cars in India. With a diverse fleet of 19,000 vehicles, Waydex offers its
             consumers an
             attractive and fun selection.
           </p>

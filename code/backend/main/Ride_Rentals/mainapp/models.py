@@ -40,12 +40,32 @@ class Booking(models.Model):
     # ForeignKey to User
     cus_username = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
+    class Status(models.TextChoices):
+        BOOKED = 'booked', 'Booked'
+        RENTED = 'rented', 'Rented'
+        COMPLETED = 'completed', 'Completed'
+
+    class Payment_Status(models.TextChoices):
+        PAID = 'paid', 'Paid'
+        PENDING = 'pending', 'Pending'
+
+    status = models.CharField(
+        max_length=10,
+        choices=Status.choices,
+        default=Status.BOOKED,  # Default value is 'Booked'
+    )
+
     pickup_date = models.DateField()
     return_date = models.DateField()
     booked_on = models.DateField(auto_now=True)
     notes = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2) # Car price
-    total_rent = models.DecimalField(max_digits=10, decimal_places=2)  # Computed total rent
+    total_rent = models.DecimalField(max_digits=10, decimal_places=2) # Computed total rent
+    payment_status = models.CharField(
+        max_length=10,
+        choices=Payment_Status.choices,
+        default=Payment_Status.PENDING,  # Default value is 'Booked'
+    )  
 
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # ForeignKey to User

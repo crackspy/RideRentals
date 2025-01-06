@@ -146,7 +146,7 @@ def success_page(request):
 
 @login_required
 def add_to_wishlist(request, slug):
-    # Fetch the car object by its slug
+
     car = get_object_or_404(Car_info, slug=slug)
 
     # Create a new Wishlist entry for the logged-in user
@@ -157,8 +157,24 @@ def add_to_wishlist(request, slug):
     else:
         message = "Car is already in your wishlist."
 
-    # Optionally, redirect to the user's wishlist page or show a success message
-    return redirect('home')  # Redirect to the wishlist view or use a message
+    return redirect('explore_cars') 
+
+@login_required
+def remove_from_wishlist(request, slug):
+    car = get_object_or_404(Car_info, slug=slug)
+
+    # Check if the wishlist entry exists for the user and car
+    wishlist_item = Wishlist.objects.filter(user=request.user, car=car).first()
+
+    if wishlist_item:
+        wishlist_item.delete()
+        message = "Car removed from wishlist!"
+    else:
+        message = "Car was not in your wishlist."
+
+    messages.success(request, message)
+
+    return redirect('profile')
 
 @login_required
 def profile_dashboard(request):
