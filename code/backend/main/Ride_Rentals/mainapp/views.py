@@ -193,9 +193,9 @@ def profile_dashboard(request):
 
 def test(request):
     # Add some messages
-    messages.success(request, "Your booking was successful!")
-    messages.error(request, "Payment failed. Please try again.")
-    messages.warning(request, "Booking confirmation is pending.")
+    # messages.success(request, "Your booking was successful!")
+    # messages.error(request, "Payment failed. Please try again.")
+    # messages.warning(request, "Booking confirmation is pending.")
 
     return render(request, 'mainapp/test.html')
 
