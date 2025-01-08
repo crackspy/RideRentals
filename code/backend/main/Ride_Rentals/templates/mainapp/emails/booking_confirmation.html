@@ -1,159 +1,53 @@
-<!-- templates/emails/booking_confirmation.html -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Booking Confirmation</title>
-        <style>
-            body {
-                font-size: 14px;
-                text-align: center;
-                font-family: sans-serif;
-            }
-            .container {
-                width: 100%;
-                max-width: 600px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                border-radius: 8px;
-            }
-
-            .content-head {
-                margin: 20px;
-            }
-
-            .content-head h1 {
-                color: #4caf50;
-                text-align: center;
-            }
-
-            .booking-head h3 {
-                margin: 30px;
-                font-size: 22px;
-                color: black; /* Sky Blue */
-                gap: 8px;
-                font-weight: 600;
-            }
-
-            .booking-info {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            /* List Styling */
-            .booking-info ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .booking-info li {
-                display: flex;
-                align-items: center;
-                margin-bottom: 15px;
-                font-size: 16px;
-                line-height: 1.5;
-                gap: 10px;
-            }
-
-            /* Bold Text */
-            .booking-info strong {
-                font-weight: bold;
-                margin-right: 5px;
-            }
-
-            /* Status Styling */
-            .booking-info .status {
-                font-weight: bold;
-                padding: 3px 8px;
-                border-radius: 5px;
-                display: inline-block;
-            }
-
-            .booking-info .status.pending {
-                background-color: #ffc107; /* Yellow */
-                color: #fff;
-            }
-
-            .booking-info .status.paid {
-                background-color: #28a745; /* Green */
-                color: #fff;
-            }
-
-            .footer {
-                margin-top: 40px;
-                text-align: center;
-                font-size: 12px;
-                color: #888;
-            }
-
-            .footer-head {
-                font-size: 16px;
-                color: #606060;
-            }
-
-            .footer a {
-                color: #4caf50;
-                text-decoration: none;
-            }
-        </style>
     </head>
-    <body>
-        <div class="container">
-            <div class="content-head">
-                <h1>Your Booking has been Confirmed!</h1>
-                <p>
-                    Thank you for booking with us! Here are your booking details
-                    -
-                </p>
+    <body style="font-size: 14px; font-family: sans-serif; margin: 0; padding: 0;">
+        <div style="width: 100%; max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+            <div style="margin-bottom: 20px;">
+                <h1 style="color: #4caf50; text-align: center;">Your Booking has been Confirmed!</h1>
+                <p style="text-align: center;">Thank you for booking with us! Here are your booking details:</p>
             </div>
-            <div class="content-body">
-                <div class="booking-head">
-                    <h3 style="text-align: center">
-                        {{ booking_details.name }} - {{ booking_details.year }}
-                    </h3>
-                    <div class="booking-info">
-                        <ul>
-                            <li>
-                                <strong>Rent :</strong>
-                                ₹{{ booking_details.rent }}/month
-                            </li>
-                            <li>
-                                <strong>Pick-up Date :</strong>
-                                {{ booking_details.pickup_date }}
-                            </li>
-                            <li>
-                                <strong>Return Date :</strong>
-                                {{ booking_details.return_date }}
-                            </li>
-                            <li>
-                                <strong>Total Rent :</strong>
-                                ₹{{ booking_details.total_rent }}
-                            </li>
-                            <li>
-                                <strong>Payment Status :</strong>
-                                <span
-                                    class="status {{ booking_details.payment_status | lower }}"
-                                >
+            
+            <div style="margin-bottom: 30px;">
+                <h3 style="text-align: center; font-size: 22px; color: black; font-weight: 600;">{{ booking_details.name }} - {{ booking_details.year }}</h3>
+                <table style="width: 100%; margin: 20px 0; border-collapse: collapse;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: left; padding: 8px; font-weight: bold;">Rent:</td>
+                            <td style="text-align: right; padding: 8px;">₹{{ booking_details.rent }}/month</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding: 8px; font-weight: bold;">Pick-up Date:</td>
+                            <td style="text-align: right; padding: 8px;">{{ booking_details.pickup_date }}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding: 8px; font-weight: bold;">Return Date:</td>
+                            <td style="text-align: right; padding: 8px;">{{ booking_details.return_date }}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding: 8px; font-weight: bold;">Total Rent:</td>
+                            <td style="text-align: right; padding: 8px;">₹{{ booking_details.total_rent }}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding: 8px; font-weight: bold;">Payment Status:</td>
+                            <td style="text-align: right; padding: 8px;">
+                                <span style="font-weight: bold; padding: 3px 8px; border-radius: 5px; display: inline-block; background-color: {% if booking_details.payment_status  == 'paid' %} #28a745 {% else %} #ffc107 {% endif %}; color: #fff;">
                                     {{ booking_details.payment_status | title }}
                                 </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="footer">
-                <span class="footer-head"> Ride Rentals</span>
-                <p class="copyright">&copy; 2025 Ride Rentals</p>
-
-                <p>
-                    If you have any questions, feel free to
-                    <a href="mailto:riderentals10@gmail.com">contact us</a>.
-                </p>
+            <div style="text-align: center; font-size: 12px; color: #888; margin-top: 40px;">
+                <span style="font-size: 16px; color: #606060;">Ride Rentals</span>
+                <p style="margin: 10px 0;">&copy; 2025 Ride Rentals™</p>
+                <p>If you have any questions, feel free to <a href="mailto:riderentals10@gmail.com" style="color: #4caf50; text-decoration: none;">contact us</a>.</p>
                 <p>Thank you for choosing our service!</p>
             </div>
         </div>

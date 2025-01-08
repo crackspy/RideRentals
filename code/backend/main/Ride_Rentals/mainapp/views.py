@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from datetime import datetime
 from .models import Car_info, Booking, Wishlist
@@ -10,11 +10,17 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 import json
 
+
+# Function to check if the user is an admin
+def admin_required(user):
+    return user.is_superuser
+
 # Create your views here.
 
 # home page
 def index(request):
-    return render(request, 'mainapp/index.html')
+    featured_cars = Car_info.objects.filter(available=True)[:6]
+    return render(request, 'mainapp/index.html', {'car_list': featured_cars})
 
 #--------------------  Authentication -------------------
 
@@ -78,7 +84,7 @@ def logout(request):
 #-----------------------  Rental  -----------------------
 @login_required
 def explore_cars(request):
-    featured_cars = Car_info.objects.all()  # Replace with your desired filtering logic
+    featured_cars = Car_info.objects.all()
     return render(request, 'mainapp/rental/cars.html', {'car_list': featured_cars})
 
 @login_required
@@ -111,7 +117,8 @@ def booking(request, slug):
         # Calculate total rent
         price_per_month = car.rent
         price_per_day = price_per_month / 30  # Assuming 1 month = 30 days
-        total_rent = price_per_day * days_difference
+        total_rent = round(price_per_day * days_difference)
+
 
         # Create and save booking
         booking = Booking(
@@ -126,9 +133,6 @@ def booking(request, slug):
             rent=price_per_month,
             total_rent=total_rent,
         )
-        booking.save()
-
-        # booking_details = f"Car: {car.name}\nPickup Date: {pickup_date}\nReturn Date: {return_date}\nTotal Rent: {total_rent}"
 
         booking_details = {
                 'name': car.name,
@@ -140,14 +144,21 @@ def booking(request, slug):
                 'payment_status': 'Pending'
             }
 
-        send_booking_email(cus_email, booking_details)
+        try:
+            send_booking_email(cus_email, booking_details)
 
-        # Set the car as unavailable
-        car.available = False
-        car.save()
+            # Set the car as unavailable
+            car.available = False
+            car.save()
+            booking.save()
 
-        # Redirect to a success page or another appropriate page
-        return redirect('success_page')
+            # Redirect to a success page or another appropriate page
+            return redirect('success_page')
+        except Exception as e:  # Catch general exceptions
+            # Log the error for debugging
+            print(f"Error sending booking email or saving car: {e}")
+            messages.error(request, "An error occurred. Please try again.")
+            return render(request, 'mainapp/rental/booking.html', {'car': car})
 
     else:
         return render(request, 'mainapp/rental/booking.html', {'car': car})
@@ -202,6 +213,22 @@ def profile_dashboard(request):
 
 # -------------------------------------------------------
 
+
+#------------------ custom  admin views  ----------------
+
+@user_passes_test(admin_required)
+def admin_only_view(request):
+    return redirect('profile')
+
+
+# -------------------------------------------------------
+
+
+
+
+#------------------ test views  ----------------
+
+
 def test(request):
     # Add some messages
     # messages.success(request, "Your booking was successful!")
@@ -231,20 +258,9 @@ def test_p(request):
 
 
 def send_test_email(request):
-    # subject = 'Test Email from Django'
-    # message = 'This is a test email sent from your Django application.'
-    # recipient_list = ['crackspy.log232@gmail.com']  # Replace with the recipient's email
 
-    # # try:
-    # #     send_mail(subject, message, 'your_email@gmail.com', recipient_list)
-    # #     return HttpResponse('Test email sent successfully.')
-    # # except Exception as e:
-    # #     return HttpResponse(f'Error: {e}')
-
-
-    # Simulate some booking details
     booking_details = {
-        'name': 'bmw',
+        'name': 'BMW',
         'year': 2022,
         'rent': 45000.0,
         'pickup_date': 'Jan. 1, 2025',
@@ -252,8 +268,34 @@ def send_test_email(request):
         'total_rent': 45000.0,
         'payment_status': 'Pending'
     }
-    
-    # Send email to the user
-    send_booking_email(user_email='crackspy.log232@gmail.com', booking_details=booking_details)
+ 
+    try:
+        send_booking_email("crackspy.log232@gmail.com", booking_details)
 
-    return redirect('success_page')  # Redirect to a success page after booking
+       # Redirect to a success page or another appropriate page
+        return redirect('success_page')
+    except Exception as e:  # Catch general exceptions
+           # Log the error for debugging
+        print(f"Error sending booking email or saving car: {e}")
+        messages.error(request, "An error occurred. Please try again.")
+        return redirect('home')   # Simulate some booking details
+    
+
+    # booking_details = {
+    #     'name': 'bmw',
+    #     'year': 2022,
+    #     'rent': 45000.0,
+    #     'pickup_date': 'Jan. 1, 2025',
+    #     'return_date': 'Jan. 31, 2025',
+    #     'total_rent': 45000.0,
+    #     'payment_status': 'Pending'
+    # }
+    
+    # # Send email to the user
+    # send_booking_email(user_email='crackspy.log232@gmail.com', booking_details=booking_details)
+
+    # return redirect('success_page')  # Redirect to a success page after booking
+
+
+
+# -------------------------------------------------------

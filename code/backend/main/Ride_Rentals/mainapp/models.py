@@ -65,7 +65,19 @@ class Booking(models.Model):
         max_length=10,
         choices=Payment_Status.choices,
         default=Payment_Status.PENDING,  # Default value is 'Booked'
-    )  
+    )
+
+    def save(self, *args, **kwargs):
+        # Update car availability when status is set to 'completed'
+        if self.status == Booking.Status.COMPLETED:
+            self.car.available = True  # Set car as available
+            self.car.save()  # Save the car object to reflect the change
+        
+        super(Booking, self).save(*args, **kwargs)  # Call the original save method
+
+    def __str__(self):
+        return f"Booking by {self.cus_name} for {self.car.name}"
+
 
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # ForeignKey to User
