@@ -198,14 +198,47 @@ def test(request):
     # messages.warning(request, "Booking confirmation is pending.")
 
     return render(request, 'mainapp/test.html')
+def test_p(request):
+    # Add some messages
+    # messages.success(request, "Your booking was successful!")
+    # messages.error(request, "Payment failed. Please try again.")
+    # messages.warning(request, "Booking confirmation is pending.")
+
+    booking_details = {
+        'rent': 45000.0,
+        'pickup_date': 'Jan. 1, 2025',
+        'return_date': 'Jan. 31, 2025',
+        'total_rent': 45000.0,
+        'payment_status': 'Pending'
+    }
+    
+    return render(request, 'mainapp/emails/booking_confirmation.html', {
+        'booking_details': booking_details
+    })
+
 
 def send_test_email(request):
-    subject = 'Test Email from Django'
-    message = 'This is a test email sent from your Django application.'
-    recipient_list = ['crackspy.log232@gmail.com']  # Replace with the recipient's email
+    # subject = 'Test Email from Django'
+    # message = 'This is a test email sent from your Django application.'
+    # recipient_list = ['crackspy.log232@gmail.com']  # Replace with the recipient's email
 
-    try:
-        send_mail(subject, message, 'your_email@gmail.com', recipient_list)
-        return HttpResponse('Test email sent successfully.')
-    except Exception as e:
-        return HttpResponse(f'Error: {e}')
+    # # try:
+    # #     send_mail(subject, message, 'your_email@gmail.com', recipient_list)
+    # #     return HttpResponse('Test email sent successfully.')
+    # # except Exception as e:
+    # #     return HttpResponse(f'Error: {e}')
+
+
+    # Simulate some booking details
+    booking_details = {
+        'rent': 45000.0,
+        'pickup_date': 'Jan. 1, 2025',
+        'return_date': 'Jan. 31, 2025',
+        'total_rent': 45000.0,
+        'payment_status': 'Pending'
+    }
+    
+    # Send email to the user
+    send_booking_email(user_email='crackspy.log232@gmail.com', booking_details=booking_details)
+
+    return redirect('success_page')  # Redirect to a success page after booking

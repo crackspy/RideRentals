@@ -1,0 +1,89 @@
+<!-- templates/emails/booking_confirmation.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .details {
+            margin-top: 20px;
+        }
+        .details p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Booking Confirmation</h1>
+        <p>Thank you for booking with us! Here are your booking details:</p>
+        
+        <div class="details">
+            <p><strong>Rent:</strong> ₹{{ booking_details.rent }} / month</p>
+            <p><strong>Pick-up Date:</strong> {{ booking_details.pickup_date }}</p>
+            <p><strong>Return Date:</strong> {{ booking_details.return_date }}</p>
+            <p><strong>Total Rent:</strong> ₹{{ booking_details.total_rent }}</p>
+            <p><strong>Payment Status:</strong> {{ booking_details.payment_status }}</p>
+
+            <div class="item-content">
+                <h1 style="text-align: center">
+                     {{ item.car.name }} - {{ item.car.year }}
+                </h1>
+                <div class="booking-info">
+                    <ul>
+                    <li><ion-icon name="cash-outline" class="icon-b"></ion-icon> <strong>Rent:</strong> ₹{{ item.car.price }}/month</li>
+                    <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon><strong>Pick-up Date:</strong>{{ item.pickup_date }}</li>
+                    <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon></i> <strong>Return Date:</strong>{{ item.return_date }}</li>
+                    <li><ion-icon name="calculator-outline" class="icon-b"></ion-icon></i> <strong>Total Rent:</strong>₹{{ item.total_rent }}</li>
+                    <li>
+                        <ion-icon name="cog" class="icon-b"></ion-icon>
+                        <strong>Payment Status:</strong> 
+                        <span class="status {{ item.payment_status }}">{{ item.payment_status | title }}</span>
+                    </li>
+                    </ul>
+                </div>
+                
+            </div>
+
+
+        </div>
+
+        <div class="footer">
+            <p>If you have any questions, feel free to <a href="mailto:support@example.com">contact us</a>.</p>
+            <p>Thank you for choosing our service!</p>
+        </div>
+    </div>
+</body>
+</html>
