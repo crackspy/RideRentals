@@ -109,7 +109,7 @@ def booking(request, slug):
         days_difference = (return_date_obj - pickup_date_obj).days
 
         # Calculate total rent
-        price_per_month = car.price
+        price_per_month = car.rent
         price_per_day = price_per_month / 30  # Assuming 1 month = 30 days
         total_rent = price_per_day * days_difference
 
@@ -123,12 +123,23 @@ def booking(request, slug):
             pickup_date=pickup_date_obj,
             return_date=return_date_obj,
             notes=notes,
-            price=price_per_month,
+            rent=price_per_month,
             total_rent=total_rent,
         )
         booking.save()
 
-        booking_details = f"Car: {car.name}\nPickup Date: {pickup_date}\nReturn Date: {return_date}\nTotal Rent: {total_rent}"
+        # booking_details = f"Car: {car.name}\nPickup Date: {pickup_date}\nReturn Date: {return_date}\nTotal Rent: {total_rent}"
+
+        booking_details = {
+                'name': car.name,
+                'year': car.year,
+                'rent': car.rent,
+                'pickup_date': pickup_date,
+                'return_date': return_date,
+                'total_rent': total_rent,
+                'payment_status': 'Pending'
+            }
+
         send_booking_email(cus_email, booking_details)
 
         # Set the car as unavailable
@@ -205,6 +216,8 @@ def test_p(request):
     # messages.warning(request, "Booking confirmation is pending.")
 
     booking_details = {
+        'name': 'BMW',
+        'year': 2022,
         'rent': 45000.0,
         'pickup_date': 'Jan. 1, 2025',
         'return_date': 'Jan. 31, 2025',
@@ -231,6 +244,8 @@ def send_test_email(request):
 
     # Simulate some booking details
     booking_details = {
+        'name': 'bmw',
+        'year': 2022,
         'rent': 45000.0,
         'pickup_date': 'Jan. 1, 2025',
         'return_date': 'Jan. 31, 2025',

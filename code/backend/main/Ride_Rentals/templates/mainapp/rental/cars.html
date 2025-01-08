@@ -61,7 +61,7 @@ Cars{% endblock %} {% block head %}
 
                                     <div class="card-price-wrapper">
                                         <p class="card-price">
-                                            <strong>₹{{ car.price }}</strong> / month
+                                            <strong>₹{{ car.rent }}</strong> / month
                                         </p>
 
                                         <a href="{% url 'add_to_wishlist' car.slug %}" class="btn fav-btn"

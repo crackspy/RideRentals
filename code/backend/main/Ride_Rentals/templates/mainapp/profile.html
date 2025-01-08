@@ -321,20 +321,6 @@ Dashboard {% endblock %} {% block head %}
     }
 
 
-    
-/* Booking Info Container */
-/* .booking-info {
-  width: 100%;
-  max-width: 450px;
-  margin: 30px auto;
-  padding: 25px;
-  border-radius: 10px;
-  background: #f8f9fa;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
-  color: #333;
-} */
-
 /* Title */
 .booking-info h3 {
   margin-bottom: 20px;
@@ -389,11 +375,6 @@ Dashboard {% endblock %} {% block head %}
 
 .booking-info .status.paid {
   background-color: #28a745; /* Green */
-  color: #fff;
-}
-
-.booking-info .status.failed {
-  background-color: #dc3545; /* Red */
   color: #fff;
 }
 
@@ -460,7 +441,7 @@ Dashboard {% endblock %} {% block head %}
                 </h1>
                 <div class="pos-b">
                     <ul>
-                        <li>Rent : ₹{{ item.car.price }}/ month</li>
+                        <li>Rent : ₹{{ item.car.rent }}/ month</li>
                     </ul>
                     <a href="{% url 'remove_from_wishlist' item.car.slug %}" class="btn fav-btn"
                         aria-label="Remove from favourite list">
@@ -497,14 +478,14 @@ Dashboard {% endblock %} {% block head %}
                 </h1>
                 <div class="booking-info">
                     <ul>
-                    <li><ion-icon name="cash-outline" class="icon-b"></ion-icon> <strong>Rent:</strong> ₹{{ item.car.price }}/month</li>
+                    <li><ion-icon name="cash-outline" class="icon-b"></ion-icon> <strong>Rent:</strong> ₹{{ item.car.rent }}/month</li>
                     <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon><strong>Pick-up Date:</strong>{{ item.pickup_date }}</li>
                     <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon></i> <strong>Return Date:</strong>{{ item.return_date }}</li>
                     <li><ion-icon name="calculator-outline" class="icon-b"></ion-icon></i> <strong>Total Rent:</strong>₹{{ item.total_rent }}</li>
                     <li>
                         <ion-icon name="cog" class="icon-b"></ion-icon>
                         <strong>Payment Status:</strong> 
-                        <span class="status {{ item.payment_status }}">{{ item.payment_status | title }}</span>
+                        <span class="status {{ item.payment_status | lower }}">{{ item.payment_status | title }}</span>
                     </li>
                     </ul>
                 </div>

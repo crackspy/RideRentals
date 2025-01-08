@@ -16,7 +16,7 @@ class Car_info(models.Model):
     engine = models.CharField(max_length=20)
     gear = models.CharField(max_length=20)
     available = models.BooleanField(default=True)
-    price = models.FloatField(default=0.0)
+    rent = models.FloatField(default=0.0)
 
     # Add a unique slug field
     slug = models.SlugField(max_length=100, unique=True, blank=True)  # Adjust length as needed
@@ -59,7 +59,7 @@ class Booking(models.Model):
     return_date = models.DateField()
     booked_on = models.DateField(auto_now=True)
     notes = models.TextField(null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2) # Car price
+    rent = models.DecimalField(max_digits=10, decimal_places=2) # Car price
     total_rent = models.DecimalField(max_digits=10, decimal_places=2) # Computed total rent
     payment_status = models.CharField(
         max_length=10,
