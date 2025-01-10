@@ -2,20 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
+from django.utils.http import url_has_allowed_host_and_scheme
 from datetime import datetime
 from .models import Car_info, Booking, Wishlist
 from .utils import send_booking_email
-
-from django.core.mail import send_mail
-from django.http import HttpResponse
-import json
 
 
 # Function to check if the user is an admin
 def admin_required(user):
     return user.is_superuser
-
-# Create your views here.
 
 # home page
 def index(request):
@@ -35,48 +30,53 @@ def register(request):
         password = request.POST.get('reg_password')
         confirm_password = request.POST.get('confirm_password')
 
-        if password == confirm_password :
-            if User.objects.filter(username=username).exists():
-                messages.error(request, "Username already taken")
-                return redirect('auth')
-            elif User.objects.filter(email=email).exists():
-                messages.error(request, "Email already taken")
-                return redirect('auth')
-            else:
-                user_reg = User.objects.create_user(
-                    username = username,
-                    email = email,
-                    password = password
-                )
-                user_reg.save()
-                return redirect('home')
-        else:
-            messages.error(request, "password doesnot match")
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match.")
             return redirect('auth')
-    else:
-        return render(request, 'mainapp/login/login.html')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already taken. Please choose another.")
+            return redirect('auth')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already in use.")
+            return redirect('auth')
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        messages.success(request, "Registration successful! You can now log in.")
+        return redirect('auth')
+
+    return render(request, 'mainapp/login/login.html')
+
 
 # login
 def login(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
+        next_url = request.POST.get('next', 'home')
 
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            messages.success(request, "Login Success")
+            messages.success(request, f"Welcome back, {username}!")
+            
+            # Redirect to the next URL if safe
+            if url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+                return redirect(next_url)
             return redirect('home')
-        else:
-            print("error")
-            messages.error(request, "User not found")
-            return redirect('auth')
 
-    return render(request, 'mainapp/login/login.html')
+        messages.error(request, "Invalid username or password. Please try again.")
+        return redirect('auth')
+
+    return render(request, 'mainapp/login/login.html', {'next': request.GET.get('next', '')})
+
 
 @login_required
 def logout(request):
     auth.logout(request)
+    messages.success(request, "You have been successfully logged out.")
     return redirect('home')
 
 # -------------------------------------------------------
@@ -206,10 +206,9 @@ def profile_dashboard(request):
     return render(request, 'mainapp/profile.html', {
         'user': user,
         'bookings': bookings,
-        'wishlist_item': wishlist_items.first(),  # Assuming only one item is shown as an example
+        'wishlist_item': wishlist_items.first(),
         'all_wishlist_items': wishlist_items,
     })
-
 
 # -------------------------------------------------------
 
@@ -219,7 +218,6 @@ def profile_dashboard(request):
 @user_passes_test(admin_required)
 def admin_only_view(request):
     return redirect('profile')
-
 
 # -------------------------------------------------------
 
@@ -249,7 +247,8 @@ def test_p(request):
         'pickup_date': 'Jan. 1, 2025',
         'return_date': 'Jan. 31, 2025',
         'total_rent': 45000.0,
-        'payment_status': 'Pending'
+        'payment_status': 'Pending',
+        'status': 'Completed'
     }
     
     return render(request, 'mainapp/emails/booking_confirmation.html', {

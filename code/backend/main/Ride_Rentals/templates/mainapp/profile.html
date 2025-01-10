@@ -248,9 +248,6 @@ Dashboard {% endblock %} {% block head %}
         margin-bottom: 5px;
     }
 
-
-
-
     .popup-content .item-content {
         position: relative;
         width: 100%;
@@ -320,6 +317,11 @@ Dashboard {% endblock %} {% block head %}
         font-size: 23px;
     }
 
+    .fav-btn:is(:hover, :focus) {
+        --background: var(--lavender-blush);
+        --color: var(--red-salsa);
+    }
+
 
 /* Title */
 .booking-info h3 {
@@ -368,17 +370,20 @@ Dashboard {% endblock %} {% block head %}
   display: inline-block;
 }
 
-.booking-info .status.pending {
+.booking-info .status.pending, .booking-info .status.rented {
   background-color: #ffc107; /* Yellow */
   color: #fff;
 }
 
-.booking-info .status.paid {
-  background-color: #28a745; /* Green */
+.booking-info .status.booked {
+  background-color: #007bff; /* blue */
   color: #fff;
 }
 
-
+.booking-info .status.paid, .booking-info .status.completed {
+  background-color: #28a745; /* Green */
+  color: #fff;
+}
 
 
 </style>
@@ -478,18 +483,22 @@ Dashboard {% endblock %} {% block head %}
                 </h1>
                 <div class="booking-info">
                     <ul>
-                    <li><ion-icon name="cash-outline" class="icon-b"></ion-icon> <strong>Rent:</strong> ₹{{ item.car.rent }}/month</li>
-                    <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon><strong>Pick-up Date:</strong>{{ item.pickup_date }}</li>
-                    <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon></i> <strong>Return Date:</strong>{{ item.return_date }}</li>
-                    <li><ion-icon name="calculator-outline" class="icon-b"></ion-icon></i> <strong>Total Rent:</strong>₹{{ item.total_rent }}</li>
-                    <li>
-                        <ion-icon name="cog" class="icon-b"></ion-icon>
-                        <strong>Payment Status:</strong> 
-                        <span class="status {{ item.payment_status | lower }}">{{ item.payment_status | title }}</span>
-                    </li>
+                        <li><ion-icon name="cash-outline" class="icon-b"></ion-icon> <strong>Rent :</strong> ₹{{ item.car.rent }}/month</li>
+                        <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon><strong>Pick-up Date :</strong>{{ item.pickup_date }}</li>
+                        <li><ion-icon name="calendar-outline" class="icon-b"></ion-icon></i> <strong>Return Date :</strong>{{ item.return_date }}</li>
+                        <li><ion-icon name="calculator-outline" class="icon-b"></ion-icon></i> <strong>Total Rent :</strong>₹{{ item.total_rent }}</li>
+                        <li>
+                            <ion-icon name="cog" class="icon-b"></ion-icon>
+                            <strong>Payment Status :</strong> 
+                            <span class="status {{ item.payment_status | lower }}">{{ item.payment_status | title }}</span>
+                        </li>
+                        <li>
+                            <ion-icon name="book" class="icon-b"></ion-icon>
+                            <strong>Booking Status :</strong> 
+                            <span class="status {{ item.status | lower }}">{{ item.status | title }}</span>
+                        </li>
                     </ul>
                 </div>
-                
             </div>
         </div>
         {% endfor %}

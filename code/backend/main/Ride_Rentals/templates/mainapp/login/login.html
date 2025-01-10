@@ -9,200 +9,194 @@
 {% endblock %}
 
 {% block content %}
-   <!-- Background Image -->
-   <div class="background-image"></div>
+<!-- Background Image -->
+<div class="background-image"></div>
 
-   <div class="body-div">
+<div class="body-div">
 
-   <div class="main-container">
-    <!-- Tab Navigation -->
-    <div class="tabs">
-      <button class="tab-button active" onclick="openTab('login')">
-        Login
-      </button>
-      <button class="tab-button" onclick="openTab('register')">
-        Register
-      </button>
+    <div class="main-container">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('login')">
+                Login
+            </button>
+            <button class="tab-button" onclick="openTab('register')">
+                Register
+            </button>
+        </div>
+
+        <!-- Login Tab Content -->
+        <div id="login" class="login-container tab-content active">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+                <p>Login to continue your journey</p>
+            </div>
+
+            <form id="loginForm" action="/login/" method="post">
+                {% csrf_token %}
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+                <!-- Username Input -->
+                <div class="form-group">
+                    <input type="text" class="form-input" id="username" name="username"
+                        placeholder="Enter your username" required />
+                    <i class="input-icon fas fa-user"></i>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <input type="password" class="form-input" id="password" name="password" placeholder="Password"
+                        required />
+                    <i class="input-icon fas fa-lock"></i>
+                </div>
+
+                <button type="submit" class="submit-button">Login</button>
+            </form>
+
+            <div class="additional-options">
+                <a href="#">Forgot password?</a>
+            </div>
+        </div>
+
+        <!-- Register Tab Content -->
+        <div id="register" class="login-container tab-content">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+                <p>Register to continue your journey</p>
+            </div>
+
+            <form id="registerForm" action="/register/" method="post">
+                {% csrf_token %}
+                <!-- Username Input -->
+                <div class="form-group">
+                    <input type="text" class="form-input" id="reg_username" name="username"
+                        placeholder="Enter your username" required />
+                    <i class="input-icon fas fa-user"></i>
+                </div>
+
+                <!-- Email Input -->
+                <div class="form-group">
+                    <input type="email" class="form-input" id="email" name="email" placeholder="Email address"
+                        required />
+                    <i class="input-icon fas fa-envelope"></i>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <input type="password" class="form-input" id="reg_password" name="reg_password"
+                        placeholder="Enter your password" required />
+                    <i class="input-icon fas fa-lock"></i>
+                </div>
+
+                <!-- Confirm Password Input -->
+                <div class="form-group">
+                    <input type="password" class="form-input" id="confirm_password" name="confirm_password"
+                        placeholder="Confirm your password" required />
+                    <i class="input-icon fas fa-rotate"></i>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    Register
+                </button>
+            </form>
+        </div>
+
+
     </div>
 
-    <!-- Login Tab Content -->
-    <div id="login" class="login-container tab-content active">
-      <div class="login-header">
-        <h1>Welcome Back</h1>
-        <p>Login to continue your journey</p>
-      </div>
+</div>
 
-      <form id="loginForm" action="/login/" method="post">
-        {% csrf_token %}
-        <!-- Username Input -->
-        <div class="form-group">
-          <input type="text" class="form-input" id="username" name="username" placeholder="Enter your username"
-            required />
-          <i class="input-icon fas fa-user"></i>
-        </div>
+<script>
+    // Tab Switching Logic
+    function openTab(tabName) {
+        const tabs = document.querySelectorAll(".tab-content");
+        const buttons = document.querySelectorAll(".tab-button");
 
-        <!-- Password Input -->
-        <div class="form-group">
-          <input type="password" class="form-input" id="password" name="password" placeholder="Password" required />
-          <i class="input-icon fas fa-lock"></i>
-        </div>
+        tabs.forEach((tab) => tab.classList.remove("active"));
+        buttons.forEach((button) => button.classList.remove("active"));
 
-        <button type="submit" class="submit-button">Login</button>
-      </form>
-
-      <div class="additional-options">
-        <a href="#">Forgot password?</a>
-      </div>
-    </div>
-
-    <!-- Register Tab Content -->
-    <div id="register" class="login-container tab-content">
-      <div class="login-header">
-        <h1>Welcome Back</h1>
-        <p>Register to continue your journey</p>
-      </div>
-
-      <form id="registerForm" action="/register/" method="post">
-        {% csrf_token %}
-        <!-- Username Input -->
-        <div class="form-group">
-          <input type="text" class="form-input" id="reg_username" name="username" placeholder="Enter your username"
-            required />
-          <i class="input-icon fas fa-user"></i>
-        </div>
-
-        <!-- Email Input -->
-        <div class="form-group">
-          <input type="email" class="form-input" id="email" name="email" placeholder="Email address" required />
-          <i class="input-icon fas fa-envelope"></i>
-        </div>
-
-        <!-- Password Input -->
-        <div class="form-group">
-          <input type="password" class="form-input" id="reg_password" name="reg_password"
-            placeholder="Enter your password" required />
-          <i class="input-icon fas fa-lock"></i>
-        </div>
-
-        <!-- Confirm Password Input -->
-        <div class="form-group">
-          <input type="password" class="form-input" id="confirm_password" name="confirm_password"
-            placeholder="Confirm your password" required />
-          <i class="input-icon fas fa-rotate"></i>
-        </div>
-
-        <button type="submit" class="submit-button">
-          Register
-        </button>
-      </form>
-    </div>
-
-    <!-- {% for message in messages %}
-      <div class="flash-message {{ message.tags }}">
-        <p>{{ message }}</p>
-      </div>
-    {% endfor %} -->
-  </div>
-
-   </div>
-
-   <script>
-        // Tab Switching Logic
-        function openTab(tabName) {
-          const tabs = document.querySelectorAll(".tab-content");
-          const buttons = document.querySelectorAll(".tab-button");
-
-          tabs.forEach((tab) => tab.classList.remove("active"));
-          buttons.forEach((button) => button.classList.remove("active"));
-
-          document.getElementById(tabName).classList.add("active");
-          document
+        document.getElementById(tabName).classList.add("active");
+        document
             .querySelector(`[onclick="openTab('${tabName}')"]`)
             .classList.add("active");
-        }
+    }
 
     // Password Validation
     document.getElementById("registerForm").addEventListener("submit", function (event) {
-      const password = document.getElementById("reg_password").value.trim();
-      const confirmPassword = document.getElementById("confirm_password").value.trim();
+        const password = document.getElementById("reg_password").value.trim();
+        const confirmPassword = document.getElementById("confirm_password").value.trim();
 
-      // Reset previous error messages
-      resetError("reg_password");
-      resetError("confirm_password");
+        // Reset previous error messages
+        resetError("reg_password");
+        resetError("confirm_password");
 
-      // Password length validation
-      if (password.length < 6) {
-        showError("reg_password", "Password must be at least 6 characters long");
-        event.preventDefault();
-        return false;
-      }
+        // Password length validation
+        if (password.length < 6) {
+            showError("reg_password", "Password must be at least 6 characters long");
+            event.preventDefault();
+            return false;
+        }
 
-      // Password match validation
-      if (password !== confirmPassword) {
-        showError("confirm_password", "Passwords do not match");
-        event.preventDefault();
-        return false;
-      }
+        // Password match validation
+        if (password !== confirmPassword) {
+            showError("confirm_password", "Passwords do not match");
+            event.preventDefault();
+            return false;
+        }
     });
 
     function showError(inputId, message) {
-    const inputField = document.getElementById(inputId);
-    const parentElement = inputField.parentElement; // This is the .form-group div
+        const inputField = document.getElementById(inputId);
+        const parentElement = inputField.parentElement; // This is the .form-group div
 
-    // Set the input field border color to red to indicate an error
-    inputField.style.borderColor = "red";
+        // Set the input field border color to red to indicate an error
+        inputField.style.borderColor = "red";
 
-    // Create a new div for the error message container if it doesn't exist
-    let errorDiv = document.querySelector(`#${inputId}-error-container`);
+        // Create a new div for the error message container if it doesn't exist
+        let errorDiv = document.querySelector(`#${inputId}-error-container`);
 
-    // If errorDiv doesn't exist, create a new div
-    if (!errorDiv) {
-      // Create a new div for the error message container
-      errorDiv = document.createElement("div");
-      errorDiv.id = `${inputId}-error-container`; // Set a unique id for the error container
-      errorDiv.className = "error-message-container"; // Add class for styling
+        // If errorDiv doesn't exist, create a new div
+        if (!errorDiv) {
+            // Create a new div for the error message container
+            errorDiv = document.createElement("div");
+            errorDiv.id = `${inputId}-error-container`; // Set a unique id for the error container
+            errorDiv.className = "error-message-container"; // Add class for styling
 
-      // Insert the errorDiv next to the .form-group div
-      parentElement.parentElement.insertBefore(errorDiv, parentElement.nextSibling);
-    }
+            // Insert the errorDiv next to the .form-group div
+            parentElement.parentElement.insertBefore(errorDiv, parentElement.nextSibling);
+        }
 
-    // Create or update the error message inside the error container
-    let errorMessage = errorDiv.querySelector(".error-message");
+        // Create or update the error message inside the error container
+        let errorMessage = errorDiv.querySelector(".error-message");
 
-    // If error message doesn't exist, create it
-    if (!errorMessage) {
-      errorMessage = document.createElement("span");
-      errorMessage.className = "error-message"; // Apply class for styling
-      errorDiv.appendChild(errorMessage);
-    }
+        // If error message doesn't exist, create it
+        if (!errorMessage) {
+            errorMessage = document.createElement("span");
+            errorMessage.className = "error-message"; // Apply class for styling
+            errorDiv.appendChild(errorMessage);
+        }
 
-    // Set the error message text
-    errorMessage.textContent = message;
+        // Set the error message text
+        errorMessage.textContent = message;
     }
 
 
 
     function resetError(inputId) {
-    const inputField = document.getElementById(inputId);
-    const parentElement = inputField.parentElement;
+        const inputField = document.getElementById(inputId);
+        const parentElement = inputField.parentElement;
 
-    // Reset the input field border color
-    inputField.style.borderColor = "";
+        // Reset the input field border color
+        inputField.style.borderColor = "";
 
-    // Find the error message container and remove its content
-    const errorDiv = parentElement.querySelector(".error-message-container");
-    if (errorDiv) {
-      errorDiv.remove(); // Remove the error message container
+        // Find the error message container and remove its content
+        const errorDiv = parentElement.querySelector(".error-message-container");
+        if (errorDiv) {
+            errorDiv.remove(); // Remove the error message container
+        }
     }
-    }
 
-
-   </script>
+</script>
 
 {% endblock %}
-
-  <body>
- 
-  </body>
-
-</html>
