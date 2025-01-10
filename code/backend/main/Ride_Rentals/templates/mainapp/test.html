@@ -5,6 +5,8 @@
 
 {% block head %}
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
 <style>
@@ -23,102 +25,22 @@
  }
 
 
-/* Booking Info Container */
-.booking-info {
-  width: 100%;
-  max-width: 450px;
-  margin: 30px auto;
-  padding: 25px;
-  border-radius: 10px;
-  background: #f8f9fa; /* Light grey */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
-  color: #333;
-}
-
-/* Title */
-.booking-info h3 {
-  margin-bottom: 20px;
-  font-size: 22px;
-  color: #007BFF; /* Sky Blue */
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-}
-
-/* List Styling */
-.booking-info ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.booking-info li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  font-size: 16px;
-  line-height: 1.5;
-  gap: 10px;
-}
-
-/* Bold Text */
-.booking-info strong {
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-/* Icon Styling */
-.booking-info .icon {
-  font-size: 20px;
-  color: #007BFF; /* Sky Blue */
-}
-
-/* Status Styling */
-.booking-info .status {
-  font-weight: bold;
-  padding: 3px 8px;
-  border-radius: 5px;
-  display: inline-block;
-}
-
-.booking-info .status.pending {
-  background-color: #ffc107; /* Yellow */
-  color: #fff;
-}
-
-.booking-info .status.paid {
-  background-color: #28a745; /* Green */
-  color: #fff;
-}
-
-.booking-info .status.failed {
-  background-color: #dc3545; /* Red */
-  color: #fff;
-}
-
-
 </style>
 {% endblock %}
 
 {% block content %}
 
 <div class="main">
-    <div class="booking-info">
-        <h3><i class="icon ion-md-calendar"></i> Booking Details</h3>
-        <ul>
-        <li><i class="icon ion-md-cash"></i> <strong>Rent:</strong> ₹45000.0/month</li>
-        <li><i class="icon ion-md-time"></i> <strong>Pick-up Date:</strong> Jan. 1, 2025</li>
-        <li><i class="icon ion-md-return-right"></i> <strong>Return Date:</strong> Jan. 31, 2025</li>
-        <li><i class="icon ion-md-calculator"></i> <strong>Total Rent:</strong> ₹45000.00</li>
-        <li>
-            <i class="icon ion-md-card"></i> 
-            <strong>Payment Status:</strong> 
-            <span class="status pending">Pending</span>
-        </li>
-        </ul>
-    </div>
+ 
+    <input type="text" id="date-picker" />
+    
+    <script>
+        flatpickr("#date-picker", {
+            dateFormat: "d/m/Y", // MM/DD/YYYY format
+            defaultDate: "10/01/2025", // Default date
+        });
+    </script>
+    
 </div>
 
 {% endblock %}

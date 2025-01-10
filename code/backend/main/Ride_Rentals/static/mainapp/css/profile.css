@@ -1,0 +1,383 @@
+.dashboard-container {
+    width: 100%;
+    height: 100vh;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-top: 70px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 210px;
+    height: 100%;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.sidebar .profile-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.sidebar button {
+    width: 100%;
+    margin: 10px 0;
+    background-color: #495057;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sidebar button:hover {
+    background-color: #adb5bd;
+}
+
+/* Content Styles */
+.content {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: solid #80808042 7px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card h5 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 18px;
+}
+
+.card p {
+    color: #777;
+}
+
+.profile {
+    width: 250px;
+    height: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    text-align: center;
+}
+
+.profile h5 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.profile p {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.change-password-btn {
+    background-color: #495057;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.change-password-btn:hover {
+    background-color: #adb5bd;
+}
+
+.usrname {
+    font-size: 18px;
+}
+
+.usrname,
+.email {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    margin-bottom: 10px;
+}
+
+.popup-head {
+    margin-bottom: 10px;
+}
+
+.popup-head h3 {
+    /* font-size: 1rem; */
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #007bff; /* Sky Blue */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: var(--radius-18);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 90%;
+    max-width: 700px;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ebebeb;
+    overflow: hidden;
+    /* Hide overflow to ensure the scroll is controlled in content */
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+}
+
+.popup-content {
+    max-height: 70vh;
+    /* Limit the max height of content */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    width: 100%;
+    padding: 0 20px 20px;
+    text-align: center;
+    box-sizing: border-box;
+    /* Ensure padding does not overflow */
+}
+
+.popup-content p {
+    font-size: 17px;
+}
+
+.popup-content .item {
+    display: flex;
+    margin-bottom: 12px;
+    padding-bottom: 15px;
+    position: relative;
+    border-bottom: solid #1a9df4 3px;
+}
+
+.item-icon img {
+    object-fit: cover;
+    width: 200px;
+    /* Fixed width */
+    height: 150px;
+    /* Fixed height */
+    border-right: 1px solid #ddd;
+}
+
+.item-content {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.item-content h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.item-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.item-content ul li {
+    margin-bottom: 5px;
+}
+
+.popup-content .item-content {
+    position: relative;
+    width: 100%;
+    padding: 10px 0 0;
+}
+
+.popup-content .item-icon img {
+    border-radius: var(--radius-18);
+    height: 125px;
+    width: 175px;
+    object-fit: cover;
+}
+
+.popup-content .item-content div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-size: 18px;
+}
+
+.popup-content .item-content a {
+    text-decoration: none;
+}
+
+.popup-content .item-content h1 {
+    font-size: 23px;
+}
+
+.popup-content .item-content .not-available {
+    color: #ff0000b2;
+    padding: 4px;
+    background-color: #ff00004d;
+    width: 150px;
+    border-radius: 4px;
+}
+
+.popup-content .pos-b {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.btn {
+    position: relative;
+    background: var(--background, var(--carolina-blue));
+    color: var(--color, var(--white));
+    min-width: var(--width, 40px);
+    min-height: var(--height, 40px);
+    padding: 10px 15px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-14);
+    font-family: var(--ff-nunito);
+    font-size: var(--fs-6);
+    font-weight: var(--fw-600);
+    overflow: hidden;
+}
+
+.fav-btn {
+    --background: var(--beau-blue);
+    --color: var(--blue-jeans);
+    --height: 36px;
+    --width: 36px;
+    --shadow-2: none;
+    font-size: 23px;
+}
+
+.fav-btn:is(:hover, :focus) {
+    --background: var(--lavender-blush);
+    --color: var(--red-salsa);
+}
+
+/* Title */
+.booking-info h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #1a9df4; /* Sky Blue */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+/* List Styling */
+.booking-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.booking-info li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.5;
+    gap: 10px;
+}
+
+/* Bold Text */
+.booking-info strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Icon Styling */
+.icon-b {
+    font-size: 20px;
+    color: #1a9df4; /* Sky Blue */
+}
+
+/* Status Styling */
+.booking-info .status {
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.booking-info .status.pending,
+.booking-info .status.rented {
+    background-color: #ffc107; /* Yellow */
+    color: #fff;
+}
+
+.booking-info .status.booked {
+    background-color: #007bff; /* blue */
+    color: #fff;
+}
+
+.booking-info .status.paid,
+.booking-info .status.completed {
+    background-color: #28a745; /* Green */
+    color: #fff;
+}

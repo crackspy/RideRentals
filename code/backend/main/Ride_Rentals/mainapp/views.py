@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.utils.http import url_has_allowed_host_and_scheme
 from datetime import datetime
+from django.utils.timezone import now
 from .models import Car_info, Booking, Wishlist
 from .utils import send_booking_email
 
@@ -91,6 +92,7 @@ def explore_cars(request):
 def booking(request, slug):
     # Fetch the car details using the slug
     car = get_object_or_404(Car_info, slug=slug)
+    today_date = datetime.now().strftime('%Y-%m-%d')
     if request.method == "POST":
         # Get logged-in user
         logged_in_user = request.user  # This gives the logged-in User instance
@@ -161,7 +163,8 @@ def booking(request, slug):
             return render(request, 'mainapp/rental/booking.html', {'car': car})
 
     else:
-        return render(request, 'mainapp/rental/booking.html', {'car': car})
+        return render(request, 'mainapp/rental/booking.html', 
+                    {'car': car, 'today_date': today_date,})
 
 @login_required
 def success_page(request):
@@ -200,12 +203,13 @@ def remove_from_wishlist(request, slug):
 @login_required
 def profile_dashboard(request):
     user = request.user
-    bookings = Booking.objects.filter(cus_username=user)  # Fetch bookings associated with the user
-    wishlist_items = Wishlist.objects.filter(user=user)  # Fetch wishlist items
+    bookings = Booking.objects.filter(cus_username=user).order_by('-id') # Fetch bookings associated with the user
+    wishlist_items = Wishlist.objects.filter(user=user).order_by('-id')  # Fetch wishlist items
 
     return render(request, 'mainapp/profile.html', {
         'user': user,
-        'bookings': bookings,
+        'all_bookings': bookings,
+        'booking_item': bookings.first(),
         'wishlist_item': wishlist_items.first(),
         'all_wishlist_items': wishlist_items,
     })
