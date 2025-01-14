@@ -17,7 +17,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: url('../images/login/background.jpg') no-repeat center center/cover;
   z-index: -1;
 }
@@ -33,6 +33,7 @@ body {
 .main-container {
   position: relative;
   z-index: 2;
+  margin-top: 10%;
   width: 100%;
   max-width: 425px;
   background: rgba(255, 255, 255, 0.1);
@@ -189,6 +190,30 @@ body {
   opacity: 0.8;
 }
 
+.flash-message {
+
+    padding: 5px 15px 0px;
+    font-size: 0.9rem;
+    color: #ff3a3a;
+    text-align: center;
+  }
+  
+  
+  .form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .error-message-container {
+    margin-bottom: 1rem; /* Space between the input and the error message */
+    text-align: center;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+}
+  
 
 /* Responsive Styles */
 
@@ -215,7 +240,17 @@ body {
   .tab-button {
     font-size: 12px;
   }
+  
 }
+
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+ * responsive for smaller than 480px screen
+ */
+
 
 @media screen and (max-width: 480px) {
 
@@ -223,6 +258,11 @@ body {
         width: 330px;
         padding: 15px;
     }
+
+    .main-container {
+        width: 90%;
+    }
+
   .login-header h1 {
     font-size: 1.2rem;
   }
@@ -236,12 +276,13 @@ body {
   }
 
   .form-input {
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding: 0.4rem 0.4rem 0.4rem 2.5rem;
+    height: 38px;
   }
 
   .submit-button {
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding: 0.6rem;
   }
 
@@ -250,32 +291,9 @@ body {
   }
 
   .tab-button {
-    font-size: 11px;
+    font-size: 14px;
     padding: 8px;
   }
 }
 
 
-.flash-message {
-
-  padding: 5px 15px 0px;
-  font-size: 0.9rem;
-  color: #ff3a3a;
-  text-align: center;
-}
-
-
-.form-group {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-.error-message-container {
-  margin-bottom: 1rem; /* Space between the input and the error message */
-  text-align: center;
-}
-
-.error-message {
-  color: red;
-  font-size: 0.9rem;
-}

@@ -279,6 +279,14 @@ a {
     box-shadow: var(--shadow-1);
 }
 
+.logo span {
+    text-decoration: none;
+    color: var(--space-cadet);
+    font-family: var(--ff-nunito);
+    font-size: var(--fs-3);
+    font-weight: bold;
+}
+
 .header .header-container {
     height: 70px;
     display: flex;
@@ -486,10 +494,38 @@ a {
 \*-----------------------------------*/
 
 /**
+ * responsive for smaler than 480px screen
+ */
+
+@media screen and (max-width: 480px) {
+
+    .logo span {
+        font-size: var(--fs-3);
+    }
+
+    .copyright {
+
+        font-size: var(--fs-6);
+    }
+
+    .footer-top {
+        padding-block: 5px;
+    }
+
+    .footer-link {
+        font-size: var(--fs-6);
+    }
+
+    .footer-list-title {
+        font-size: var(--fs-5);
+    }
+}
+
+/**
  * responsive for large than 580px screen
  */
 
-@media (min-width: 580px) {
+@media screen and (min-width: 580px) {
     /**
    * REUSED STYLE
    */
@@ -519,7 +555,7 @@ a {
  * responsive for large than 768px screen
  */
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
     /**
    * CUSTOM PROPERTY
    */
@@ -600,7 +636,7 @@ a {
  * responsive for large than 992px screen
  */
 
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
     /**
    * REUSED STYLE
    */
@@ -627,7 +663,7 @@ a {
  * responsive for large than 1200px screen
  */
 
-@media (min-width: 1200px) {
+@media screen and (min-width: 1200px) {
     /**
    * CUSTOM PROPERTY
    */

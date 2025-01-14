@@ -141,4 +141,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'riderentals10@gmail.com'
 EMAIL_HOST_PASSWORD = 'kxry neao zbtt ihzt'
- 
+
+# for local ip
+ALLOWED_HOSTS = ['192.168.43.35', 'localhost', '127.0.0.1']
+
