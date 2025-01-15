@@ -1,0 +1,180 @@
+/* 
+/**
+ * responsive for less than 992px screen
+ */
+
+@media screen and (max-width: 992px) {
+    /**
+   * CUSTOM PROPERTY
+   */
+
+    :root {
+        /**
+     * typography
+     */
+
+        --fs-1: 2.625rem;
+    }
+
+    /**
+   * REUSED STYLE
+   */
+
+    .header-container,
+    .footer-container {
+        max-width: 720px;
+    }
+
+    /**
+   * HEADER
+   */
+
+    .header-actions {
+        gap: 30px;
+    }
+
+    .header-contact {
+        display: block;
+        text-align: center;
+    }
+
+    .header-contact .contact-link {
+        color: var(--space-cadet);
+        font-family: var(--ff-nunito);
+        font-size: var(--fs-5);
+        line-height: 1.3;
+    }
+
+    .header-contact .contact-link:is(:hover, :focus) {
+        color: var(--carolina-blue);
+    }
+
+    .header-contact .contact-time {
+        color: var(--independence);
+        font-size: var(--fs-7);
+    }
+
+    /**
+   * FOOTER
+   */
+
+    .footer-brand {
+        width: 100%;
+    }
+
+    .footer-text {
+        max-width: 400px;
+    }
+
+    .footer-bottom {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 30px;
+        box-shadow: var(--shadow-1);
+    }
+
+    .social-list {
+        margin-bottom: 0;
+    }
+}
+
+/**
+ * responsive for large than 992px screen
+ */
+
+@media screen and (min-width: 992px) {
+    /**
+   * REUSED STYLE
+   */
+
+    .header-container,
+    .footer-container {
+        max-width: 960px;
+    }
+
+    /**
+   * FOOTER
+   */
+
+    .footer-list:not(:last-of-type) {
+        width: 25%;
+    }
+
+    .footer-list:last-of-type {
+        width: 50%;
+    }
+}
+
+/**
+ * responsive for large than 1200px screen
+ */
+
+@media screen and (min-width: 1200px) {
+    /**
+   * CUSTOM PROPERTY
+   */
+
+    :root {
+        /**
+     * typography
+     */
+
+        --fs-1: 2.875rem;
+        --fs-2: 2rem;
+    }
+
+    /**
+   * REUSED STYLE
+   */
+
+    .header-container,
+    .footer-container {
+        max-width: 1170px;
+    }
+
+    /**
+   * HEADER
+   */
+
+    .overlay,
+    .nav-toggle-btn {
+        display: none;
+    }
+
+    .navbar,
+    .navbar.active {
+        all: unset;
+    }
+
+    .navbar-link {
+        margin-bottom: 0;
+        font-weight: var(--fw-600);
+    }
+
+    .navbar-list {
+        display: flex;
+        gap: 50px;
+    }
+
+    /**
+   * FOOTER
+   */
+
+    .footer-brand {
+        width: 33.33%;
+    }
+
+    .footer-text {
+        max-width: 35ch;
+    }
+
+    .footer-list:not(:last-of-type) {
+        width: 16.66%;
+    }
+
+    .footer-list:last-of-type {
+        width: 33.33%;
+    }
+}

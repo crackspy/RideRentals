@@ -519,6 +519,15 @@ a {
     .footer-list-title {
         font-size: var(--fs-5);
     }
+
+    .footer-bottom {
+        padding: 15px;
+    }
+
+    .social-list {
+        margin-bottom: 2px;
+        flex-wrap: wrap;
+    }
 }
 
 /**
