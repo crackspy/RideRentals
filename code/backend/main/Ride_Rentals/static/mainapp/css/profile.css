@@ -6,6 +6,7 @@
     justify-content: flex-start;
     align-items: stretch;
     margin-top: 70px;
+    overflow: hidden;
 }
 
 /* Sidebar Styles */
@@ -18,7 +19,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: -210px; /* Hide the sidebar initially */
+    transition: left 0.3s ease-in-out; /* Slide transition */
+    z-index: 1000;
+}
+
+.sidebar.open {
+    left: 0; /* Sidebar slides in */
 }
 
 .sidebar .profile-icon {
@@ -50,6 +59,41 @@
 
 .sidebar button:hover {
     background-color: #adb5bd;
+}
+
+/* Sidebar Toggle Button Styles */
+.sidebar-toggle {
+    cursor: pointer;
+    position: fixed;
+    top: 54%;
+    left: -5px;
+    background-color: #343a40;
+    border-radius: var(--radius-14);
+    color: white;
+    padding: 10px 15px;
+    z-index: 1001;
+    animation: slideBackAndForth 2s ease-in-out 3; /* Runs 3 times */
+}
+
+.arrow-back {
+    position: fixed;
+    top: 54%;
+    left: 60%;
+}
+
+/* Sidebar Toggle Hover Effect */
+.sidebar-toggle:hover {
+    background-color: #495057;
+}
+
+/* Sidebar Toggle Animation */
+@keyframes slideBackAndForth {
+    25% {
+        transform: translateX(10px); /* Small distance to the right */
+    }
+    75% {
+        transform: translateX(-10px); /* Small distance to the left */
+    }
 }
 
 /* Content Styles */
@@ -380,4 +424,19 @@
 .booking-info .status.completed {
     background-color: #28a745; /* Green */
     color: #fff;
+}
+
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+ * responsive for smaler than 480px screen
+ */
+
+/* Media Query for Small Screens */
+@media (min-width: 350px) {
+    .sidebar-toggle {
+        display: block;
+    }
 }

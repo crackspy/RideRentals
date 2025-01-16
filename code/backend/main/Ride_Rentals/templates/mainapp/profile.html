@@ -11,16 +11,21 @@
 
 {% block content %}
 <div class="dashboard-container">
+    <!-- Sidebar Toggle Button -->
+    <div class="sidebar-toggle" id="sidebarToggle">
+        <ion-icon name="arrow-forward"></ion-icon>
+    </div>
+
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <div class="profile-icon">
             <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="" />
         </div>
-        <h5 class="usrname m-b-10 fz-18">{{ user.username| title }}</h5>
+        <h5 class="usrname m-b-10 fz-18">{{ user.username|title }}</h5>
         <p class="email m-b-10">{{ user.email }}</p>
         <button>Settings</button>
         <button>Logout</button>
-    </div>
+</div>
 
     <!-- Main Content -->
     <div class="content">
@@ -202,6 +207,32 @@
             overlay.remove();
         }
     }
+
+
+    // Function to slidbar
+    document.addEventListener("DOMContentLoaded", function () {
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+
+    // Toggle sidebar on click
+    sidebarToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+
+    // Change the toggle button text
+    if (sidebar.classList.contains("open")) {
+        sidebarToggle.classList.add('arrow-back');
+        sidebarToggle.innerHTML = '<ion-icon name="arrow-back"></ion-icon>';
+        sidebarToggle.style.animation = 'none';
+    } else {
+        sidebarToggle.classList.remove('arrow-back');
+        sidebarToggle.innerHTML = '<ion-icon name="arrow-forward"></ion-icon>';
+        sidebarToggle.style.animation = 'none';
+    }
+    });
+});
+
+
+
 </script>
 
 {% endblock %}

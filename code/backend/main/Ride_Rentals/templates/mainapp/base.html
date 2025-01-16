@@ -51,17 +51,25 @@
                         <a href="{% url 'explore_cars' %}" class="navbar-link" data-nav-link>Explore cars</a>
                     </li>
 
-                    {% else %}
-                    <li>
-                        <a href="#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
-                    </li>
-                    {% endif %}
-
-
-
                     <li>
                         <a href="#about-us" class="navbar-link" data-nav-link>About us</a>
                     </li>
+
+                        {% if user.is_superuser %}
+                        <li>
+                            <a href="/admin" class="navbar-link" data-nav-link>Admin Panel</a>
+                        </li>
+                        {% endif %}
+
+                    {% else %}
+                    <li>
+                        <a href="{% url 'home' %}#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'home' %}#about-us" class="navbar-link" data-nav-link>About us</a>
+                    </li>
+                    {% endif %}
 
                 </ul>
             </nav>
