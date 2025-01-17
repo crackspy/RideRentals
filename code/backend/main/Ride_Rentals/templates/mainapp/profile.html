@@ -147,9 +147,17 @@
 
 <script>
     // Function to open the wishlist popup
+
+    // vars
+    const Wishlist = document.getElementById("wishlistPopup");
+    const Booking = document.getElementById("bookingPopup");
+
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebarToggle");
+
     function openWishlistPopup() {
         // Show popup and overlay
-        document.getElementById("wishlistPopup").style.display = "flex";
+        Wishlist.style.display = "flex";
         document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
 
         // Add overlay
@@ -157,6 +165,8 @@
         overlay.id = "popup-overlay";
         overlay.className = "popup-overlay";
         document.body.appendChild(overlay);
+
+        sidebarToggle.style.left = '-100px';
 
         // Close popup when clicking outside
         overlay.onclick = function () {
@@ -167,7 +177,7 @@
     // Function to close the wishlist popup
     function closeWishlistPopup() {
         // Hide popup and overlay
-        document.getElementById("wishlistPopup").style.display = "none";
+        Wishlist.style.display = "none";
         document.body.style.overflow = "auto";  // Allow body to scroll again
 
         // Remove overlay
@@ -175,13 +185,16 @@
         if (overlay) {
             overlay.remove();
         }
+        sidebarToggle.style.left = '-5px';
     }
 
     // Function to open the booking popup
     function openBookingPopup() {
         // Show popup and overlay
-        document.getElementById("bookingPopup").style.display = "flex";
+        Booking.style.display = "flex";
         document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
+
+        sidebarToggle.style.left = '-100px';
 
         // Add overlay
         var overlay = document.createElement("div");
@@ -198,7 +211,7 @@
     // Function to close the booking popup
     function closeBookingPopup() {
         // Hide popup and overlay
-        document.getElementById("bookingPopup").style.display = "none";
+        Booking.style.display = "none";
         document.body.style.overflow = "auto";  // Allow body to scroll again
 
         // Remove overlay
@@ -206,30 +219,57 @@
         if (overlay) {
             overlay.remove();
         }
+
+        sidebarToggle.style.left = '-5px';
     }
 
 
     // Function to slidbar
     document.addEventListener("DOMContentLoaded", function () {
-    const sidebar = document.getElementById("sidebar");
-    const sidebarToggle = document.getElementById("sidebarToggle");
 
     // Toggle sidebar on click
     sidebarToggle.addEventListener("click", () => {
-        sidebar.classList.toggle("open");
+        if (sidebar.classList.contains('open')) {
+            sidebar.classList.remove("open");
+            Sidebar();
+        }else {
+            sidebar.classList.add("open");
+            // Add overlay
+            var overlay = document.createElement("div");
+            overlay.id = "popup-overlay";
+            overlay.className = "popup-overlay";
+            document.body.appendChild(overlay);
 
+            // Close popup when clicking outside
+            overlay.onclick = function () {
+                sidebar.classList.remove("open");
+                Sidebar();
+            };
+            Sidebar();
+        }
+        
+    });
+});
+
+function Sidebar (){
     // Change the toggle button text
     if (sidebar.classList.contains("open")) {
         sidebarToggle.classList.add('arrow-back');
         sidebarToggle.innerHTML = '<ion-icon name="arrow-back"></ion-icon>';
         sidebarToggle.style.animation = 'none';
     } else {
+
+        // Remove overlay
+        var overlay = document.getElementById("popup-overlay");
+        if (overlay) {
+            overlay.remove();
+        }
+        console.log("back")
         sidebarToggle.classList.remove('arrow-back');
         sidebarToggle.innerHTML = '<ion-icon name="arrow-forward"></ion-icon>';
         sidebarToggle.style.animation = 'none';
     }
-    });
-});
+}
 
 
 
