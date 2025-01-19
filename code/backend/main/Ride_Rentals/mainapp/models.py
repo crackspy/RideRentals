@@ -1,14 +1,18 @@
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-from django.template.defaultfilters import slugify
+from django.utils.text import slugify
 from django.contrib.auth.models import User  # Import User model
+import os
 
-# Create your models here.
 
 class Car_info(models.Model):
+    def image_upload_path(instance, filename):
+        ext = os.path.splitext(filename)[-1]
+        new_filename = f"{instance.slug}{ext}"
+        return os.path.join("car_pics", new_filename)
 
-    img = models.ImageField(upload_to="car_pics")
+    img = models.ImageField(upload_to=image_upload_path)  # Use the callable here
     name = models.CharField(max_length=50)
     year = models.IntegerField(default=2024)
     capacity = models.IntegerField(null=False)
@@ -18,12 +22,12 @@ class Car_info(models.Model):
     available = models.BooleanField(default=True)
     rent = models.FloatField(default=0.0)
 
-    # Add a unique slug field
-    slug = models.SlugField(max_length=100, unique=True, blank=True)  # Adjust length as needed
+    slug = models.SlugField(max_length=100, unique=True, blank=True)  # Unique slug
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)  # Generate slug from name
+            # Generate a slug from the car name if not already set
+            self.slug = slugify(self.name)
         super(Car_info, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -38,7 +42,7 @@ class Booking(models.Model):
     car = models.ForeignKey(Car_info, on_delete=models.CASCADE)
 
     # ForeignKey to User
-    cus_username = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    cus_username = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Status(models.TextChoices):
         BOOKED = 'booked', 'Booked'
@@ -93,5 +97,5 @@ class Wishlist(models.Model):
 
 @receiver(post_delete, sender=Car_info)
 def delete_event_image(sender, instance, **kwargs):
-    if instance.img:
+    if instance.img and os.path.isfile(instance.img.path):
         instance.img.delete(save=False)
