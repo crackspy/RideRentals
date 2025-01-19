@@ -1,6 +1,6 @@
 .dashboard-container {
     width: 100%;
-    height: 100vh;
+    height: 90dvh;
     background-color: #f4f4f9;
     display: flex;
     justify-content: flex-start;
@@ -78,7 +78,7 @@
 .arrow-back {
     position: fixed;
     top: 54%;
-    left: 60%;
+    left: 65%;
 }
 
 /* Sidebar Toggle Hover Effect */
@@ -96,19 +96,16 @@
     }
 }
 
-/* Content Styles */
 .content {
-    flex: 1;
     padding: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
     width: 100%;
 }
 
 .card {
-    width: 250px;
-    height: 250px;
     background-color: white;
     padding: 20px;
     border-radius: 15px;
@@ -125,11 +122,16 @@
 .card h5 {
     margin-bottom: 10px;
     color: #333;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .card p {
     color: #777;
+    font-size: 15px;
+}
+
+.card button {
+    font-size: 15px;
 }
 
 .profile {
@@ -178,21 +180,6 @@
     margin-bottom: 10px;
 }
 
-.popup-head {
-    margin-bottom: 10px;
-}
-
-.popup-head h3 {
-    /* font-size: 1rem; */
-    margin-bottom: 20px;
-    font-size: 22px;
-    color: #007bff; /* Sky Blue */
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-}
-
 /* Popup Styles */
 .popup {
     display: none;
@@ -201,13 +188,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    padding: 20px;
     border-radius: var(--radius-18);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    width: 90%;
     max-width: 700px;
-    height: auto;
     flex-direction: column;
     align-items: center;
     background-color: #ebebeb;
@@ -225,25 +209,38 @@
     z-index: 999;
 }
 
+.popup-head {
+    margin-bottom: 10px;
+}
+
+.popup-head h3 {
+    color: #007bff; /* Sky Blue */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
 .popup .close {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 15px;
+    font-size: 23px;
     cursor: pointer;
-    font-size: 20px;
     color: #333;
+}
+
+.popup .close:hover {
+    color: black;
+    font-weight: bold;
 }
 
 .popup-content {
     max-height: 70vh;
-    /* Limit the max height of content */
     overflow-y: auto;
-    /* Enable vertical scrolling */
     width: 100%;
-    padding: 0 20px 20px;
     text-align: center;
     box-sizing: border-box;
-    /* Ensure padding does not overflow */
 }
 
 .popup-content p {
@@ -263,15 +260,10 @@
     align-items: center;
     justify-content: center;
 }
-.item-content {
-    flex-grow: 1;
-    padding: 10px;
-}
 
-.item-content h1 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    text-align: center;
+.popup-content .item-content {
+    width: 100%;
+    padding: 10px 0 0;
 }
 
 .item-content ul {
@@ -279,16 +271,6 @@
     padding: 0;
     margin: 0;
     font-size: 14px;
-}
-
-.item-content ul li {
-    margin-bottom: 5px;
-}
-
-.popup-content .item-content {
-    position: relative;
-    width: 100%;
-    padding: 10px 0 0;
 }
 
 .popup-content .item-icon img {
@@ -316,7 +298,6 @@
 
 .popup-content .item-content .not-available {
     color: #ff0000b2;
-    padding: 4px;
     background-color: #ff00004d;
     width: 150px;
     border-radius: 4px;
@@ -335,12 +316,10 @@
     color: var(--color, var(--white));
     min-width: var(--width, 40px);
     min-height: var(--height, 40px);
-    padding: 10px 15px;
     display: grid;
     place-items: center;
     border-radius: var(--radius-14);
     font-family: var(--ff-nunito);
-    font-size: var(--fs-6);
     font-weight: var(--fw-600);
     overflow: hidden;
 }
@@ -427,36 +406,144 @@
   #MEDIA QUERIES
 \*-----------------------------------*/
 
-/**
- * responsive for smaler than 480px screen
- */
-
 /* Media Query for Small Screens */
 @media (min-width: 350px) {
-    .sidebar-toggle {
-        display: block;
+    ::-webkit-scrollbar {
+        width: 2px;
     }
+    .card {
+        width: 200px;
+        height: 190px;
+    }
+
+    .popup {
+        padding: 10px;
+        width: 85%;
+        height: 75%;
+    }
+
+    .popup-head h3 {
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+
     .popup-content {
-        padding: 0 0 0 10px;
+        padding: 2px;
     }
+    .popup-content .pos-b {
+        position: static;
+    }
+
     .item {
         flex-direction: column;
     }
-}
-@media (min-width: 650px) {
-    .arrow-back {
-        left: 35% !important;
-        
+    .item-content {
+        position: static;
+        padding-top: 5px;
+    }
+
+    .item-content h1 {
+        text-align: center;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .item-content ul li {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .item-content .not-available {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    .fav-btn {
+        font-size: 18px !important;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .sidebar-toggle {
+        display: block;
     }
 }
 
+/* Media Query for Medium Screens */
+@media (min-width: 650px) {
+    .arrow-back {
+        left: 35% !important;
+    }
+
+    .card {
+        width: 250px;
+        height: 250px;
+        padding: 20px;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup {
+        padding: 20px;
+        width: 90%;
+        height: auto;
+    }
+
+    .popup-head h3 {
+        margin-bottom: 20px;
+        font-size: 22px;
+    }
+
+    .popup-content {
+        padding: 0 20px 20px;
+    }
+
+    .popup-content .pos-b {
+        position: absolute;
+    }
+
+    .item {
+        flex-direction: row;
+    }
+
+    .item-content {
+        position: relative;
+    }
+
+    .item-content h1 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .item-content ul li {
+        font-size: 16px;
+    }
+
+    .item-content .not-available {
+        padding: 4px;
+        font-size: 18px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: var(--fs-6);
+    }
+}
+
+/* Media Query for Large Screens */
 @media (min-width: 990px) {
     .sidebar {
         position: relative;
         z-index: 0;
         left: 0;
         width: 230px;
-      }    
+    }
     .sidebar-toggle {
         display: none;
     }

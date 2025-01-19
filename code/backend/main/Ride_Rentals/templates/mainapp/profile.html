@@ -6,6 +6,7 @@
 {% block head %}
 
 <link rel="stylesheet" href="{% static 'mainapp/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'mainapp/css/profile-media.css' %}">
 
 {% endblock %}
 
@@ -25,7 +26,7 @@
         <p class="email m-b-10">{{ user.email }}</p>
         <button>Settings</button>
         <button>Logout</button>
-</div>
+    </div>
 
     <!-- Main Content -->
     <div class="content">
@@ -68,14 +69,14 @@
                 <img src="{{ item.car.img.url }}" alt="{{ car.name }}" loading="lazy" width="200" height="150" />
             </div>
             <div class="item-content">
-                <h1 style="text-align: center">
+                <h1>
                     {{ item.car.name }} - {{ item.car.year }}
                 </h1>
                 <div class="pos-b">
                     <ul>
                         <li>Rent : ₹{{ item.car.rent }}/ month</li>
                     </ul>
-                    <a href="{% url 'remove_from_wishlist' item.car.slug %}" class="btn fav-btn"
+                    <a href="{% url 'remove_from_wishlist' item.car.slug %}" class="fav-btn btn"
                         aria-label="Remove from favourite list">
                         <ion-icon name="heart-dislike-outline"></ion-icon>
                     </a>
@@ -105,7 +106,7 @@
                 <img src="{{ item.car.img.url }}" alt="{{ car.name }}" loading="lazy" width="200" height="150" />
             </div>
             <div class="item-content">
-                <h1 style="text-align: center">
+                <h1>
                     {{ item.car.name }} - {{ item.car.year }}
                 </h1>
                 <div class="booking-info">
@@ -227,49 +228,49 @@
     // Function to slidbar
     document.addEventListener("DOMContentLoaded", function () {
 
-    // Toggle sidebar on click
-    sidebarToggle.addEventListener("click", () => {
-        if (sidebar.classList.contains('open')) {
-            sidebar.classList.remove("open");
-            Sidebar();
-        }else {
-            sidebar.classList.add("open");
-            // Add overlay
-            var overlay = document.createElement("div");
-            overlay.id = "popup-overlay";
-            overlay.className = "popup-overlay";
-            document.body.appendChild(overlay);
-
-            // Close popup when clicking outside
-            overlay.onclick = function () {
+        // Toggle sidebar on click
+        sidebarToggle.addEventListener("click", () => {
+            if (sidebar.classList.contains('open')) {
                 sidebar.classList.remove("open");
                 Sidebar();
-            };
-            Sidebar();
-        }
-        
+            } else {
+                sidebar.classList.add("open");
+                // Add overlay
+                var overlay = document.createElement("div");
+                overlay.id = "popup-overlay";
+                overlay.className = "popup-overlay";
+                document.body.appendChild(overlay);
+
+                // Close popup when clicking outside
+                overlay.onclick = function () {
+                    sidebar.classList.remove("open");
+                    Sidebar();
+                };
+                Sidebar();
+            }
+
+        });
     });
-});
 
-function Sidebar (){
-    // Change the toggle button text
-    if (sidebar.classList.contains("open")) {
-        sidebarToggle.classList.add('arrow-back');
-        sidebarToggle.innerHTML = '<ion-icon name="arrow-back"></ion-icon>';
-        sidebarToggle.style.animation = 'none';
-    } else {
+    function Sidebar() {
+        // Change the toggle button text
+        if (sidebar.classList.contains("open")) {
+            sidebarToggle.classList.add('arrow-back');
+            sidebarToggle.innerHTML = '<ion-icon name="arrow-back"></ion-icon>';
+            sidebarToggle.style.animation = 'none';
+        } else {
 
-        // Remove overlay
-        var overlay = document.getElementById("popup-overlay");
-        if (overlay) {
-            overlay.remove();
+            // Remove overlay
+            var overlay = document.getElementById("popup-overlay");
+            if (overlay) {
+                overlay.remove();
+            }
+            console.log("back")
+            sidebarToggle.classList.remove('arrow-back');
+            sidebarToggle.innerHTML = '<ion-icon name="arrow-forward"></ion-icon>';
+            sidebarToggle.style.animation = 'none';
         }
-        console.log("back")
-        sidebarToggle.classList.remove('arrow-back');
-        sidebarToggle.innerHTML = '<ion-icon name="arrow-forward"></ion-icon>';
-        sidebarToggle.style.animation = 'none';
     }
-}
 
 
 

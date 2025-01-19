@@ -521,11 +521,14 @@ a {
     }
 
     .footer-bottom {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
         padding: 15px;
     }
 
     .social-list {
-        margin-bottom: 2px;
+        margin-bottom: 10px;
         flex-wrap: wrap;
     }
 }
