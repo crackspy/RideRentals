@@ -252,7 +252,7 @@ def test_p(request):
         'return_date': 'Jan. 31, 2025',
         'total_rent': 45000.0,
         'payment_status': 'Pending',
-        'status': 'Completed'
+        'status': 'Pending'
     }
     
     return render(request, 'mainapp/emails/booking_confirmation.html', {
@@ -269,7 +269,8 @@ def send_test_email(request):
         'pickup_date': 'Jan. 1, 2025',
         'return_date': 'Jan. 31, 2025',
         'total_rent': 45000.0,
-        'payment_status': 'Pending'
+        'payment_status': 'Pending',
+        'status': 'Pending'
     }
  
     try:

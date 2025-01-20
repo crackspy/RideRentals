@@ -4,7 +4,7 @@ body {
 }
 
 .main-container {
-    margin-top: 100px;
+    margin: 100px 0 20px;
     display: flex;
     justify-content: space-evenly;
 }
@@ -16,7 +16,6 @@ body {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
-    padding: 19px;
     color: white;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
@@ -260,7 +259,11 @@ h1 {
     font-size: 15px;
 }
 
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
 
+/* Media Query for Small Screens */
 @media screen and (min-width: 350px) {
     .main-container {
         justify-content: center;
@@ -268,11 +271,14 @@ h1 {
         align-items: center;
     }
 
+    .card-container {
+        width: 80%;
+    }
+
     .featured-car-card {
         margin-bottom: 20px;
         width: 100%;
-        }
-
+    }
 
     .booking-container {
         width: 90%;
@@ -284,20 +290,58 @@ h1 {
         font-size: 1.5em;
     }
 
-    .form-group label {
+    .form-grup label {
         font-size: 15px;
     }
 
-    .form-group input, .form-group textarea {
+    .form-group input,
+    .form-group textarea {
         font-size: 13px;
     }
-
 }
 
+/* Media Query for Medium Screens */
 @media screen and (min-width: 650px) {
     .main-container {
         flex-direction: row;
         justify-content: space-around;
+        align-items: flex-start;
+        padding: 0 5px 0px;
     }
 
+    .card-container {
+        width: 40%;
+    }
+
+    .booking-container {
+        width: 50%;
+        padding: 19px 15px 19px;
+        margin-bottom: 0;
+    }
+}
+
+/* Media Query for Large Screens */
+@media screen and (min-width: 990px) {
+    .main-container {
+        padding: 0;
+    }
+
+    .booking-container {
+        width: 50%;
+        padding: 19px 15px 19px;
+        margin-bottom: 0;
+    }
+
+    .booking-container h1 {
+        font-size: 2.5em;
+    }
+
+    .form-grup label {
+        font: inherit;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
+    }
 }
