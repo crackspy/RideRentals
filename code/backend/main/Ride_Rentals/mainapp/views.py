@@ -163,8 +163,9 @@ def booking(request, slug):
             return render(request, 'mainapp/rental/booking.html', {'car': car})
 
     else:
+        user = request.user
         return render(request, 'mainapp/rental/booking.html', 
-                    {'car': car, 'today_date': today_date,})
+                    {'car': car, 'today_date': today_date, 'user': user})
 
 @login_required
 def success_page(request):

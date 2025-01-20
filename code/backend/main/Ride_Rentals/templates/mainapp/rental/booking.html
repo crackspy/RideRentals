@@ -81,12 +81,12 @@
 
             <div class="form-group">
                 <label for="full-name">Full Name</label>
-                <input type="text" id="full-name" name="full_name" placeholder="Enter your full name" required />
+                <input type="text" id="full-name" name="full_name" placeholder="Enter your full name" value="{{ user.username|title }}" required />
             </div>
 
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+                <input type="email" id="email" name="email" placeholder="Enter your email address" value="{{ user.email }}" required />
             </div>
 
             <div class="form-group">
