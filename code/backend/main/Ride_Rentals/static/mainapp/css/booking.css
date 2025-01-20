@@ -7,7 +7,6 @@ body {
     margin-top: 100px;
     display: flex;
     justify-content: space-evenly;
-    align-items: initial;
 }
 
 .booking-container {
@@ -80,13 +79,6 @@ h1 {
 
 .form-group textarea {
     resize: none;
-}
-
-footer {
-    text-align: center;
-    margin-top: 20px;
-    color: #cccccc;
-    font-size: 0.9em;
 }
 
 .card-container {
@@ -266,4 +258,46 @@ footer {
     text-align: center;
     padding: 3px;
     font-size: 15px;
+}
+
+
+@media screen and (min-width: 350px) {
+    .main-container {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .featured-car-card {
+        margin-bottom: 20px;
+        width: 100%;
+        }
+
+
+    .booking-container {
+        width: 90%;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .booking-container h1 {
+        font-size: 1.5em;
+    }
+
+    .form-group label {
+        font-size: 15px;
+    }
+
+    .form-group input, .form-group textarea {
+        font-size: 13px;
+    }
+
+}
+
+@media screen and (min-width: 650px) {
+    .main-container {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
 }
