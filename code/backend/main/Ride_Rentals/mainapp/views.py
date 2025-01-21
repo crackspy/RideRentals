@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.utils.http import url_has_allowed_host_and_scheme
 from datetime import datetime
-from django.utils.timezone import now
+
+# from django.utils.timezone import now
 from .models import Car_info, Booking, Wishlist
 from .utils import send_booking_email
+
 
 
 # Function to check if the user is an admin
@@ -44,6 +46,7 @@ def register(request):
             return redirect('auth')
 
         user = User.objects.create_user(username=username, email=email, password=password)
+        print(password)
         user.save()
         messages.success(request, "Registration successful! You can now log in.")
         return redirect('auth')
@@ -59,6 +62,7 @@ def login(request):
         next_url = request.POST.get('next', 'home')
 
         user = auth.authenticate(username=username, password=password)
+        print(password)
         if user is not None:
             auth.login(request, user)
             messages.success(request, f"Welcome back, {username}!")
