@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
 from django.utils.http import url_has_allowed_host_and_scheme
 from datetime import datetime
@@ -9,6 +10,15 @@ from datetime import datetime
 from .models import Car_info, Booking, Wishlist
 from .utils import send_booking_email
 
+# password-reset-view
+class CustomPasswordResetView(PasswordResetView):
+    def form_valid(self, form):
+        # Check if the email exists in the database
+        email = form.cleaned_data['email']
+        if not User.objects.filter(email=email).exists():
+            messages.error(self.request, "The email address does not exist in our records.")
+            return redirect('password_reset')  # Redirect to the same page
+        return super().form_valid(form)
 
 
 # Function to check if the user is an admin
