@@ -56,7 +56,6 @@ def register(request):
             return redirect('auth')
 
         user = User.objects.create_user(username=username, email=email, password=password)
-        print(password)
         user.save()
         messages.success(request, "Registration successful! You can now log in.")
         return redirect('auth')
@@ -72,7 +71,6 @@ def login(request):
         next_url = request.POST.get('next', 'home')
 
         user = auth.authenticate(username=username, password=password)
-        print(password)
         if user is not None:
             auth.login(request, user)
             messages.success(request, f"Welcome back, {username}!")
