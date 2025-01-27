@@ -219,7 +219,7 @@ def profile_dashboard(request):
     bookings = Booking.objects.filter(cus_username=user).order_by('-id') # Fetch bookings associated with the user
     wishlist_items = Wishlist.objects.filter(user=user).order_by('-id')  # Fetch wishlist items
 
-    return render(request, 'mainapp/profile.html', {
+    return render(request, 'mainapp/profile/profile.html', {
         'user': user,
         'all_bookings': bookings,
         'booking_item': bookings.first(),
@@ -249,6 +249,9 @@ def test(request):
     # messages.success(request, "Your booking was successful!")
     # messages.error(request, "Payment failed. Please try again.")
     # messages.warning(request, "Booking confirmation is pending.")
+
+
+
 
     return render(request, 'mainapp/test.html')
 def test_p(request):

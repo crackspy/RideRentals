@@ -19,8 +19,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="profile-icon">
-            <img src="{{ user.profile.profile_pic.url }}" height="90px" alt="{{ user.username }}'s profile picture" />
-            <!-- <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="" /> -->
+            <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="" />
         </div>
         <h5 class="usrname m-b-10 fz-18">{{ user.username|title }}</h5>
         <p class="email m-b-10">{{ user.email }}</p>
