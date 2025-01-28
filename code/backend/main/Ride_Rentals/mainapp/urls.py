@@ -32,6 +32,11 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(template_name='mainapp/login/password_reset_complete.html'), 
             name='password_reset_complete'),
 
+    # path('change_password/', views.change_password, name="change_password"),
+    path('change_password/', auth_views.PasswordChangeView.as_view(template_name='mainapp/login/change_password.html'), name='change_password'),
+    path('change_password/done/', auth_views.PasswordChangeDoneView.as_view(template_name='mainapp/login/change_password_done.html'), name='change_password_done'),
+
+
     # User profile URLs
     path('profile/', views.profile_dashboard, name='profile'),
 

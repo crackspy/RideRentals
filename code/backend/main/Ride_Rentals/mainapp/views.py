@@ -92,6 +92,11 @@ def logout(request):
     messages.success(request, "You have been successfully logged out.")
     return redirect('home')
 
+@login_required
+def change_password(request):
+    return render(request, 'mainapp/login/change_password.html')
+
+
 # -------------------------------------------------------
 
 #-----------------------  Rental  -----------------------

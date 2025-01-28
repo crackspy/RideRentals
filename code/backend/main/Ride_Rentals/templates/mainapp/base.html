@@ -55,11 +55,11 @@
                         <a href="#about-us" class="navbar-link" data-nav-link>About us</a>
                     </li>
 
-                        {% if user.is_superuser %}
-                        <li>
-                            <a href="/admin" class="navbar-link" data-nav-link>Admin Panel</a>
-                        </li>
-                        {% endif %}
+                    {% if user.is_superuser %}
+                    <li>
+                        <a href="/admin" class="navbar-link" data-nav-link>Admin Panel</a>
+                    </li>
+                    {% endif %}
 
                     {% else %}
                     <li>
@@ -89,7 +89,7 @@
 
                 {% else %}
                 <a href="{% url 'auth' %}" class="head-btn" aria-labelledby="aria-label-txt">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <ion-icon name="lock-open-outline"></ion-icon>
                     <span id="aria-label-txt">Login</span>
                 </a>
                 {% endif %}

@@ -52,10 +52,10 @@
     --ff-open-sans: "Open Sans", sans-serif;
 
     --fs-1: 2.125rem;
-    --fs-2: 1.875rem;
-    --fs-3: 1.5rem;
-    --fs-4: 1.375rem;
-    --fs-5: 1.125rem;
+    --fs-2: 1.8rem;
+    --fs-3: 1.4rem;
+    --fs-4: 1.2rem;
+    --fs-5: 1.12rem;
     --fs-6: 0.875rem;
     --fs-7: 0.625rem;
 
@@ -145,10 +145,13 @@ html {
     font-size: 1rem;
     line-height: 1.5;
     scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 body {
     background: var(--alice-blue-1);
+    width: 100%;
     overflow-x: hidden;
 }
 
@@ -176,7 +179,7 @@ body {
 
 .header-container,
 .footer-container {
-    padding-inline: 15px;
+    padding-inline: 20px;
 }
 
 button,
@@ -271,6 +274,7 @@ a {
     top: 0;
     left: 0;
     width: 100%;
+    overflow-x: hidden;
     transition: var(--transition);
     z-index: 4;
 }
@@ -537,16 +541,6 @@ a {
 
 @media screen and (min-width: 580px) {
     /**
-   * REUSED STYLE
-   */
-
-    .header-container,
-    .footer-container {
-        max-width: 540px;
-        margin-inline: auto;
-    }
-
-    /**
    * HEADER
    */
 
@@ -566,25 +560,12 @@ a {
  */
 
 @media screen and (min-width: 768px) {
-    /**
-   * CUSTOM PROPERTY
-   */
-
     :root {
         /**
      * typography
      */
 
         --fs-1: 2.625rem;
-    }
-
-    /**
-   * REUSED STYLE
-   */
-
-    .header-container,
-    .footer-container {
-        max-width: 720px;
     }
 
     /**
@@ -647,17 +628,12 @@ a {
  */
 
 @media screen and (min-width: 992px) {
-    /**
-   * REUSED STYLE
-   */
-
     :root {
         /**
- * typography
- */
-
+        * typography
+        */
         --fs-1: 2.875rem;
-        --fs-2: 2rem;
+        --fs-2: 1.7rem;
     }
 
     .header-container,
@@ -710,15 +686,6 @@ a {
     }
 }
 
-/**
- * responsive for large than 1200px screen
- */
-
-@media screen and (min-width: 1200px) {
-    /**
-   * CUSTOM PROPERTY
-   */
-}
 
 /**
    * Django notification messages
