@@ -52,12 +52,13 @@
     --ff-open-sans: "Open Sans", sans-serif;
 
     --fs-1: 2.125rem;
-    --fs-2: 1.8rem;
-    --fs-3: 1.4rem;
-    --fs-4: 1.2rem;
-    --fs-5: 1.12rem;
+    --fs-2: 1.875rem;
+    --fs-3: 1.5rem;
+    --fs-4: 1.375rem;
+    --fs-5: 1.125rem;
     --fs-6: 0.875rem;
     --fs-7: 0.625rem;
+
 
     --fw-400: 400;
     --fw-600: 600;
@@ -277,6 +278,7 @@ a {
     overflow-x: hidden;
     transition: var(--transition);
     z-index: 4;
+    padding-inline: 5%;
 }
 
 .header.active {
@@ -287,7 +289,7 @@ a {
     text-decoration: none;
     color: var(--space-cadet);
     font-family: var(--ff-nunito);
-    font-size: var(--fs-3);
+    font-size: var(--fs-2);
     font-weight: bold;
 }
 
@@ -366,7 +368,7 @@ a {
 .navbar-link {
     color: var(--independence);
     font-family: var(--ff-nunito);
-    font-size: var(--fs-6);
+    font-size: var(--fs-6.0);
     padding-block: 5px;
     margin-bottom: 15px;
 }
@@ -502,8 +504,20 @@ a {
  */
 
 @media screen and (max-width: 480px) {
+
+    .header {
+        padding-inline: 5%;
+    }
     .logo span {
-        font-size: var(--fs-3);
+        font-size: var(--fs-4);
+    }
+
+    .header-container, .footer-container {
+        padding-inline: 0;
+      }
+
+    .navbar-link {
+        font-size: var(--fs-6);
     }
 
     .copyright {
@@ -633,7 +647,7 @@ a {
         * typography
         */
         --fs-1: 2.875rem;
-        --fs-2: 1.7rem;
+        --fs-2: 2rem;
     }
 
     .header-container,

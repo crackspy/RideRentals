@@ -6,6 +6,45 @@
 {% block head %}
 <link rel="stylesheet" href="{% static 'mainapp/css/login.css' %}" />
 <link href="{% static 'mainapp/css/font-awesome/css/all.min.css' %}" rel="stylesheet" />
+
+<style>
+    .form-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 10px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.input-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.visibility-toggle-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+</style>
 {% endblock %}
 
 {% block content %}
@@ -44,15 +83,14 @@
                     <i class="input-icon fas fa-user"></i>
                 </div>
 
-                <!-- Password Input -->
-                <div class="form-group">
-                    <i class="input-icon fas fa-lock"></i>
-                    <input type="password" class="form-input" id="password" name="password" placeholder="Password"
-                        required />
-                    <i class="visibility-toggle-icon" onclick="togglePassword('password', 'toggleIconLogin')">
-                        <ion-icon id="toggleIconLogin" name="eye-outline"></ion-icon>
-                    </i>
-                </div>
+<!-- Password Input with Eye Icon -->
+<div class="form-group">
+    <i class="input-icon fas fa-lock"></i>
+    <input type="password" class="form-input" id="password" name="password" placeholder="Password" required />
+    <i class="visibility-toggle-icon" onclick="togglePassword('password', 'toggleIconLogin')">
+        <ion-icon id="toggleIconLogin" name="eye-outline"></ion-icon>
+    </i>
+</div>
 
                 <button type="submit" class="submit-button">Login</button>
             </form>
@@ -87,22 +125,16 @@
 
                 <!-- Password Input -->
                 <div class="form-group">
-                    <i class="input-icon fas fa-lock"></i>
                     <input type="password" class="form-input" id="reg_password" name="reg_password"
                         placeholder="Enter your password" required />
-                    <i class="visibility-toggle-icon" onclick="togglePassword('reg_password', 'toggleIconReg_p1')">
-                       <ion-icon id="toggleIconReg_p1" name="eye-outline"></ion-icon>
-                    </i>
+                    <i class="input-icon fas fa-lock"></i>
                 </div>
 
                 <!-- Confirm Password Input -->
                 <div class="form-group">
-                    <i class="input-icon fas fa-rotate"></i>
                     <input type="password" class="form-input" id="confirm_password" name="confirm_password"
                         placeholder="Confirm your password" required />
-                    <i class="visibility-toggle-icon" onclick="togglePassword('confirm_password', 'toggleIconReg_p2')">
-                        <ion-icon id="toggleIconReg_p2" name="eye-outline"></ion-icon>
-                      </i>
+                    <i class="input-icon fas fa-rotate"></i>
                 </div>
 
                 <button type="submit" class="submit-button">

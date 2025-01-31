@@ -115,9 +115,12 @@ body {
 .form-group {
     position: relative;
     margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
 }
 
 .form-input {
+    flex: 1;
     width: 100%;
     padding: 0.5rem 0.5rem 0.5rem 2.5rem;
     background: rgba(255, 255, 255, 0.05);
@@ -146,6 +149,14 @@ body {
     transform: translateY(-50%);
     color: rgba(255, 255, 255, 0.4);
     transition: color 0.3s ease;
+}
+
+.visibility-toggle-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
 }
 
 .form-input:focus + .input-icon {

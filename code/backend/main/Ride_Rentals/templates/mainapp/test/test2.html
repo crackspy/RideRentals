@@ -1,0 +1,414 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'mainapp/css/login.css' %}" />
+<style>
+    .ds-form-item.ds-form-item--label-s {
+        --ds-form-item-label-font-size: var(--ds-font-size-s);
+        --ds-form-item-label-line-height: var(--ds-line-height-s)
+    }
+
+    .ds-form-item.ds-form-item--label-m .ds-form-item__label {
+        --ds-form-item-label-font-size: var(--ds-font-size-m);
+        --ds-form-item-label-line-height: var(--ds-line-height-m)
+    }
+
+    .ds-form-item .ds-form-item__label {
+        color: rgb(var(--ds-rgb-label-2));
+        font-size: var(--ds-form-item-label-font-size);
+        line-height: var(--ds-form-item-label-line-height);
+        margin-bottom: 6px;
+        display: block
+    }
+
+    .ds-form-item .ds-form-item__content {
+        color: rgb(var(--ds-rgb-label-1))
+    }
+
+    .ds-form-item .ds-form-item__description {
+        color: rgb(var(--ds-rgb-label-2));
+        box-sizing: border-box;
+        min-height: 21px;
+        transition: color var(--ds-transition-duration)var(--ds-ease-in-out);
+        padding: 2px 0;
+        font-size: 12px;
+        line-height: 17px
+    }
+
+    .ds-form-item .ds-form-item__feedback {
+        box-sizing: border-box;
+        min-height: 21px;
+        transition: color var(--ds-transition-duration)var(--ds-ease-in-out);
+        padding: 2px 0;
+        font-size: 12px;
+        line-height: 17px
+    }
+
+    .ds-form-item .ds-form-item__feedback-content {
+        width: -moz-fit-content;
+        width: fit-content
+    }
+
+    .ds-form-item.ds-form-item--none .ds-form-item__feedback {
+        color: rgb(var(--ds-rgb-label-2))
+    }
+
+    .ds-form-item.ds-form-item--error .ds-form-item__feedback {
+        color: rgb(var(--ds-rgb-error))
+    }
+
+    .ds-input {
+        --ds-input-text-color: rgb(var(--ds-rgb-label-1));
+        --ds-input-placeholder-color: rgb(var(--ds-rgb-label-3));
+        --ds-input-icon-color: rgb(var(--ds-rgb-label-3));
+        --ds-input-prefix-text-color: rgb(var(--ds-rgb-label-1));
+        --ds-input-color: rgb(var(--ds-rgb-input));
+        --ds-input-font-weight: initial;
+        --ds-input-color-focus: rgb(var(--ds-rgb-input-focus))
+    }
+
+    .ds-input.ds-input--bordered {
+        --ds-input-color: rgba(var(--ds-rgba-transparent))
+    }
+
+    .ds-input.ds-input--l {
+        --ds-input-padding: 0 10px;
+        --ds-input-border-radius: 10px;
+        --ds-input-height: var(--ds-input-height-l);
+        --ds-input-font-size: var(--ds-font-size-m);
+        --ds-input-line-height: var(--ds-line-height-m);
+        --ds-input-prefix-margin: 0 8px 0 0;
+        --ds-input-password-toggle-margin: 0 0 0 8px;
+        --ds-input-icon-size: 18px
+    }
+
+    .ds-input.ds-input--m {
+        --ds-input-padding: 0 10px;
+        --ds-input-border-radius: 10px;
+        --ds-input-height: var(--ds-input-height-m);
+        --ds-input-font-size: var(--ds-font-size-m);
+        --ds-input-line-height: var(--ds-line-height-m);
+        --ds-input-prefix-margin: 0 8px 0 0;
+        --ds-input-password-toggle-margin: 0 0 0 8px;
+        --ds-input-icon-size: 18px
+    }
+
+    .ds-input.ds-input--m .ds-input__password-toggle .ds-icon-button {
+        --ds-icon-button-size: 16px
+    }
+
+    .ds-input.ds-input--s {
+        --ds-input-padding: 0 10px;
+        --ds-input-border-radius: 10px;
+        --ds-input-height: var(--ds-input-height-s);
+        --ds-input-font-size: var(--ds-font-size-s);
+        --ds-input-line-height: var(--ds-line-height-s);
+        --ds-input-prefix-margin: 0 8px 0 0;
+        --ds-input-password-toggle-margin: 0 0 0 8px;
+        --ds-input-icon-size: 18px
+    }
+
+    .ds-input.ds-input--s .ds-input__password-toggle .ds-icon-button {
+        --ds-icon-button-size: 15px
+    }
+
+    .ds-input.ds-input--xs {
+        --ds-input-padding: 0 10px;
+        --ds-input-border-radius: 8px;
+        --ds-input-height: var(--ds-input-height-xs);
+        --ds-input-font-size: var(--ds-font-size-xs);
+        --ds-input-line-height: var(--ds-line-height-xs);
+        --ds-input-prefix-margin: 0 7px 0 0;
+        --ds-input-icon-size: 18px;
+        --ds-input-password-toggle-margin: 0 0 0 7px
+    }
+
+    .ds-input.ds-input--xs .ds-input__password-toggle .ds-icon-button {
+        --ds-icon-button-size: 14px
+    }
+
+    .ds-input {
+        cursor: text;
+        background-color: var(--ds-input-color);
+        width: 100%;
+        color: var(--ds-input-text-color);
+        box-sizing: border-box;
+        border-radius: var(--ds-input-border-radius);
+        transition: background-color var(--ds-transition-duration)var(--ds-ease-in-out), box-shadow var(--ds-transition-duration)var(--ds-ease-in-out), color var(--ds-transition-duration)var(--ds-ease-in-out);
+        padding: var(--ds-input-padding);
+        height: var(--ds-input-height);
+        font-size: var(--ds-input-font-size);
+        line-height: var(--ds-input-line-height);
+        font-weight: var(--ds-input-font-weight);
+        align-items: center;
+        display: flex;
+        position: relative
+    }
+
+    .ds-input.ds-input--disabled {
+        opacity: .45;
+        cursor: not-allowed
+    }
+
+    .ds-input.ds-input--disabled .ds-input__input {
+        cursor: not-allowed
+    }
+
+    .ds-input .ds-input__mirror {
+        padding: var(--ds-input-padding);
+        pointer-events: none;
+        white-space: nowrap;
+        visibility: hidden;
+        height: 0;
+        position: absolute;
+        top: 0;
+        left: 0
+    }
+
+    .ds-input .ds-input__mirror,
+    .ds-input .ds-input__input {
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        border: none;
+        display: block
+    }
+
+    .ds-input .ds-input__input {
+        background-color: rgba(var(--ds-rgba-transparent));
+        color: inherit;
+        caret-color: rgb(var(--ds-rgb-primary));
+        border: none;
+        outline: none;
+        flex: 1;
+        padding: 0;
+        font-family: inherit
+    }
+
+    .ds-input .ds-input__input::placeholder {
+        color: var(--ds-input-placeholder-color)
+    }
+
+    .ds-input .ds-input__input::placeholder {
+        color: var(--ds-input-placeholder-color)
+    }
+
+    .ds-input .ds-input__input::placeholder {
+        color: var(--ds-input-placeholder-color)
+    }
+
+    .ds-input .ds-input__icon {
+        color: var(--ds-input-icon-color);
+        font-size: var(--ds-input-icon-size);
+        margin: var(--ds-input-prefix-margin);
+        justify-content: center;
+        align-items: center;
+        display: flex
+    }
+
+    .ds-input .ds-input__prefix {
+        color: var(--ds-input-prefix-color);
+        margin: var(--ds-input-prefix-margin);
+        line-height: var(--ds-input-height)
+    }
+
+    .ds-input .ds-input__password-toggle {
+        margin: var(--ds-input-password-toggle-margin)
+    }
+
+    .ds-input.ds-input--none:focus-within {
+        background-color: var(--ds-input-focus-color, --ds-input-color-focus);
+        box-shadow: inset 0 0 0 2px var(--ds-input-focus-border-color, rgb(var(--ds-rgb-primary)))
+    }
+
+    .ds-input.ds-input--filled.ds-input--error:focus-within {
+        background-color: var(--ds-input-focus-color, --ds-input-color-focus)
+    }
+
+    .ds-input.ds-input--bordered.ds-input--error:focus-within {
+        background-color: var(--ds-input-focus-color, --ds-input-color-focus)
+    }
+
+    .ds-input.ds-input--filled.ds-input--error,
+    .ds-input.ds-input--bordered.ds-input--error {
+        background-color: rgba(var(--ds-rgb-error)/.06);
+        box-shadow: inset 0 0 0 2px var(--ds-input-focus-border-color, rgb(var(--ds-rgb-error)))
+    }
+
+    .ds-input.ds-input--filled {
+        background-color: var(--ds-input-color)
+    }
+
+    .ds-input.ds-input--bordered {
+        box-shadow: inset 0 0 0 1px rgb(var(--ds-rgb-separator-strong))
+    }
+
+    .ds-icon-button {
+        --ds-icon-button-text-color: rgb(var(--ds-rgb-label-2));
+        --ds-icon-button-outline-color: rgb(var(--ds-rgb-primary));
+        --ds-icon-button-size: 18px;
+        --ds-icon-button-background-inset: -4px;
+        width: var(--ds-icon-button-size);
+        height: var(--ds-icon-button-size);
+        color: var(--ds-icon-button-text-color);
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        position: relative
+    }
+
+    .ds-icon-button svg {
+        height: var(--ds-icon-button-size);
+        width: var(--ds-icon-button-size);
+        fill: currentColor;
+        position: relative
+    }
+
+    .ds-icon-button:hover:before {
+        background-color: var(--ds-icon-button-hover-color, rgb(var(--ds-rgb-hover)))
+    }
+
+    .ds-icon-button:before {
+        transition: background-color var(--ds-transition-duration)var(--ds-ease-in-out);
+        content: "";
+        background-color: rgba(var(--ds-rgba-transparent));
+        top: var(--ds-icon-button-background-inset);
+        right: var(--ds-icon-button-background-inset);
+        bottom: var(--ds-icon-button-background-inset);
+        left: var(--ds-icon-button-background-inset);
+        border-radius: 8px;
+        display: block;
+        position: absolute
+    }
+
+    .ds-icon-button {
+        outline: none
+    }
+
+    .ds-icon-button:after {
+        transition: box-shadow var(--ds-transition-duration)var(--ds-ease-in-out);
+        content: "";
+        top: calc(var(--ds-icon-button-background-inset) - 2px);
+        right: calc(var(--ds-icon-button-background-inset) - 2px);
+        bottom: calc(var(--ds-icon-button-background-inset) - 2px);
+        left: calc(var(--ds-icon-button-background-inset) - 2px);
+        pointer-events: none;
+        border-radius: 10px;
+        display: block;
+        position: absolute
+    }
+
+    .ds-icon-button:focus-visible:after {
+        box-shadow: 0 0 0 2px var(--ds-icon-button-outline-color)
+    }
+
+    .ds-icon {
+        line-height: 0;
+        display: inline-flex
+    }
+
+    .ds-icon>svg {
+        width: inherit;
+        height: inherit
+    }
+
+    .ds-a {
+        --a-border-radius: 6px;
+        --a-box-shadow-color-focus: rgb(var(--ds-rgb-link))
+    }
+
+    .ds-a.ds-a--link {
+        --a-text-color: rgb(var(--ds-rgb-link));
+        --a-box-shadow-color-focus: rgb(var(--ds-rgb-link))
+    }
+
+    .ds-a.ds-a--primary {
+        --a-text-color: rgb(var(--ds-rgb-primary));
+        --a-box-shadow-color-focus: rgb(var(--ds-rgb-primary))
+    }
+
+    .ds-a.ds-a--secondary {
+        --a-text-color: var(--a-text-color-secondary);
+        --a-box-shadow-color-focus: rgb(var(--ds-rgb-link))
+    }
+
+    .ds-a:focus {
+        outline: none
+    }
+
+    .ds-a:focus-visible {
+        box-shadow: 0 0 0 2px var(--a-box-shadow-color-focus)
+    }
+
+    .ds-a {
+        cursor: pointer;
+        transition: color var(--ds-transition-duration)var(--ds-ease-in-out), box-shadow var(--ds-transition-duration)var(--ds-ease-in-out);
+        border-radius: var(--a-border-radius);
+        color: var(--a-text-color);
+        border-left: 3px solid rgba(var(--ds-rgba-transparent));
+        border-right: 3px solid rgba(var(--ds-rgba-transparent));
+        border-top: 2px solid rgba(var(--ds-rgba-transparent));
+        border-bottom: 2px solid rgba(var(--ds-rgba-transparent));
+        margin: -2px -3px;
+        text-decoration: none;
+        position: relative
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Background Image -->
+<div class="background-image"></div>
+
+<div class="body-div">
+
+    <div class="main-container">
+
+        <div class="ds-theme"
+            style="--ds-rgb-hover: 68 68 77; --ds-rgb-input: 85 85 98; --ds-rgb-input-focus: 58 58 70; --ds-rgb-label-1: #F8FAFF; --ds-rgb-label-2: #BBB; --ds-rgb-primary: 77 107 254; --ds-button-hover-color: #3D4FA9; --ds-modal-content-color: #3A3A46; font-size: var(--ds-font-size-m); line-height: var(--ds-line-height-m);">
+            <div class="ds-auth-form-wrapper">
+
+                <div class="ds-form-item ds-form-item--none ds-form-item--label-m">
+                    <div class="ds-form-item__content">
+                        <div class="ds-input ds-input--none ds-input--bordered ds-input--l">
+                            <div class="ds-input__icon">
+                                <div class="ds-icon" style="font-size: 1em; width: 1em; height: 1em;"><svg
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        viewBox="0 0 24 24">
+                                        <g fill="none">
+                                            <path
+                                                d="M12 2a4 4 0 0 1 4 4v2h1.75A2.25 2.25 0 0 1 20 10.25v9.5A2.25 2.25 0 0 1 17.75 22H6.25A2.25 2.25 0 0 1 4 19.75v-9.5A2.25 2.25 0 0 1 6.25 8H8V6a4 4 0 0 1 4-4zm5.75 7.5H6.25a.75.75 0 0 0-.75.75v9.5c0 .414.336.75.75.75h11.5a.75.75 0 0 0 .75-.75v-9.5a.75.75 0 0 0-.75-.75zm-5.75 4a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3zm0-10A2.5 2.5 0 0 0 9.5 6v2h5V6A2.5 2.5 0 0 0 12 3.5z"
+                                                fill="currentColor"></path>
+                                        </g>
+                                    </svg></div>
+                            </div><input type="password" class="ds-input__input" placeholder="Password" size="1"
+                                value="">
+                            <div class="ds-input__password-toggle">
+                                <div class="ds-icon-button" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
+                                        <path
+                                            d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 0 0-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 0 0 0-17.47C428.89 172.28 347.8 112 255.66 112z"
+                                            fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="32"></path>
+                                        <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor"
+                                            stroke-miterlimit="10" stroke-width="32"></circle>
+                                    </svg></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ds-form-item__feedback" data-transform-origin="top"></div>
+                </div>
+                
+                
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

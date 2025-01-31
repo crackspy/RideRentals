@@ -249,17 +249,21 @@ def admin_only_view(request):
 #------------------ test views  ----------------
 
 
-def test(request):
+def test0(request):
     # Add some messages
     # messages.success(request, "Your booking was successful!")
     # messages.error(request, "Payment failed. Please try again.")
     # messages.warning(request, "Booking confirmation is pending.")
 
+    return render(request, 'mainapp/test/test0.html')
 
-
-
-    return render(request, 'mainapp/test.html')
-def test_p(request):
+def test1(request):
+    
+    return render(request, 'mainapp/test/test1.html')
+def test2(request):
+    
+    return render(request, 'mainapp/test/test2.html')
+def test_b(request):
     # Add some messages
     # messages.success(request, "Your booking was successful!")
     # messages.error(request, "Payment failed. Please try again.")

@@ -48,8 +48,10 @@ urlpatterns = [
     path('remove-from-wishlist/<slug:slug>/', views.remove_from_wishlist, name='remove_from_wishlist'),
 
     # test URLs
-    path('test/', views.test, name='test'),
-    path('test-p/', views.test_p, name='test-p'),
+    path('test0/', views.test0, name='test0'),
+    path('test1/', views.test1, name='test1'),
+    path('test2/', views.test2, name='test2'),
+    path('test-b', views.test_b, name='test-b'),
     path('send-test-email/', views.send_test_email, name='send_test_email'),
 
 ]
