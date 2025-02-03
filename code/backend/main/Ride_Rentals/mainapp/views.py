@@ -96,8 +96,8 @@ def logout(request):
 def change_password(request):
     return render(request, 'mainapp/login/change_password.html')
 
-
 # -------------------------------------------------------
+
 
 #-----------------------  Rental  -----------------------
 @login_required
