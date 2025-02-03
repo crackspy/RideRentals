@@ -568,7 +568,6 @@
    .hero { min-height: 100vh; }
  
    .hero-banner {
-     left: auto;
      right: 0;
      width: 630px;
    }

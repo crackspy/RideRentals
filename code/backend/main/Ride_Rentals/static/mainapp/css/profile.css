@@ -549,7 +549,7 @@
         width: 230px;
     }
     .sidebar-toggle {
-        display: none;
+        display: none !important;
     }
     .content {
         padding: 70px;
