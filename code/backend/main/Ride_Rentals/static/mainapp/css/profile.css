@@ -500,7 +500,6 @@
     }
 
     .popup-head h3 {
-        margin-bottom: 20px;
         font-size: 22px;
     }
 
@@ -572,10 +571,9 @@
 }
 
 .settings-card {
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-    padding: 10px;
+    padding: 10px 10px 15px;
     text-align: left;
-    border-radius: 10px;
+    border-bottom: solid #1a9df4 3px;
 }
 
 .settings-card h4 {
@@ -590,19 +588,34 @@
 }
 
 .settings-card .btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-around;
-    padding: 12px 0;
-    width: 230px;
-    font-size: 18px;
-    background-color: #ffc107;
+    justify-content: center;
+    gap: 8px;
+    background-color: gold;
     color: black;
+    padding: 12px 15px;
+    width: 210px;
+    font-size: 18px;
     text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
     cursor: pointer;
 }
+.settings-card .btn-change_p {
+    background-color: #ffc107;
+    color: black;
+}
 
-.btn:hover {
+.settings-card .btn-update {
+    background-color:#0d6efd;
+    color: black;
+}
+
+.btn-change_p:hover {
     background-color: #ffca2e;
 }
 
+.btn-update:hover {
+    background-color: #0b5ed7;
+}

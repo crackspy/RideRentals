@@ -520,6 +520,10 @@ a {
         padding-inline: 0;
     }
 
+    .header .header-container {
+        padding-inline: 0px;
+    }
+
     .navbar-link {
         font-size: var(--fs-6);
     }
