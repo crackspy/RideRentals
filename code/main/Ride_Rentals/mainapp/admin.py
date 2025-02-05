@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car_info, Booking, Wishlist
+from .models import Profile, Car_info, Booking, Wishlist
 # Register your models here.
 
 # Custom action for marking booking as completed
@@ -18,9 +18,9 @@ class BookingAdmin(admin.ModelAdmin):
     list_display = ('cus_name', 'car', 'status', 'pickup_date', 'return_date', 'total_rent')
     actions = [mark_as_completed]  # Add custom action to the admin interface
 
+
 admin.site.register(Booking, BookingAdmin)
 
-
+admin.site.register(Profile)
 admin.site.register(Car_info)
-# admin.site.register(Booking)
 admin.site.register(Wishlist)

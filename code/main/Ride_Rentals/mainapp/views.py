@@ -9,7 +9,7 @@ from datetime import datetime
 # from django.utils.timezone import now
 from .models import Profile, Car_info, Booking, Wishlist
 from .utils import send_booking_email
-from .forms import ProfileForm
+from .forms import ProfileUpdateForm
 
 
 # password-reset-view
@@ -241,22 +241,21 @@ def profile_dashboard(request):
 
 @login_required
 def update_profile(request):
+    user = request.user  # Get the logged-in user
+    profile = user.profile  # Get the user’s profile
+
     if request.method == 'POST':
-        # Get the Profile object for the current user
-        profile = request.user.profile
-
-        # Initialize the form with the current user's profile data
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile, user=user)
         if form.is_valid():
-            form.save()  # Save the updated profile
+            form.save(user)  # Save user and profile data
             messages.success(request, 'Your profile has been updated successfully!')
-            return redirect('profile')  # Redirect to profile page or wherever you want
+            return redirect('update_profile')
         else:
-            messages.error(request, 'There was an error updating your profile.')
+            messages.error(request, 'Please correct the errors below.')
     else:
-        form = ProfileForm(instance=request.user.profile)
+        form = ProfileUpdateForm(user=user, instance=profile)
 
-    return render(request, 'mainapp/profile-update.html', {'form': form})
+    return render(request, 'mainapp/profile/update_profile.html', {'form': form})
 
 # -------------------------------------------------------
 

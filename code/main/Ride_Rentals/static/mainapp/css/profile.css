@@ -1,6 +1,5 @@
 .dashboard-container {
     width: 100%;
-    height: 100dvh;
     padding-top: 70px;
     background-color: #f4f4f9;
     display: flex;
@@ -23,7 +22,7 @@
     top: 0;
     left: -210px; /* Hide the sidebar initially */
     transition: left 0.3s ease-in-out; /* Slide transition */
-    z-index: 1000;
+    z-index: 1400;
 }
 
 .sidebar.open {
@@ -71,7 +70,7 @@
     border-radius: var(--radius-14);
     color: white;
     padding: 10px 15px;
-    z-index: 1001;
+    z-index: 1400;
     animation: slideBackAndForth 2s ease-in-out 3; /* Runs 3 times */
 }
 
@@ -117,6 +116,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
 }
 
 .card h5 {
@@ -193,7 +197,7 @@
     background-color: white;
     border-radius: var(--radius-18);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 1500;
     max-width: 700px;
     flex-direction: column;
     align-items: center;
@@ -209,7 +213,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 1100;
 }
 
 .popup-head {
@@ -406,12 +410,68 @@
     color: #fff;
 }
 
+/* settings popup */
+.settings-card {
+    padding: 10px 10px 15px;
+    text-align: left;
+    border-bottom: solid #1a9df4 3px;
+}
+
+.settings-card h4 {
+    font-size: 22px;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.settings-card p {
+    margin-bottom: 1rem;
+}
+
+.settings-card .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: gold;
+    color: black;
+    padding: 12px 15px;
+    width: 210px;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.settings-card .btn-change_p {
+    background-color: #ffc107;
+    color: black;
+}
+
+.settings-card .btn-update {
+    background-color:#0d6efd;
+    color: black;
+}
+
+.btn-change_p:hover {
+    background-color: #ffca2e;
+}
+
+.btn-update:hover {
+    background-color: #0b5ed7;
+}
+
+
 /*-----------------------------------*\
   #MEDIA QUERIES
 \*-----------------------------------*/
 
 /* Media Query for Small Screens */
 @media (min-width: 350px) {
+
+    .dashboard-container {
+        height: 110dvh;
+    }
     ::-webkit-scrollbar {
         width: 2px;
     }
@@ -426,14 +486,19 @@
         height: 75%;
     }
 
+    .popup-head {
+        margin-bottom: 0px;
+    }
+
     .popup-head h3 {
         margin-bottom: 0px;
         font-size: 18px;
     }
 
-    .popup-content {
-        padding: 2px;
+    .popup-content p {
+        font-size: 14px;
     }
+
     .popup-content .pos-b {
         position: static;
     }
@@ -474,10 +539,27 @@
     .sidebar-toggle {
         display: block;
     }
+
+    .settings-card {
+        padding: 10px 8px 15px;
+        text-align: center;
+    }
+    .settings-card h4 {
+        font-size: 19px;
+        margin-bottom: 0.2rem;
+    }
+
+    .settings-card p {
+        margin-bottom: 0.8rem;
+    }
+
 }
 
 /* Media Query for Medium Screens */
 @media (min-width: 650px) {
+    .dashboard-container {
+        height: 100dvh;
+    }
     .arrow-back {
         left: 35% !important;
     }
@@ -560,62 +642,3 @@
 
 
 
-/* test code */
-
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-8px);
-}
-
-.settings-card {
-    padding: 10px 10px 15px;
-    text-align: left;
-    border-bottom: solid #1a9df4 3px;
-}
-
-.settings-card h4 {
-    font-size: 22px;
-    margin-bottom: .5rem;
-    font-weight: 500;
-    line-height: 1.2;
-}
-
-.settings-card p {
-    margin-bottom: 1rem;
-}
-
-.settings-card .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background-color: gold;
-    color: black;
-    padding: 12px 15px;
-    width: 210px;
-    font-size: 18px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.settings-card .btn-change_p {
-    background-color: #ffc107;
-    color: black;
-}
-
-.settings-card .btn-update {
-    background-color:#0d6efd;
-    color: black;
-}
-
-.btn-change_p:hover {
-    background-color: #ffca2e;
-}
-
-.btn-update:hover {
-    background-color: #0b5ed7;
-}

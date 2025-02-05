@@ -14,7 +14,7 @@
     <div class="sidebar" id="sidebar">
         <div class="profile-icon">
             {% if user_profile.profile_image %}
-            <img src="{{ user_profile.profile_image.url }}" height="90px" alt="Profile Image" />
+            <img src="{{ user_profile.profile_picture.url }}" height="90px" alt="Profile Image" />
             {% else %}
             <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="Default Profile Image" />
             {% endif %}
