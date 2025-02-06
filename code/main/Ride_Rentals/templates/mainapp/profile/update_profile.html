@@ -3,6 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'mainapp/css/password-reset.css' %}">
+<link rel="stylesheet" href="{% static 'mainapp/css/update-profile.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,6 +14,42 @@
 
             <form method="post" enctype="multipart/form-data" id="profile_update_form">
                 {% csrf_token %}
+
+                <div class="form-group-div m-b0">
+                    <div class="profile-image-div">
+                        <div class="profile-image-preview">
+                            <img id="profileImage" src="{{ user_profile.profile_picture.url }}" alt="Profile Image">
+                            <span class="edit-icon" id="openPopup">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </span>
+                        </div>
+                        <div class="set-default">
+                            <input type="checkbox" name="profile_picture-clear" id="profile_picture-clear_id">
+                            <label for="profile_picture-clear_id" id="setDefaultLabel">Set Default</label>
+                        </div>
+                        <button type="button" id="revertImage" class="revert-btn" style="display: none;">Revert</button>
+                    </div>
+                </div>
+                
+                <!-- Image Upload Popup -->
+                <div id="imagePopup" class="popup">
+                    <div class="popup-content">
+                        <h2>Upload Image</h2>
+                        <div id="dropZone">
+                            <p>Drop Image Anywhere or <span id="browseImage">Browse</span></p>
+                            <input type="file" id="imageUpload" accept="image/jpeg, image/png, image/jpg" hidden>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Error Popup -->
+                <div id="errorPopup" class="popup">
+                    <div class="popup-content">
+                        <h2>Error</h2>
+                        <p id="errorMessage"></p>
+                        <button id="closeErrorPopup">OK</button>
+                    </div>
+                </div>
 
                 <div class="form-group-div">
                     <label for="id_first_name">First Name:</label>
@@ -42,36 +79,101 @@
                     </div>
                 </div>
 
-                <div class="form-group-div">
-                    <label for="id_profile_picture">Profile Picture:</label>
-                    <div class="form-group">
-                        {{ form.profile_picture }}
-                    </div>
-                </div>
-
-                <!-- Profile Picture Preview -->
-                <div class="profile-image-preview">
-                        <img id="profile_preview" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="width:150px;height:150px;border-radius:50%;">
-                </div>
-
                 <button type="submit" class="btn">Update Profile</button>
             </form>
         </div>
     </div>
 </div>
 
-<!-- JavaScript to preview the uploaded image -->
+
 <script>
-    document.getElementById("id_profile_picture").addEventListener("change", function(event) {
-        var file = event.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById("profile_preview").src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+document.addEventListener('DOMContentLoaded', function() {
+    const openPopup = document.getElementById('openPopup');
+    const imagePopup = document.getElementById('imagePopup');
+    const errorPopup = document.getElementById('errorPopup');
+    const dropZone = document.getElementById('dropZone');
+    const browseImage = document.getElementById('browseImage');
+    const imageUpload = document.getElementById('imageUpload');
+    const profileImage = document.getElementById('profileImage');
+    const closeErrorPopup = document.getElementById('closeErrorPopup');
+    const errorMessage = document.getElementById('errorMessage');
+    const clearCheckbox = document.getElementById('profile_picture-clear_id');
+    const setDefaultLabel = document.getElementById('setDefaultLabel');
+    const revertImage = document.getElementById('revertImage');
+
+    let oldProfileImage = profileImage.src;
+    
+    // Open Image Upload Popup
+    openPopup.addEventListener('click', function() {
+        imagePopup.style.display = 'flex';
+    });
+
+    // Drag and Drop Upload
+    document.addEventListener('dragover', function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener('drop', function(event) {
+        event.preventDefault();
+        handleFile(event.dataTransfer.files[0]);
+    });
+
+    // Browse Image Click
+    browseImage.addEventListener('click', function() {
+        imageUpload.click();
+    });
+
+    // Image Selection via File Input
+    imageUpload.addEventListener('change', function(event) {
+        handleFile(event.target.files[0]);
+    });
+
+    // Handle Image File Upload
+    function handleFile(file) {
+        if (!file) return;
+
+        const validExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validExtensions.includes(file.type) || file.size > 5 * 1024 * 1024) {
+            errorMessage.textContent = 'Invalid file! Choose an image (JPG, PNG) under 5MB.';
+            errorPopup.style.display = 'flex';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            profileImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        imagePopup.style.display = 'none';
+    }
+
+    // Close Error Popup
+    closeErrorPopup.addEventListener('click', function() {
+        errorPopup.style.display = 'none';
+    });
+
+    // Set Default Profile Picture
+    clearCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            profileImage.src = "/static/default-profile.png";  // Set default image path
+            setDefaultLabel.textContent = "Revert";
+            revertImage.style.display = 'block';
+        } else {
+            profileImage.src = oldProfileImage;
+            setDefaultLabel.textContent = "Set Default";
+            revertImage.style.display = 'none';
         }
     });
+
+    // Revert to Original Profile Picture
+    revertImage.addEventListener('click', function() {
+        profileImage.src = oldProfileImage;
+        clearCheckbox.checked = false;
+        setDefaultLabel.textContent = "Set Default";
+        revertImage.style.display = 'none';
+    });
+});
+
 </script>
 
 {% endblock %}

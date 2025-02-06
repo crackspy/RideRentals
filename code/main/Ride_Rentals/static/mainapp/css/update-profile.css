@@ -1,3 +1,4 @@
+/* Profile Picture Section */
 .profile-image-div {
     display: flex;
     flex-direction: column;
@@ -9,33 +10,78 @@
     position: relative;
     width: 120px;
     height: 120px;
-    border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
-    border: 3px solid #ddd;
 }
 
 .profile-image-preview img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     border-radius: 50%;
+    object-fit: cover;
 }
 
-.profile-image-preview .edit-icon {
+.edit-icon {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 5px;
+    bottom: 12px;
+    right: 40px;
+    font-size: 25px;
     border-radius: 50%;
     color: #fff;
     cursor: pointer;
+
 }
 
-.clear-btn {
+/* Popup Styling */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+#dropZone {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    cursor: pointer;
     margin-top: 10px;
-    background: #ff4d4d;
+}
+
+#dropZone p {
+    margin: 0;
+}
+
+#browseImage {
+    color: blue;
+    cursor: pointer;
+}
+
+.set-default {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.set-default input {
+    margin-right: 5px;
+}
+
+.revert-btn {
+    margin-top: 10px;
+    background: #007bff;
     color: white;
     border: none;
     padding: 8px 12px;
