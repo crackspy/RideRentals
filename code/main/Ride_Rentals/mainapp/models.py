@@ -8,22 +8,52 @@ import uuid
 import os
 
 
-# Function to generate a unique filename and save it
+# Profile details
 def profile_image_path(instance, filename):
-    ext = filename.split('.')[-1]  # Get file extension
-    filename = f"{uuid.uuid4().hex}.{ext}"  # Generate a random filename
+    ext = filename.split('.')[-1]
+    filename = f"{uuid.uuid4().hex}.{ext}"  # Random string filename
     return os.path.join('images/profile_pics/', filename)
 
-# Profile details
+# Function to validate file size
+def validate_file_size(value):
+    limit = 5 * 1024 * 1024  # 5MB limit
+    if value.size > limit:
+        raise ValidationError("File size must be less than 5MB.")
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(
-        upload_to=profile_image_path, 
-        blank=True, 
-        null=True, 
-        default='images/profile_pics/default.png'
+        upload_to=profile_image_path,
+        blank=True,
+        null=True,
+        default='images/profile_pics/default.png',
+        validators=[validate_file_size]
     )
     phone_number = models.CharField(max_length=15, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        """
+        Override save method:
+        - Delete old profile image when uploading a new one.
+        - Ensure default image is not deleted.
+        """
+        try:
+            old_profile = Profile.objects.get(pk=self.pk)
+            if old_profile.profile_picture and old_profile.profile_picture.url != '/media/images/profile_pics/default.png':
+                if old_profile.profile_picture != self.profile_picture:
+                    if os.path.isfile(old_profile.profile_picture.path):
+                        os.remove(old_profile.profile_picture.path)
+        except Profile.DoesNotExist:
+            pass  # New profile, no old image to delete
+
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """Delete profile image when profile is deleted."""
+        if self.profile_picture and self.profile_picture.url != '/media/images/profile_pics/default.png':
+            if os.path.isfile(self.profile_picture.path):
+                os.remove(self.profile_picture.path)
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.user.username
@@ -145,20 +175,6 @@ def delete_event_image(sender, instance, **kwargs):
     if instance.img and os.path.isfile(instance.img.path):
         instance.img.delete(save=False)
 
-# delete old profile image 
-@receiver(models.signals.pre_save, sender=Profile)
-def auto_delete_old_image_on_change(sender, instance, **kwargs):
-    """Deletes old profile picture from storage when updating with a new one."""
-    if instance.pk:  # Only run if the instance already exists (updating)
-        try:
-            old_profile = Profile.objects.get(pk=instance.pk)
-        except Profile.DoesNotExist:
-            return
-
-        # If profile_picture is being changed and it's not default, delete old file
-        if old_profile.profile_picture and old_profile.profile_picture != instance.profile_picture:
-            if old_profile.profile_picture.name != 'images/profile_pics/default.png':  
-                old_profile.profile_picture.delete(save=False)
 
 
 

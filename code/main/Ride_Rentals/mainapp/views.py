@@ -241,21 +241,24 @@ def profile_dashboard(request):
 
 @login_required
 def update_profile(request):
-    user = request.user  # Get the logged-in user
-    profile = user.profile  # Get the user’s profile
+    user = request.user
+    profile = user.profile
 
-    if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile, user=user)
+    if request.method == "POST":
+        form = ProfileUpdateForm(request.POST, request.FILES, user=user)
+        
         if form.is_valid():
-            form.save(user)  # Save user and profile data
-            messages.success(request, 'Your profile has been updated successfully!')
-            return redirect('update_profile')
-        else:
-            messages.error(request, 'Please correct the errors below.')
-    else:
-        form = ProfileUpdateForm(user=user, instance=profile)
+            form.save(user)
+            messages.success(request, "Your profile has been updated successfully.")
+            return redirect("update_profile")
 
-    return render(request, 'mainapp/profile/update_profile.html', {'form': form})
+    else:
+        form = ProfileUpdateForm(user=user, initial={
+            'phone_number': profile.phone_number,
+            'profile_picture': profile.profile_picture,
+        })
+
+    return render(request, "mainapp/profile/update_profile.html", {"form": form, "user_profile": profile})
 
 # -------------------------------------------------------
 

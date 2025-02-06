@@ -17,6 +17,7 @@
                 <img src="{{ user_profile.profile_picture.url }}" height="90px" alt="Profile Image" />
             {% else %}
                 <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="Default Profile Image" />
+            {% endif %}
         </div>
         <h5 class="usrname m-b-10 fz-18">{{ user.username|title }}</h5>
         <p class="email m-b-10">{{ user.email }}</p>
@@ -78,7 +79,7 @@
             <div class="card-body">
                 <h4>Update Profile</h4>
                 <p>Update your personal information:</p>
-                <a href="" class="btn btn-update">
+                <a href="{% url 'update_profile' %}" class="btn btn-update">
                     <i><ion-icon name="create-outline"></ion-icon> </i>
                     <span>Update Profile</span>
                 </a>
