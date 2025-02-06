@@ -13,11 +13,10 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="profile-icon">
-            {% if user_profile.profile_image %}
-            <img src="{{ user_profile.profile_picture.url }}" height="90px" alt="Profile Image" />
+            {% if user_profile.profile_picture and user_profile.profile_picture.url %}
+                <img src="{{ user_profile.profile_picture.url }}" height="90px" alt="Profile Image" />
             {% else %}
-            <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="Default Profile Image" />
-            {% endif %}
+                <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="Default Profile Image" />
         </div>
         <h5 class="usrname m-b-10 fz-18">{{ user.username|title }}</h5>
         <p class="email m-b-10">{{ user.email }}</p>

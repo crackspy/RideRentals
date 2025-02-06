@@ -1,21 +1,29 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
-from django.contrib.auth.models import User  # Import User model
+from django.core.exceptions import ValidationError
+import uuid
 import os
 
-# User profile
+
+# Function to generate a unique filename and save it
+def profile_image_path(instance, filename):
+    ext = filename.split('.')[-1]  # Get file extension
+    filename = f"{uuid.uuid4().hex}.{ext}"  # Generate a random filename
+    return os.path.join('images/profile_pics/', filename)
+
+# Profile details
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(
-        upload_to='media/images/profile_pics/', 
+        upload_to=profile_image_path, 
         blank=True, 
         null=True, 
-        default='media/images/profile_pics/default.png'
+        default='images/profile_pics/default.png'
     )
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    # You can access email, first_name, last_name, and username via `profile.user.email`, `profile.user.first_name`, etc.
 
     def __str__(self):
         return self.user.username
@@ -129,10 +137,28 @@ class Wishlist(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.car.name}" 
 
+# receivers
 
+# delete old car image 
 @receiver(post_delete, sender=Car_info)
 def delete_event_image(sender, instance, **kwargs):
     if instance.img and os.path.isfile(instance.img.path):
         instance.img.delete(save=False)
+
+# delete old profile image 
+@receiver(models.signals.pre_save, sender=Profile)
+def auto_delete_old_image_on_change(sender, instance, **kwargs):
+    """Deletes old profile picture from storage when updating with a new one."""
+    if instance.pk:  # Only run if the instance already exists (updating)
+        try:
+            old_profile = Profile.objects.get(pk=instance.pk)
+        except Profile.DoesNotExist:
+            return
+
+        # If profile_picture is being changed and it's not default, delete old file
+        if old_profile.profile_picture and old_profile.profile_picture != instance.profile_picture:
+            if old_profile.profile_picture.name != 'images/profile_pics/default.png':  
+                old_profile.profile_picture.delete(save=False)
+
 
 
