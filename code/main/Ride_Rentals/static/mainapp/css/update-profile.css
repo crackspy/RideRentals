@@ -32,43 +32,6 @@
 
 }
 
-/* Popup Styling */
-.popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-}
-
-#dropZone {
-    border: 2px dashed #ccc;
-    padding: 30px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-#dropZone p {
-    margin: 0;
-}
-
-#browseImage {
-    color: blue;
-    cursor: pointer;
-}
-
 .set-default {
     display: flex;
     align-items: center;
@@ -87,4 +50,66 @@
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.dashed-border {
+    border: 2px dashed #ccc;
+    padding: 40px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 48px; /* Adjust icon size */
+    color: #673ab7; /* Indigo color for icon */
+    margin-bottom: 10px;
+}
+
+.upload-icon ion-icon {
+    width: 100%;
+}
+
+.upload-text {
+    color: #757575; /* Gray text color */
+    margin-bottom: 10px;
+}
+
+.file-size-info {
+    color: #9e9e9e; /* Lighter gray for file size info */
+    font-size: 14px;
+}
+
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100; /* Lower than upload-popup */
+}
+
+.upload-popup {
+    z-index: 1500; /* Ensure it's above the overlay */
+
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px;
+    overflow: hidden;
+}
+
+#errorPopup {
+    display: none;
 }

@@ -1,9 +1,15 @@
-{% extends 'mainapp/base.html' %} {% load static %} {% block title %} Profile -
-{{ user.username }} {% endblock %} {% block head %}
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %} Profile - {{ user.username }} {% endblock %} 
+
+{% block head %}
 
 <link rel="stylesheet" href="{% static 'mainapp/css/profile.css' %}" />
 
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="dashboard-container">
     <!-- Sidebar Toggle Button -->
     <div class="sidebar-toggle" id="sidebarToggle">
