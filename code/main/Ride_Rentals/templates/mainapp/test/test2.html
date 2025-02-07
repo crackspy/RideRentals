@@ -5,13 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Upload</title>
     <style>
-        .upload-container {
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100dvh;
+            background-color: #673ab7;
+        }
+
+        .upload-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 400px; /* Adjust width as needed */
+            width: 400px;
+            z-index: 100;
+            display: none;
         }
 
         .dashed-border {
@@ -22,41 +37,136 @@
         }
 
         .cloud-icon {
-            font-size: 48px; /* Adjust icon size */
-            color: #673ab7; /* Indigo color for icon */
+            font-size: 48px;
+            color: #673ab7;
             margin-bottom: 10px;
         }
 
         .upload-text {
-            color: #757575; /* Gray text color */
+            color: #757575;
             margin-bottom: 10px;
         }
 
         .file-size-info {
-            color: #9e9e9e; /* Lighter gray for file size info */
+            color: #9e9e9e;
             font-size: 14px;
         }
 
-        /* Style for the file input element (hidden by default) */
         #imageUpload {
+            display: none;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
             display: none;
         }
     </style>
 </head>
 <body>
+    <div class="main">
+        <button id="openUploadButton">Upload</button>
+        <span id="fileName"></span> <div id="drop-area"></div>
 
-    <div class="upload-container">
-        <div class="dashed-border" onclick="document.getElementById('imageUpload').click();">
-            <div class="cloud-icon"><ion-icon name="arrow-up-circle-outline"></ion-icon></div>
-            <div class="upload-text">
-                Drag and drop or 
-                <span style="color: #673ab7;">Click here</span>
-                <br> to upload Image.
+        <div class="upload-popup" id="uploadPopup">
+            <div class="dashed-border" id="drop-area-popup" onclick="document.getElementById('imageUpload').click();">
+                <div class="cloud-icon"><ion-icon name="arrow-up-circle-outline"></ion-icon></div>
+                <div class="upload-text">
+                    Drag and drop or 
+                    <span style="color: #673ab7;">Click here</span>
+                    <br> to upload Image.
+                </div>
+                <div class="file-size-info">Image size must be less than 5 MB</div>
             </div>
-            <div class="file-size-info">Image size must be less than 5 MB</div>
+            <input type="file" id="imageUpload" accept="image/*"> 
         </div>
-        <input type="file" id="imageUpload" accept="image/*"> 
     </div>
 
+    <script>
+        const uploadPopup = document.getElementById("uploadPopup");
+        const openUploadButton = document.getElementById("openUploadButton");
+        const overlay = document.createElement("div");
+        const dropArea = document.getElementById('drop-area'); // For whole page drop
+        const dropAreaPopup = document.getElementById('drop-area-popup'); // For popup drop
+        const fileInput = document.getElementById('imageUpload');
+        const fileNameSpan = document.getElementById('fileName');
+
+        overlay.id = "popupOverlay";
+        overlay.className = "popup-overlay";
+        document.body.appendChild(overlay);
+
+        openUploadButton.addEventListener("click", openUploadPopup);
+
+        function openUploadPopup() {
+            uploadPopup.style.display = "block";
+            overlay.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        overlay.addEventListener("click", closeUploadPopup);
+
+        function closeUploadPopup() {
+            uploadPopup.style.display = "none";
+            overlay.style.display = "none";
+            document.body.style.overflow = "auto";
+            fileInput.value = ''; // Clear file input
+            fileNameSpan.textContent = ''; // Clear file name display
+        }
+
+        // Handle file selection (both click and drag/drop)
+        function handleFileSelect(files) {
+            const file = files[0];
+            if (file) {
+                fileNameSpan.textContent = file.name; // Display file name
+                closeUploadPopup(); // Close popup after file selection
+            }
+        }
+
+        fileInput.addEventListener('change', (event) => {
+            handleFileSelect(event.target.files);
+        });
+
+        // Drag and drop for whole page
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault(); // Important: Prevent default behavior
+            dropArea.classList.add('highlight'); // Add a visual highlight (optional)
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('highlight');
+        });
+
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault(); // Important: Prevent default behavior
+            dropArea.classList.remove('highlight');
+            handleFileSelect(event.dataTransfer.files);
+        });
+
+        // Drag and drop for the popup
+        dropAreaPopup.addEventListener('dragover', (event) => {
+            event.preventDefault(); // Important: Prevent default behavior
+            dropAreaPopup.classList.add('highlight'); // Add a visual highlight (optional)
+        });
+
+        dropAreaPopup.addEventListener('dragleave', () => {
+            dropAreaPopup.classList.remove('highlight');
+        });
+
+        dropAreaPopup.addEventListener('drop', (event) => {
+            event.preventDefault(); // Important: Prevent default behavior
+            dropAreaPopup.classList.remove('highlight');
+            handleFileSelect(event.dataTransfer.files);
+        });
+
+
+
+    </script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
