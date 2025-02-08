@@ -20,9 +20,9 @@
     <div class="sidebar" id="sidebar">
         <div class="profile-icon">
             {% if user_profile.profile_picture and user_profile.profile_picture.url %}
-                <img src="{{ user_profile.profile_picture.url }}" height="90px" alt="Profile Image" />
+                <img src="{{ user_profile.profile_picture.url }}" alt="Profile Image" />
             {% else %}
-                <img src="{% static 'mainapp/images/home/profile.png' %}" height="90px" alt="Default Profile Image" />
+                <img src="{% static 'mainapp/images/home/profile.png' %}" alt="Default Profile Image" />
             {% endif %}
         </div>
         <h5 class="usrname m-b-10 fz-18">{{ user.username|title }}</h5>

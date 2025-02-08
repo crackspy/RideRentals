@@ -8,7 +8,8 @@ class ProfileUpdateForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, required=True)
     email = forms.EmailField(required=True)
     phone_number = forms.CharField(max_length=15, required=False)
-
+    set_default_picture = forms.BooleanField(required=False)
+    
     class Meta:
         model = Profile
         fields = ['profile_picture']
@@ -20,10 +21,10 @@ class ProfileUpdateForm(forms.ModelForm):
         if user:
             self.fields['first_name'].initial = user.first_name
             self.fields['last_name'].initial = user.last_name
-            self.fields['email'].initial = user.email
+            self.fields['email'].initial = user.email 
 
     def save(self, user):
-        """Save profile changes and handle image deletion if requested."""
+        """Save profile changes and handle setting default image."""
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
@@ -32,11 +33,12 @@ class ProfileUpdateForm(forms.ModelForm):
         profile = user.profile
         profile.phone_number = self.cleaned_data['phone_number']
 
-        if self.cleaned_data['clear_picture']:
-            if profile.profile_picture and profile.profile_picture.url != '/media/images/profile_pics/default.png':
-                if profile.profile_picture.path:
-                    os.remove(profile.profile_picture.path)
-            profile.profile_picture = 'images/profile_pics/default.png'
-
+        if self.cleaned_data.get("set_default_picture"):
+            # If the hidden field is True, set default image
+            profile.profile_picture = "images/profile_pics/default.png"
+        elif self.cleaned_data.get("profile_picture"):
+            # If a new image is provided, update it
+            profile.profile_picture = self.cleaned_data["profile_picture"]
+        
         profile.save()
         return profile

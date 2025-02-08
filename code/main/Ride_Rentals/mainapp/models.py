@@ -32,11 +32,6 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        """
-        Override save method:
-        - Delete old profile image when uploading a new one.
-        - Ensure default image is not deleted.
-        """
         try:
             old_profile = Profile.objects.get(pk=self.pk)
             if old_profile.profile_picture and old_profile.profile_picture.url != '/media/images/profile_pics/default.png':

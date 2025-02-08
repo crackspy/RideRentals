@@ -245,20 +245,24 @@ def update_profile(request):
     profile = user.profile
 
     if request.method == "POST":
+        print(request.POST)
         form = ProfileUpdateForm(request.POST, request.FILES, user=user)
-        
+
         if form.is_valid():
             form.save(user)
+
             messages.success(request, "Your profile has been updated successfully.")
-            return redirect("update_profile")
+            return redirect("profile")
 
     else:
         form = ProfileUpdateForm(user=user, initial={
-            'phone_number': profile.phone_number,
-            'profile_picture': profile.profile_picture,
+            "phone_number": profile.phone_number,
+            "profile_picture": profile.profile_picture,
         })
 
     return render(request, "mainapp/profile/update_profile.html", {"form": form, "user_profile": profile})
+
+
 
 # -------------------------------------------------------
 
@@ -291,6 +295,12 @@ def test1(request):
 def test2(request):
     
     return render(request, 'mainapp/test/test2.html')
+
+
+def test3(request):
+    
+    return render(request, 'mainapp/test/test3.html')
+
 def test_b(request):
     # Add some messages
     # messages.success(request, "Your booking was successful!")

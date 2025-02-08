@@ -113,6 +113,12 @@
 
     {% block content %} {% endblock %}
 
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+
 
     <!--
     - #FOOTER
@@ -245,6 +251,15 @@
         <script nomodule src="{% static 'mainapp/js/ionicons/ionicons.js' %}"></script>
 
         <script>
+
+            // Hide Preloader when page fully loads
+            window.addEventListener("load", function () {
+                const preloader = document.getElementById("preloader");
+                if (preloader) {
+                    preloader.style.display = "none";
+                }
+            });
+
             /**
              * Django notification messages
              */

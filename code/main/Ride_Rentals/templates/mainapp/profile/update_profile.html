@@ -1,7 +1,7 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
 
-{% block title %} Profile - {{ user.username }} {% endblock %} 
+{% block title %} Profile - {{ user.username }} {% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'mainapp/css/password-reset.css' %}">
@@ -27,43 +27,26 @@
 
                 <div class="form-group-div m-b0">
                     <div class="profile-image-div">
-                        <div class="profile-image-preview" onclick="openUploadPopup()">
-                            <img id="profileImage" src="{{ user_profile.profile_picture.url }}" alt="Profile Image">
-                            <span class="edit-icon" id="openPopup">
+                        <div class="profile-image-preview" id="openUploadButton">
+                            <img id="profileImage"
+                                src="{{ user_profile.profile_picture.url }}"
+                                data-default="{% static 'mainapp/images/home/default.png' %}"
+                                alt="Profile Image">
+                            <span class="edit-icon">
                                 <ion-icon name="pencil-sharp"></ion-icon>
                             </span>
                         </div>
-                        <div class="set-default">
-                            <input type="checkbox" name="profile_picture-clear" id="profile_picture-clear_id">
-                            <label for="profile_picture-clear_id" id="setDefaultLabel">Set Default</label>
+                        <div class="image-btn-div">
+                            <input type="hidden" name="set_default_picture" id="setDefaultPictureField" value="false">
+                            <button type="button" id="setDefaultButton" class="set-default-btn">Set Default</button>
+                            <button type="button" id="revertImage" class="revert-btn" style="display: none;">Revert</button>
                         </div>
-                        <button type="button" id="revertImage" class="revert-btn" style="display: none;">Revert</button>
                     </div>
-                </div>
-                
-                <!-- Image Upload Section -->
-                <div class="update-popup popup" id="uploadPopup">
-                    <div class="dashed-border" onclick="document.getElementById('imageUpload').click();">
-                        <div class="upload-icon"><ion-icon name="arrow-up-circle-outline"></ion-icon></div>
-                        <div class="upload-text">
-                            Drag and drop or 
-                            <span style="color: #673ab7;">Click here</span>
-                            <br> to upload Image.
-                        </div>
-                        <div class="file-size-info">Image size must be less than 5 MB</div>
-                    </div>
-                    <input type="file" id="imageUpload" accept="image/*">
                 </div>
 
-                
-                <!-- Error Popup -->
-                <div id="errorPopup" class="popup">
-                    <div class="popup-content">
-                        <h2>Error</h2>
-                        <p id="errorMessage"></p>
-                        <button id="closeErrorPopup">OK</button>
-                    </div>
-                </div>
+                <input type="file" id="imageUpload" name="profile_picture" 
+                    accept="image/*"
+                    style="display: none;">
 
                 <div class="form-group-div">
                     <label for="id_first_name">First Name:</label>
@@ -99,40 +82,22 @@
     </div>
 </div>
 
+<!-- image upload popup -->
+<div class="upload-popup" id="uploadPopup">
+    <div class="dashed-border" id="drop-area-popup" onclick="document.getElementById('imageUpload').click();">
+        <div class="upload-icon"><ion-icon name="arrow-up-circle-outline"></ion-icon></div>
+        <div class="upload-text">
+            Drag and drop or
+            <span style="color: #673ab7;">Click here</span>
+            to upload Image.
+        </div>
+        <div class="file-size-info">Image size must be less than 5 MB</div>
+        <div class="file-name" id="fileName"></div>
+    </div>
+</div>
 
-<script>
-const Upload = document.getElementById("uploadPopup");
-// Function to open the upload popup
-function openUploadPopup() {
-    // Show popup and overlay
-    Upload.style.display = "block";
-    document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
 
-    // Add overlay
-    var overlay = document.createElement("div");
-    overlay.id = "popup-overlay";
-    overlay.className = "popup-overlay";
-    document.body.appendChild(overlay);
 
-    // Close popup when clicking outside
-    overlay.onclick = function () {
-        closeUploadPopup();
-    };
-}
-
-// Function to close the settings popup
-function closeUploadPopup() {
-    // Hide popup and overlay
-    Upload.style.display = "none";
-    document.body.style.overflow = "auto";  // Allow body to scroll again
-
-    // Remove overlay
-    var overlay = document.getElementById("popup-overlay");
-    if (overlay) {
-        overlay.remove();
-    }
-
-}
-</script>
+<script src="{% static 'mainapp/js/update-profile.js' %}"></script>
 
 {% endblock %}
