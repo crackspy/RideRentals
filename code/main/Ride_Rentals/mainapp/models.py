@@ -118,6 +118,11 @@ class Booking(models.Model):
         RENTED = 'Rented'
         COMPLETED = 'Completed'
 
+    class Payment_method(models.TextChoices):
+        UPI = 'UPI'
+        CARD = 'Card'
+        CashOnDelivery = 'Cash on Delivery'
+
     class Payment_Status(models.TextChoices):
         PAID = 'Paid'
         PENDING = 'Pending'
@@ -128,16 +133,24 @@ class Booking(models.Model):
         default=Status.BOOKED,  # Default value is 'Booked'
     )
 
-    pickup_date = models.DateField()
-    return_date = models.DateField()
-    booked_on = models.DateField(auto_now=True)
-    rent = models.DecimalField(max_digits=10, decimal_places=2) # Car price
-    total_rent = models.DecimalField(max_digits=10, decimal_places=2) # Computed total rent
+    payment_method = models.CharField(
+        max_length=50,
+        choices=Payment_method.choices,
+        default=Payment_method.CashOnDelivery, # Default value is 'COD'
+    )
+
     payment_status = models.CharField(
         max_length=10,
         choices=Payment_Status.choices,
         default=Payment_Status.PENDING,  # Default value is 'Pending'
     )
+
+
+    pickup_date = models.DateField()
+    return_date = models.DateField()
+    booked_on = models.DateField(auto_now=True)
+    rent = models.DecimalField(max_digits=10, decimal_places=2) # Car price
+    total_rent = models.DecimalField(max_digits=10, decimal_places=2) # Computed total rent
 
     def save(self, *args, **kwargs):
         # Update car availability when status is set to 'completed'

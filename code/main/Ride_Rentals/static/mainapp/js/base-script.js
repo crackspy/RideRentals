@@ -34,3 +34,19 @@ window.addEventListener("scroll", function () {
         : header.classList.remove("active");
 });
 
+/**
+ * Progress bar on scroll
+ */
+
+window.addEventListener("scroll", function () {
+    let progressBar = document.getElementById("progressBar");
+    let scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+    let scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+    let scrollPercent = (scrollTop / scrollHeight) * 100;
+
+    progressBar.value = scrollPercent;
+});
+

@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validate First Name
         if (!/^[A-Za-z\s]{2,}$/.test(firstName.value.trim())) {
-            showError(firstName, "Enter a valid first name (at least 2 letters).");
+            showError(firstName, "Enter a valid first name");
             isValid = false;
         } else {
             clearError(firstName);
@@ -188,14 +188,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validate Last Name
         if (!/^[A-Za-z\s]{2,}$/.test(lastName.value.trim())) {
-            showError(lastName, "Enter a valid last name (at least 2 letters).");
+            showError(lastName, "Enter a valid last name");
             isValid = false;
         } else {
             clearError(lastName);
         }
 
         // Validate Email
-        if (!/^.{4,}@.+\..+$/.test(email.value.trim())) {
+        if (!/^.{2,}@.+\..+$/.test(email.value.trim())) {
             showError(email, "Enter a valid email address.");
             isValid = false;
         } else {

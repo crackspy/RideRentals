@@ -42,6 +42,8 @@ urlpatterns = [
     path('cars/', views.explore_cars, name='explore_cars'),
     path('success/', views.success_page, name="success_page"),
     path('booking/<slug:slug>', views.booking, name='booking'),
+    path('confirm_booking/<slug:slug>/', views.confirm_booking, name='confirm_booking'),
+    path('payment_success/<int:booking_id>/', views.payment_success, name='payment_success'),
     path('add-to-wishlist/<slug:slug>/', views.add_to_wishlist, name='add_to_wishlist'),
     path('remove-from-wishlist/<slug:slug>/', views.remove_from_wishlist, name='remove_from_wishlist'),
 

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.views import PasswordResetView
 from django.contrib import messages
+from django.db import transaction
 from django.utils.http import url_has_allowed_host_and_scheme
 from datetime import datetime
 
@@ -109,23 +110,17 @@ def explore_cars(request):
         print(car.transmission)
     return render(request, 'mainapp/rental/cars.html', {'car_list': featured_cars})
 
+
 @login_required
 def booking(request, slug):
-    # Fetch the car details using the slug
     car = get_object_or_404(Car_info, slug=slug)
     user = request.user
     today_date = datetime.now().strftime('%Y-%m-%d')
-    if request.method == "POST":
-        # Get logged-in user
-        logged_in_user = user  # This gives the logged-in User instance
 
-        # Extract form data
-        cus_name = request.POST['full_name']
-        cus_ph = request.POST['phone']
-        cus_email = request.POST['email']
+    if request.method == "POST":
+
         pickup_date = request.POST['pickup_date']
         return_date = request.POST['return_date']
-        notes = request.POST.get('notes', '')
 
         # Convert pickup_date and return_date to date objects
         pickup_date_obj = datetime.strptime(pickup_date, '%Y-%m-%d').date()
@@ -138,55 +133,104 @@ def booking(request, slug):
         # Calculate the number of days
         days_difference = (return_date_obj - pickup_date_obj).days
 
-        # Calculate total rent
+            # Calculate total rent
         price_per_month = car.rent
         price_per_day = price_per_month / 30  # Assuming 1 month = 30 days
         total_rent = round(price_per_day * days_difference)
 
+        # Store booking details in session
+        request.session['booking_data'] = {
+            'cus_name': request.POST['full_name'],
+            'cus_ph': request.POST['phone'],
+            'cus_email': request.POST['email'],
+            'pickup_date': pickup_date,
+            'return_date': return_date,
+            'total_rent': total_rent,
+            'car_id': car.id
+        }
 
-        # Create and save booking
+        return redirect('confirm_booking', slug=car.slug) # Redirect to payment page
+
+    return render(request, 'mainapp/rental/booking.html', {'car': car, 'today_date': today_date, 'user': user})
+
+@login_required
+def confirm_booking(request, slug):
+    car = get_object_or_404(Car_info, slug=slug)
+    user = request.user
+
+    # Retrieve booking details from session
+    booking_data = request.session.get('booking_data')
+
+    if not booking_data:
+        messages.error(request, "Session expired. Please rebook.")
+        return redirect('booking', slug=slug)
+
+    # Ensure 'total_rent' exists
+    total_rent = booking_data.get('total_rent')
+    if total_rent is None:
+        messages.error(request, "Booking details are incomplete. Please re-enter your details.")
+        return redirect('booking', slug=slug)
+
+    if request.method == "POST":
+        payment_method = request.POST.get("payment_method")
+
+        if not payment_method:
+            messages.error(request, "Please select a payment method.")
+            return render(request, 'mainapp/payment/payment_selection.html', {'car': car})
+
+        # Create and save the booking
         booking = Booking(
-            cus_name=cus_name,
-            cus_ph=cus_ph,
-            cus_email=cus_email,
+            cus_name=booking_data['cus_name'],
+            cus_ph=booking_data['cus_ph'],
+            cus_email=booking_data['cus_email'],
             car=car,
-            cus_username=logged_in_user,
-            pickup_date=pickup_date_obj,
-            return_date=return_date_obj,
-            notes=notes,
-            rent=price_per_month,
+            cus_username=user,
+            pickup_date=datetime.strptime(booking_data['pickup_date'], '%Y-%m-%d').date(),
+            return_date=datetime.strptime(booking_data['return_date'], '%Y-%m-%d').date(),
+            rent=car.rent,
             total_rent=total_rent,
+            payment_method=payment_method,
+            payment_status="Pending" if payment_method == "Cash on Delivery" else "Paid",
         )
 
+        booking.save()
+        car.available = False  # Mark car as unavailable
+        car.save()
+
+        # Send confirmation email
         booking_details = {
-                'name': car.name,
-                'year': car.year,
-                'rent': car.rent,
-                'pickup_date': pickup_date,
-                'return_date': return_date,
-                'total_rent': total_rent,
-                'payment_status': 'Pending'
-            }
+            'name': car.name,
+            'year': car.year,
+            'rent': car.rent,
+            'pickup_date': booking.pickup_date,
+            'return_date': booking.return_date,
+            'total_rent': booking.total_rent,
+            'payment_status': booking.payment_status
+        }
 
         try:
-            send_booking_email(cus_email, booking_details)
+            send_booking_email(booking.cus_email, booking_details)
+        except:
+            pass
 
-            # Set the car as unavailable
-            car.available = False
-            car.save()
-            booking.save()
+        # Clear session data after successful booking
+        del request.session['booking_data']
 
-            # Redirect to a success page or another appropriate page
-            return redirect('success_page')
-        except Exception as e:  # Catch general exceptions
-            # Log the error for debugging
-            print(f"Error sending booking email or saving car: {e}")
-            messages.error(request, "An error occurred. Please try again.")
-            return render(request, 'mainapp/rental/booking.html', {'car': car})
+        return redirect('success_page')  # Redirect to a success page
 
-    else:
-        return render(request, 'mainapp/rental/booking.html', 
-                    {'car': car, 'today_date': today_date, 'user': user})
+    return render(request, 'mainapp/payment/payment_selection.html', {'car': car})
+
+
+@login_required
+def payment_success(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    # Mark payment as complete
+    booking.payment_status = "Completed"
+    booking.save()
+
+    messages.success(request, "Payment successful! Your booking is confirmed.")
+    return redirect('success_page')
 
 @login_required
 def success_page(request):

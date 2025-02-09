@@ -26,6 +26,11 @@
 
 <body>
 
+    <!-- Preloader -->
+    <div class="loader" id="preloader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+    </div>
+
     <!--
     - #HEADER
   -->
@@ -103,6 +108,7 @@
             </div>
 
         </div>
+        <progress class="post-progress" id="progressBar" value="0" max="100"></progress>
     </header>
 
     <div id="notifi-popup">
@@ -112,13 +118,6 @@
     </div>
 
     {% block content %} {% endblock %}
-
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="spinner"></div>
-    </div>
-
-
 
     <!--
     - #FOOTER
@@ -242,7 +241,7 @@
         <!--
     - custom js link
   -->
-        <script src="{% static 'mainapp/js/home-script.js' %}"></script>
+        <script src="{% static 'mainapp/js/base-script.js' %}"></script>
 
         <!--
     - ionicon link
@@ -251,14 +250,13 @@
         <script nomodule src="{% static 'mainapp/js/ionicons/ionicons.js' %}"></script>
 
         <script>
+            // preloader
 
-            // Hide Preloader when page fully loads
-            window.addEventListener("load", function () {
-                const preloader = document.getElementById("preloader");
-                if (preloader) {
-                    preloader.style.display = "none";
-                }
-            });
+            window.onload = function () {
+                setTimeout(() => {
+                    document.getElementById("preloader").style.display = "none";
+                }, 1000); // Simulated delay for smoother effect
+            };
 
             /**
              * Django notification messages
@@ -266,9 +264,9 @@
 
             // Show notifications dynamically
             function showNotifications(messages) {
-                const notificationBox = document.getElementById('notification-box');
-                const notificationMessage = document.getElementById('notification-message');
-                const notificationPopup = document.getElementById('notifi-popup');
+                const notificationBox = document.getElementById("notification-box");
+                const notificationMessage = document.getElementById("notification-message");
+                const notificationPopup = document.getElementById("notifi-popup");
 
                 if (!messages || !messages.length) return;
 
@@ -282,14 +280,12 @@
                         setTimeout(() => {
                             notificationBox.className = `notification hidden`;
                         }, 3500);
-                    }, index * 6000
-                    ); // Delay for consecutive messages
+                    }, index * 6000); // Delay for consecutive messages
                 });
-
             }
 
             // Load messages from Django
-            document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener("DOMContentLoaded", () => {
                 const messages = [
                     //{% for message in messages %}
                     {

@@ -29,7 +29,6 @@
     border-radius: 50%;
     color: #fff;
     cursor: pointer;
-
 }
 
 .upload-popup {
@@ -44,12 +43,14 @@
     text-align: center;
     width: 400px;
     z-index: 1500;
+    overflow: auto; /* Enable scrolling inside popup */
     display: none;
+
 }
 
 .dashed-border {
     border: 2px dashed #ccc;
-    padding: 20px 20px;
+    padding: 20px;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -91,12 +92,11 @@
     justify-content: center;
     align-items: center;
     padding-top: 5px;
-
 }
 
 .ok-btn {
     margin-top: 10px;
-    background: #4CAF50;
+    background: #4caf50;
     color: white;
     border: none;
     padding: 5px 25px;
@@ -163,4 +163,22 @@
     text-align: center;
     padding: 3px;
     font-size: 15px;
+}
+
+@media screen and (max-width: 550px) {
+    .image-btn-div {
+        width: 100%;
+    }
+
+    .upload-popup {
+        width: 80%;
+    }
+
+    .upload-popup {
+        padding: 15px;
+    }
+
+    .dashed-border {
+        padding: 10px;
+    }
 }
