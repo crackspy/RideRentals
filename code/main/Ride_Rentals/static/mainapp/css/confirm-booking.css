@@ -23,7 +23,7 @@
     background: #f8f9fa;
     padding: 15px;
     border-radius: 8px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #333;
     margin-bottom: 20px;
@@ -62,7 +62,7 @@
 .payment-head h1 {
     text-align: center;
     color: black;
-    font-size: 2em;
+    font-size: 1.6em;
     margin: 0;
     font-family: var(--ff-nunito);
 }

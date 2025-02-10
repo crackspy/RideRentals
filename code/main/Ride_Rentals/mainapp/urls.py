@@ -52,7 +52,9 @@ urlpatterns = [
     path('test1/', views.test1, name='test1'),
     path('test2/', views.test2, name='test2'),
     path('test3/', views.test3, name='test3'),
-    path('test-b', views.test_b, name='test-b'),
+    path('test-b/', views.test_b, name='test-b'),
+    path('test-c/', views.test_c, name='test-c'),
+
     path('send-test-email/', views.send_test_email, name='send_test_email'),
 
 ]

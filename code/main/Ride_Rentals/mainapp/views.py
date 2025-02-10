@@ -347,10 +347,6 @@ def test3(request):
     return render(request, 'mainapp/test/test3.html')
 
 def test_b(request):
-    # Add some messages
-    # messages.success(request, "Your booking was successful!")
-    # messages.error(request, "Payment failed. Please try again.")
-    # messages.warning(request, "Booking confirmation is pending.")
 
     booking_details = {
         'name': 'BMW',
@@ -360,10 +356,23 @@ def test_b(request):
         'return_date': 'Jan. 31, 2025',
         'total_rent': 45000.0,
         'payment_status': 'Pending',
-        'status': 'Pending'
+        'status': 'Completed'
     }
     
     return render(request, 'mainapp/emails/booking_confirmation.html', {
+        'booking_details': booking_details
+    })
+
+def test_c(request):
+
+    booking_details = {
+        'car_name': 'BMW',
+        'year': 2022,
+        'total_rent': 45000.0,
+        'cus_name': 'admin'
+    }
+    
+    return render(request, 'mainapp/emails/booking_completed.html', {
         'booking_details': booking_details
     })
 
@@ -378,7 +387,8 @@ def send_test_email(request):
         'return_date': 'Jan. 31, 2025',
         'total_rent': 45000.0,
         'payment_status': 'Pending',
-        'status': 'Pending'
+        'status': 'Booked',
+        'cus_name': 'jk',
     }
  
     try:
