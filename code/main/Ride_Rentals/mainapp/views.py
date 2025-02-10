@@ -106,8 +106,6 @@ def change_password(request):
 @login_required
 def explore_cars(request):
     featured_cars = Car_info.objects.all()
-    for car in featured_cars:
-        print(car.transmission)
     return render(request, 'mainapp/rental/cars.html', {'car_list': featured_cars})
 
 
@@ -161,6 +159,10 @@ def confirm_booking(request, slug):
     # Retrieve booking details from session
     booking_data = request.session.get('booking_data')
 
+    if not car.available:
+        messages.error(request, "Car is not available for booking.")
+        return redirect('explore_cars')
+
     if not booking_data:
         messages.error(request, "Session expired. Please rebook.")
         return redirect('booking', slug=slug)
@@ -176,7 +178,7 @@ def confirm_booking(request, slug):
 
         if not payment_method:
             messages.error(request, "Please select a payment method.")
-            return render(request, 'mainapp/payment/payment_selection.html', {'car': car})
+            return render(request, 'mainapp/payment/confirm_booking.html', {'car': car, 'total_amount': total_rent})
 
         # Create and save the booking
         booking = Booking(
@@ -218,7 +220,7 @@ def confirm_booking(request, slug):
 
         return redirect('success_page')  # Redirect to a success page
 
-    return render(request, 'mainapp/payment/payment_selection.html', {'car': car})
+    return render(request, 'mainapp/payment/confirm_booking.html', {'car': car, 'total_amount': total_rent})
 
 
 @login_required
@@ -289,7 +291,6 @@ def update_profile(request):
     profile = user.profile
 
     if request.method == "POST":
-        print(request.POST)
         form = ProfileUpdateForm(request.POST, request.FILES, user=user)
 
         if form.is_valid():

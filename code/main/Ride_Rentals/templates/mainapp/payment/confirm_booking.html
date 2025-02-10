@@ -1,0 +1,61 @@
+{% extends 'mainapp/base.html' %} {% load static %} {% block title %} Select
+Payment Method {% endblock %} {% block head %}
+<link rel="stylesheet" href="{% static 'mainapp/css/confirm-booking.css' %}" />
+{% endblock %} {% block content %}
+<div class="main-container">
+    <div class="payment-container">
+        <div class="payment-head-div">
+            <i
+                ><a href="{% url 'booking' car.slug %}">
+                    <ion-icon name="arrow-back-circle-outline"></ion-icon>
+                </a>
+            </i>
+
+            <div class="payment-head">
+                <h1>Select Payment Method</h1>
+            </div>
+        </div>
+
+        <div class="total-amount">
+            <span>Total Amount :</span>
+            <strong>{{ total_amount }} ₹</strong>
+        </div>
+
+        <form method="POST" action="{% url 'confirm_booking' slug=car.slug %}">
+            {% csrf_token %}
+            <div class="payment-options">
+                <!-- UPI Payment Option -->
+                <!-- <label class="payment-option">
+                    <input type="radio" name="payment_method" value="UPI" required />
+                    <img src="{% static 'mainapp/images/payment/upi.png' %}" alt="UPI Icon" class="payment-icon">
+                    <span>UPI Payment (Google Pay, PhonePe, Paytm)</span>
+                </label> -->
+
+                <!-- Cash on Delivery Option -->
+                <label class="payment-option">
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="Cash on Delivery"
+                        required
+                    />
+                    <img
+                        src="{% static 'mainapp/images/payment/cash.png' %}"
+                        alt="Cash Icon"
+                        class="payment-icon"
+                    />
+                    <span>Cash on Delivery</span>
+                </label>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-primary">
+                    Proceed to Payment
+                </button>
+            </div>
+        </form>
+
+        <p class="secure-note">All transactions are securely processed</p>
+    </div>
+</div>
+{% endblock %}

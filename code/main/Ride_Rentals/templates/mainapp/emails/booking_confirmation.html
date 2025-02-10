@@ -9,12 +9,16 @@
 
 <body style="font-size: 14px; font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; color: #333;">
     <table style="width: 100%; max-width: 600px; margin: 20px auto; background: #ffffff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+        <!-- Header Section -->
         <tr>
             <td style="padding: 20px; text-align: center;">
                 <h1 style="color: #4caf50;">Your Booking has been Confirmed!</h1>
+                <p>Dear {{ booking_details.cus_name }},</p>
                 <p>Thank you for booking with us! Here are your booking details:</p>
             </td>
         </tr>
+
+        <!-- Booking Details -->
         <tr>
             <td style="padding: 20px;">
                 <h3 style="text-align: center; font-size: 22px; color: black; font-weight: 600;">
@@ -22,59 +26,67 @@
                 </h3>
                 <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Rent:</td>
+                        <td style="padding: 8px; font-weight: bold;">Rent :</td>
                         <td style="padding: 8px; text-align: right;">₹{{ booking_details.rent }}/month</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Pick-up Date:</td>
+                        <td style="padding: 8px; font-weight: bold;">Pick-up Date :</td>
                         <td style="padding: 8px; text-align: right;">{{ booking_details.pickup_date }}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Return Date:</td>
+                        <td style="padding: 8px; font-weight: bold;">Return Date :</td>
                         <td style="padding: 8px; text-align: right;">{{ booking_details.return_date }}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Total Rent:</td>
+                        <td style="padding: 8px; font-weight: bold;">Total Rent :</td>
                         <td style="padding: 8px; text-align: right;">₹{{ booking_details.total_rent }}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Payment Status:</td>
+                        <td style="padding: 8px; font-weight: bold;">Payment Status :</td>
                         <td style="padding: 8px; text-align: right;">
                             <span style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: bold; 
                                 background-color: 
-                                    {% if booking_details.payment_status  == 'paid' %}
-                                        #28a745
-                                    {% else %}
-                                        #ffc107
+                                    {% if booking_details.payment_status == 'Paid' %} #28a745 
+                                    {% else %} #ffc107 
                                     {% endif %};">
                                 {{ booking_details.payment_status | title }}
                             </span>
                         </td>
                     </tr>
+                    {% if booking_details.payment_status == "Paid" %}
                     <tr>
-                        <td style="padding: 8px; font-weight: bold;">Booking Status:</td>
+                        <td style="padding: 8px; font-weight: bold;">Payment Method:</td>
                         <td style="padding: 8px; text-align: right;">
-                            <span style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: bold; 
-                                background-color: 
-                                    {% if booking_details.status|lower == 'booked' %} 
-                                       #007bff 
-                                    {% elif booking_details.status|lower == 'completed' %} 
-                                       #28a745 
-                                    {% else %} 
-                                       #ffc107 
-                                    {% endif %};">
-                                {{ booking_details.status | title }}
-                            </span>
+                            {{ booking_details.payment_method }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td style="padding: 8px; font-weight: bold;">Booking Status :</td>
+                        <td style="padding: 8px; text-align: right;">
+                            {% if booking_details.status %}
+                                <span style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: bold;
+                                    background-color:
+                                        {% if booking_details.status == 'Booked' %} #007bff
+                                        {% elif booking_details.status|lower == 'completed' %} #28a745
+                                        {% else %} #ffc107 {% endif %};">
+                                    {{ booking_details.status | title }}
+                                </span>
+                            {% else %}
+                                <span style="color: #007bff;">Booked</span>
+                            {% endif %}
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
+
+        <!-- Footer Section -->
         <tr>
             <td style="padding: 20px; text-align: center; font-size: 12px; color: #888;">
-                <p>Ride Rentals</p>
-                <p style="margin: 0;">&copy; 2025 Ride Rentals™</p>
-                <p>If you have any questions, <a href="mailto:riderentals10@gmail.com" style="color: #4caf50; text-decoration: none;">contact us</a>.</p>
+                <p style="margin: 0; font-weight: bold;">Ride Rentals</p>
+                <p style="margin: 5px 0;">&copy; 2025 Ride Rentals™</p>
+                <p style="margin: 5px 0;">If you have any questions, <a href="mailto:riderentals10@gmail.com" style="color: #4caf50; text-decoration: none;">contact us</a>.</p>
             </td>
         </tr>
     </table>

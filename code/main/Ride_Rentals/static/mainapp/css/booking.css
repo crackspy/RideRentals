@@ -20,11 +20,29 @@ body {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-h1 {
+.booking-head-div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.booking-head-div a {
+    text-decoration: none;
+    color: white;
+}
+
+.booking-head-div a:hover {
+    color: #118bee;
+}
+
+.booking-head {
+    width: 100%;
+}
+
+.booking-head h1 {
     text-align: center;
     color: #ffffff;
     font-size: 2.5em;
-    margin-bottom: 20px;
 }
 
 .form-group {
@@ -143,7 +161,7 @@ h1 {
     overflow: hidden;
 }
 
-.featured-car-card .card-banner > img {
+.featured-car-card .card-banner>img {
     height: 100%;
     object-fit: cover;
 }
@@ -164,7 +182,7 @@ h1 {
     width: calc(100% - 60px);
 }
 
-.featured-car-card .card-title > a {
+.featured-car-card .card-title>a {
     color: inherit;
     width: 100%;
     white-space: nowrap;
@@ -172,7 +190,7 @@ h1 {
     text-overflow: ellipsis;
 }
 
-.featured-car-card .card-title > a:is(:hover, :focus) {
+.featured-car-card .card-title>a:is(:hover, :focus) {
     color: var(--carolina-blue);
 }
 
@@ -286,7 +304,15 @@ h1 {
         margin-bottom: 20px;
     }
 
-    .booking-container h1 {
+    .booking-head-div a {
+        margin-left: 0;
+    }
+
+    .booking-head-div ion-icon {
+        font-size: 25px;
+    }
+
+    .booking-head h1 {
         font-size: 1.5em;
     }
 
@@ -309,6 +335,10 @@ h1 {
         padding: 0 5px 0px;
     }
 
+    .featured-car-card .card-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .card-container {
         width: 40%;
     }
@@ -326,13 +356,21 @@ h1 {
         padding: 0;
     }
 
+    .card-container {
+        width: 30%;
+    }
+
     .booking-container {
-        width: 50%;
+        width: 45%;
         padding: 19px 15px 19px;
         margin-bottom: 0;
     }
 
-    .booking-container h1 {
+    .booking-head-div ion-icon {
+        font-size: 35px;
+    }
+
+    .booking-head h1 {
         font-size: 2.5em;
     }
 
