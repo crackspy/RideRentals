@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Validate Last Name
-        if (!/^[A-Za-z\s]{2,}$/.test(lastName.value.trim())) {
+        if (!/^[A-Za-z\s]{1,}$/.test(lastName.value.trim())) {
             showError(lastName, "Enter a valid last name");
             isValid = false;
         } else {
