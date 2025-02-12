@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-t6ig$#+phx@%252q-m=#hh%+l)v@@9zon1#*mqh@_bel@+fi@%
 DEBUG = True
 
 # for local ip
-ALLOWED_HOSTS = ['192.168.43.35', '192.168.207.16' , 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.73.16']
+# ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com', 'your-server-ip']
 
 
 

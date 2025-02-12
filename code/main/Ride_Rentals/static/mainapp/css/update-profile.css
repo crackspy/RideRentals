@@ -43,9 +43,9 @@
     text-align: center;
     width: 400px;
     z-index: 1500;
-    overflow: auto; /* Enable scrolling inside popup */
+    overflow: auto;
+    /* Enable scrolling inside popup */
     display: none;
-
 }
 
 .dashed-border {
@@ -106,16 +106,19 @@
 
 /* Set Default Button */
 .set-default-btn {
-    background-color: #ff5722; /* Orange color */
+    background-color: #ff5722;
+    /* Orange color */
 }
 
 .set-default-btn:hover {
-    background-color: #e64a19; /* Darker orange */
+    background-color: #e64a19;
+    /* Darker orange */
     transform: scale(1.05);
 }
 
 .set-default-btn:active {
-    background-color: #d84315; /* Even darker on click */
+    background-color: #d84315;
+    /* Even darker on click */
     transform: scale(0.95);
 }
 
@@ -124,14 +127,17 @@
 }
 
 .revert-btn:hover {
-    background-color: #0056b3; /* Darker blue */
+    background-color: #0056b3;
+    /* Darker blue */
     transform: scale(1.05);
 }
 
 .revert-btn:active {
-    background-color: #004494; /* Even darker blue on click */
+    background-color: #004494;
+    /* Even darker blue on click */
     transform: scale(0.95);
 }
+
 /* Align Set Default Button */
 .image-btn-div {
     width: 60%;

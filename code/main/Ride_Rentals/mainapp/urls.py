@@ -1,7 +1,8 @@
+# Built by crackspy
+
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-
 
 urlpatterns = [
     # Homepage URL
@@ -34,8 +35,12 @@ urlpatterns = [
 
     # User profile URLs
     path('profile/', views.profile_dashboard, name='profile'),
-    path('profile/change_password/', auth_views.PasswordChangeView.as_view(template_name='mainapp/profile/change_password.html'), name='change_password'),
-    path('profile/change_password/done/', auth_views.PasswordChangeDoneView.as_view(template_name='mainapp/profile/change_password_done.html'), name='change_password_done'),
+    path('profile/change_password/',
+         auth_views.PasswordChangeView.as_view(template_name='mainapp/profile/change_password.html'),
+         name='change_password'),
+    path('profile/change_password/done/',
+        auth_views.PasswordChangeDoneView.as_view(template_name='mainapp/profile/change_password_done.html'),
+        name='change_password_done'),
     path('profile/update/', views.update_profile, name='update_profile'),
 
     # Car rental URLs
@@ -46,15 +51,5 @@ urlpatterns = [
     path('payment_success/<int:booking_id>/', views.payment_success, name='payment_success'),
     path('add-to-wishlist/<slug:slug>/', views.add_to_wishlist, name='add_to_wishlist'),
     path('remove-from-wishlist/<slug:slug>/', views.remove_from_wishlist, name='remove_from_wishlist'),
-
-    # test URLs
-    path('test0/', views.test0, name='test0'),
-    path('test1/', views.test1, name='test1'),
-    path('test2/', views.test2, name='test2'),
-    path('test3/', views.test3, name='test3'),
-    path('test-b/', views.test_b, name='test-b'),
-    path('test-c/', views.test_c, name='test-c'),
-
-    path('send-test-email/', views.send_test_email, name='send_test_email'),
 
 ]

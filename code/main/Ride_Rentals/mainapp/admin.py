@@ -1,3 +1,5 @@
+# Built by crackspy
+
 from django.contrib import admin, messages
 from django.template.loader import render_to_string
 from .models import Profile, Car_info, Booking, Wishlist
@@ -41,9 +43,9 @@ def mark_as_completed(modeladmin, request, queryset):
                 else:
                     messages.warning(request, f"{completed_count} bookings completed and Email not!")
             else:
-                messages.warning(request, "No bookings were updated.")
-            
-
+                messages.warning(request, "No bookings were updated!")
+        else:
+            messages.warning(request, "booking already completed!")
 
 mark_as_completed.short_description = "Mark selected bookings as completed & notify customers"
 
@@ -58,13 +60,14 @@ def send_booking_confirm_email(modeladmin, request, queryset):
             'return_date': booking.return_date,
             'total_rent': booking.total_rent,
             'payment_status': booking.payment_status,
+            'payment_method': booking.payment_method,
             'cus_name': booking.cus_name,  # Include customer's name
         }
         recipient_email = booking.cus_email  # Ensure this field exists
 
         try:
-            send_booking_email(recipient_email, booking_details, subject="Booking update - Ride Rentals")  # Pass booking_details
-            messages.success(request, "Email confirmation send successfully!")
+            send_booking_email(recipient_email, booking_details, subject="Booking update - Ride Rentals")
+            messages.success(request, "Booking update email send successfully!")
         except:
             pass
 
@@ -75,9 +78,7 @@ class BookingAdmin(admin.ModelAdmin):
     list_display = ('cus_name', 'car', 'status', 'pickup_date', 'return_date', 'total_rent')
     actions = [mark_as_completed, send_booking_confirm_email]  # Add custom action to the admin interface
 
-
 admin.site.register(Booking, BookingAdmin)
-
 admin.site.register(Profile)
 admin.site.register(Car_info)
 admin.site.register(Wishlist)

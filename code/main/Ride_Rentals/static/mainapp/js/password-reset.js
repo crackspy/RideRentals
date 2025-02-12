@@ -27,7 +27,7 @@ function updateRuleIndicators() {
     Object.entries(rules).forEach(([rule, isValid]) => {
         const ruleElement = document.getElementById(rule);
         const icon = ruleElement.querySelector("ion-icon");
-        
+
         icon.setAttribute("name", isValid ? "checkmark-circle-outline" : "close-circle-outline");
         icon.style.color = isValid ? "#39ff14" : "#ff3b30";
     });

@@ -49,4 +49,3 @@ window.addEventListener("scroll", function () {
 
     progressBar.value = scrollPercent;
 });
-

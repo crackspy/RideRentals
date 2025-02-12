@@ -1,9 +1,15 @@
-{% extends 'mainapp/base.html' %} {% load static %} {% block title %} Booking
-Successful {% endblock %} {% block head %}
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %} Booking Successful {% endblock %}
+
+{% block head %}
 
 <link rel="stylesheet" href="{% static 'mainapp/css/success-style.css' %}" />
 
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block content %}
 <div class="div-container">
     <div class="card-div">
         <div class="wrapperAlert">
@@ -11,18 +17,9 @@ Successful {% endblock %} {% block head %}
                 <div class="tick">
                     <div class="check-container">
                         <div class="check-background">
-                            <svg
-                                viewBox="0 0 65 51"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M7 25L27.3077 44L58.5 7"
-                                    stroke="white"
-                                    stroke-width="13"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
+                            <svg viewBox="0 0 65 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 25L27.3077 44L58.5 7" stroke="white" stroke-width="13"
+                                    stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
                         <div class="check-shadow"></div>

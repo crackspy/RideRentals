@@ -19,7 +19,7 @@ function openWishlistPopup() {
     overlay.className = "popup-overlay";
     document.body.appendChild(overlay);
 
-    sidebarToggle.style.display= 'none';
+    sidebarToggle.style.display = 'none';
 
     // Close popup when clicking outside
     overlay.onclick = function () {
@@ -38,7 +38,7 @@ function closeWishlistPopup() {
     if (overlay) {
         overlay.remove();
     }
-    sidebarToggle.style.display= 'block';
+    sidebarToggle.style.display = 'block';
 }
 
 // ---------------Booking popup ------------------
@@ -48,7 +48,7 @@ function openBookingPopup() {
     Booking.style.display = "flex";
     document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
 
-    sidebarToggle.style.display= 'none';
+    sidebarToggle.style.display = 'none';
 
     // Add overlay
     var overlay = document.createElement("div");
@@ -74,7 +74,7 @@ function closeBookingPopup() {
         overlay.remove();
     }
 
-    sidebarToggle.style.display= 'block';
+    sidebarToggle.style.display = 'block';
 }
 
 // ---------------Settings popup ------------------
@@ -84,7 +84,7 @@ function openSettingsPopup() {
     Settings.style.display = "flex";
     document.body.style.overflow = "hidden";  // Prevent body from scrolling when popup is open
 
-    sidebarToggle.style.display= 'none';
+    sidebarToggle.style.display = 'none';
     sidebar.classList.remove("open");
     Sidebar();
 
@@ -112,7 +112,7 @@ function closeSettingsPopup() {
         overlay.remove();
     }
 
-    sidebarToggle.style.display= 'block';
+    sidebarToggle.style.display = 'block';
 }
 
 // ---------------Side bar ------------------

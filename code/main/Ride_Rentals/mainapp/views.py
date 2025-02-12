@@ -1,3 +1,5 @@
+# Built by crackspy
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -7,38 +9,24 @@ from django.db import transaction
 from django.utils.http import url_has_allowed_host_and_scheme
 from datetime import datetime
 
-# from django.utils.timezone import now
 from .models import Profile, Car_info, Booking, Wishlist
 from .utils import send_booking_email
 from .forms import ProfileUpdateForm
-
-
-# password-reset-view
-class CustomPasswordResetView(PasswordResetView):
-    def form_valid(self, form):
-        # Check if the email exists in the database
-        email = form.cleaned_data['email']
-        if not User.objects.filter(email=email).exists():
-            messages.error(self.request, "The email address does not exist in our records.")
-            return redirect('password_reset')  # Redirect to the same page
-        return super().form_valid(form)
-
-
-# Function to check if the user is an admin
-def admin_required(user):
-    return user.is_superuser
 
 # home page
 def index(request):
     featured_cars = Car_info.objects.filter(available=True)[:6]
     return render(request, 'mainapp/index.html', {'car_list': featured_cars})
 
-#--------------------  Authentication -------------------
+#------------------------------------
+#          Authentication
+#------------------------------------
 
 # login or register page
 def auth_page(request):
     return render(request, 'mainapp/login/login.html')
 
+# register user
 def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -88,27 +76,35 @@ def login(request):
 
     return render(request, 'mainapp/login/login.html', {'next': request.GET.get('next', '')})
 
-
+# logout
 @login_required
 def logout(request):
     auth.logout(request)
     messages.success(request, "You have been successfully logged out.")
     return redirect('home')
 
-@login_required
-def change_password(request):
-    return render(request, 'mainapp/login/change_password.html')
+# password-reset-view
+class CustomPasswordResetView(PasswordResetView):
+    def form_valid(self, form):
+        # Check if the email exists in the database
+        email = form.cleaned_data['email']
+        if not User.objects.filter(email=email).exists():
+            messages.error(self.request, "The email address does not exist in our records.")
+            return redirect('password_reset')  # Redirect to the same page
+        return super().form_valid(form)
 
-# -------------------------------------------------------
 
+#------------------------------------
+#               Rental
+#------------------------------------
 
-#-----------------------  Rental  -----------------------
+# cars page
 @login_required
 def explore_cars(request):
     featured_cars = Car_info.objects.all()
     return render(request, 'mainapp/rental/cars.html', {'car_list': featured_cars})
 
-
+# booking
 @login_required
 def booking(request, slug):
     car = get_object_or_404(Car_info, slug=slug)
@@ -151,6 +147,7 @@ def booking(request, slug):
 
     return render(request, 'mainapp/rental/booking.html', {'car': car, 'today_date': today_date, 'user': user})
 
+# confim or payment selection
 @login_required
 def confirm_booking(request, slug):
     car = get_object_or_404(Car_info, slug=slug)
@@ -222,7 +219,7 @@ def confirm_booking(request, slug):
 
     return render(request, 'mainapp/payment/confirm_booking.html', {'car': car, 'total_amount': total_rent})
 
-
+# payment success
 @login_required
 def payment_success(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
@@ -238,6 +235,7 @@ def payment_success(request, booking_id):
 def success_page(request):
     return render(request, 'mainapp/rental/success.html')
 
+# Handle wishlist
 @login_required
 def add_to_wishlist(request, slug):
 
@@ -268,10 +266,15 @@ def remove_from_wishlist(request, slug):
 
     return redirect('profile')
 
+#  profile page
 @login_required
 def profile_dashboard(request):
     user = request.user
-    user_profile = Profile.objects.get(user=user)
+    try:
+        user_profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        # Redirect to a profile creation page or create a new profile automatically
+        user_profile = Profile.objects.create(user=user)
     bookings = Booking.objects.filter(cus_username=user).order_by('-id') # Fetch bookings associated with the user
     wishlist_items = Wishlist.objects.filter(user=user).order_by('-id')  # Fetch wishlist items
 
@@ -284,7 +287,7 @@ def profile_dashboard(request):
         'all_wishlist_items': wishlist_items,
     })
 
-
+# update profile
 @login_required
 def update_profile(request):
     user = request.user
@@ -307,117 +310,14 @@ def update_profile(request):
 
     return render(request, "mainapp/profile/update_profile.html", {"form": form, "user_profile": profile})
 
+#------------------------------------
+#        custom  admin views
+#------------------------------------
 
-
-# -------------------------------------------------------
-
-
-#------------------ custom  admin views  ----------------
+# Function to check if the user is an admin
+def admin_required(user):
+    return user.is_superuser
 
 @user_passes_test(admin_required)
 def admin_only_view(request):
     return redirect('profile')
-
-# -------------------------------------------------------
-
-
-
-
-#------------------ test views  ----------------
-
-
-def test0(request):
-    # Add some messages
-    # messages.success(request, "Your booking was successful!")
-    # messages.error(request, "Payment failed. Please try again.")
-    # messages.warning(request, "Booking confirmation is pending.")
-
-    return render(request, 'mainapp/test/test0.html')
-
-def test1(request):
-    
-    return render(request, 'mainapp/test/test1.html')
-def test2(request):
-    
-    return render(request, 'mainapp/test/test2.html')
-
-
-def test3(request):
-    
-    return render(request, 'mainapp/test/test3.html')
-
-def test_b(request):
-
-    booking_details = {
-        'name': 'BMW',
-        'year': 2022,
-        'rent': 45000.0,
-        'pickup_date': 'Jan. 1, 2025',
-        'return_date': 'Jan. 31, 2025',
-        'total_rent': 45000.0,
-        'payment_status': 'Pending',
-        'status': 'Completed'
-    }
-    
-    return render(request, 'mainapp/emails/booking_confirmation.html', {
-        'booking_details': booking_details
-    })
-
-def test_c(request):
-
-    booking_details = {
-        'car_name': 'BMW',
-        'year': 2022,
-        'total_rent': 45000.0,
-        'cus_name': 'admin'
-    }
-    
-    return render(request, 'mainapp/emails/booking_completed.html', {
-        'booking_details': booking_details
-    })
-
-
-def send_test_email(request):
-
-    booking_details = {
-        'name': 'BMW',
-        'year': 2022,
-        'rent': 45000.0,
-        'pickup_date': 'Jan. 1, 2025',
-        'return_date': 'Jan. 31, 2025',
-        'total_rent': 45000.0,
-        'payment_status': 'Pending',
-        'status': 'Booked',
-        'cus_name': 'jk',
-    }
- 
-    try:
-        send_booking_email("crackspy.log232@gmail.com", booking_details)
-
-       # Redirect to a success page or another appropriate page
-        return redirect('success_page')
-    except Exception as e:  # Catch general exceptions
-           # Log the error for debugging
-        print(f"Error sending booking email or saving car: {e}")
-        messages.error(request, "An error occurred. Please try again.")
-        return redirect('home')   # Simulate some booking details
-    
-
-    # booking_details = {
-    #     'name': 'bmw',
-    #     'year': 2022,
-    #     'rent': 45000.0,
-    #     'pickup_date': 'Jan. 1, 2025',
-    #     'return_date': 'Jan. 31, 2025',
-    #     'total_rent': 45000.0,
-    #     'payment_status': 'Pending'
-    # }
-    
-    # # Send email to the user
-    # send_booking_email(user_email='crackspy.log232@gmail.com', booking_details=booking_details)
-
-    # return redirect('success_page')  # Redirect to a success page after booking
-
-
-
-# -------------------------------------------------------

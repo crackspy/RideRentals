@@ -1,6 +1,8 @@
+# Built by crackspy
+
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
@@ -155,8 +157,8 @@ class Booking(models.Model):
     def save(self, *args, **kwargs):
         # Update car availability when status is set to 'completed'
         if self.status == Booking.Status.COMPLETED:
-            self.car.available = True  # Set car as available
-            self.car.save()  # Save the car object to reflect the change
+            self.car.available = True 
+            self.car.save()
         
         super(Booking, self).save(*args, **kwargs)  # Call the original save method
 
@@ -175,6 +177,7 @@ class Wishlist(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.car.name}" 
 
+
 # receivers
 
 # delete old car image 
@@ -183,6 +186,13 @@ def delete_event_image(sender, instance, **kwargs):
     if instance.img and os.path.isfile(instance.img.path):
         instance.img.delete(save=False)
 
+# create profile
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
 
-
-
+# save profile
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
