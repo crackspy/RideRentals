@@ -1,0 +1,347 @@
+/* General Reset and Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+body {
+    height: 100dvh;
+    background: #0a0a0a;
+}
+
+/* Background Image */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    background: url("../images/login/background.jpeg") no-repeat center center/cover;
+    z-index: -1;
+}
+
+.body-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+}
+
+/* Container Styling */
+.main-container {
+    position: relative;
+    z-index: 2;
+    margin-top: 10%;
+    width: 100%;
+    max-width: 425px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 19px;
+    color: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideIn 0.6s ease-out forwards;
+}
+
+/* Sliding Effect */
+@keyframes slideIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Tab Navigation */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 0.2rem;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s;
+    color: #ffffff;
+}
+
+.tab-button.active {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    height: calc(100% - 50px);
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Login Header */
+.login-header {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.login-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    background: linear-gradient(45deg, #fff, #ccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login-header p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Form Group */
+.form-group {
+    position: relative;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    flex: 1;
+    width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.3s ease;
+}
+
+.visibility-toggle-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+.form-input:focus+.input-icon {
+    color: white;
+}
+
+/* Submit Button */
+.submit-button {
+    width: 100%;
+    padding: 0.8rem;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Additional Options */
+.additional-options {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 10px;
+}
+
+.additional-options a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.additional-options a:hover {
+    opacity: 0.8;
+}
+
+.flash-message {
+    padding: 5px 15px 0px;
+    font-size: 0.9rem;
+    color: #ff3a3a;
+    text-align: center;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.error-message-container {
+    margin-bottom: 1rem;
+    /* Space between the input and the error message */
+    text-align: center;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+}
+
+
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+ * responsive for smaller than 480px screen
+ */
+
+@media screen and (max-width: 480px) {
+
+    /* Hide scrollbar for Chrome, Safari, and Edge */
+    ::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+    }
+
+    /* Hide scrollbar for Firefox */
+    * {
+        scrollbar-width: none;
+    }
+
+    /* Hide scrollbar for Internet Explorer/Edge */
+    body {
+        -ms-overflow-style: none;
+    }
+
+    .container {
+        width: 330px;
+        padding: 15px;
+    }
+
+    .main-container {
+        width: 90%;
+        margin-top: 7%;
+        max-width: 450px;
+        padding: 5px 20px 15px;
+    }
+
+    .login-header h1 {
+        font-size: 1.2rem;
+    }
+
+    .login-header p {
+        font-size: 0.75rem;
+    }
+
+    .form-group {
+        margin-bottom: 0.8rem;
+    }
+
+    .form-input {
+        height: 35px;
+    }
+
+    .submit-button {
+        font-size: 1rem;
+        padding: 0.6rem;
+    }
+
+    .additional-options {
+        font-size: 0.8rem;
+    }
+
+    .tab-button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/**
+ * responsive for smaller than 768px screen
+*/
+
+@media screen and (max-width: 768px) {
+    .login-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .login-header p {
+        font-size: 0.8rem;
+    }
+
+    .submit-button {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+    }
+
+    .tab-button {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .background-image {
+        height: 100dvh;
+    }
+
+    .body-div {
+        min-height: 100dvh;
+    }
+
+    .main-container {
+        margin-top: 7%;
+        max-width: 450px;
+        padding: 5px 20px 15px;
+    }
+
+    .tabs {
+        margin-bottom: 0.2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.3rem;
+    }
+
+    .form-input {
+        height: 35px;
+    }
+
+}

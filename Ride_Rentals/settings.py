@@ -28,6 +28,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+# WhiteNoise Middleware static file handling
+    "whitenoise.middleware.WhiteNoiseMiddleware", 
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -108,7 +111,10 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# Ensure Django finds the static files
+# ✅ Enable static file compression & caching
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Optional: If you have a 'static' folder inside your app
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
