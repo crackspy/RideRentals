@@ -11,7 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = 'django-insecure-t6ig$#+phx@%252q-m=#hh%+l)v@@9zon1#*mqh@_bel@+fi@%'
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-t6ig$#+phx@%252q-m=#hh%+l)v@@9zon1#*mqh@_bel@+fi@%")
-DEBUG = os.getenv("DEBUG", "False") == "True"
+# DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = True
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 # Application definition
@@ -120,8 +121,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_ROOT = "/opt/render/project/src/msp-dashboard/media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 # Default primary key field type

@@ -8,5 +8,6 @@ urlpatterns = [
     path('', include('mainapp.urls'))
 ]
 
-# Serve media files in production
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG: # Only do this in development! For production, configure your web server
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
