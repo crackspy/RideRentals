@@ -1,18 +1,31 @@
+1. Switch to main and Pull Latest Changes
 
-#  Checkout the deploy Branch -
+git checkout main
+git pull origin main
 
-git checkout deploy-branch
+2. Switch to deploy Branch
 
+git checkout deploy
+git pull origin deploy
 
-# Merge main into deploy -
+3. Merge main into deploy
 
-git merge main
+git merge main --strategy=ours
 
+4. Copy Only Necessary Files From main
 
-# Push to Remote Repository -
+git checkout main -- code/main/Ride_Rentals
 
+5. Move Updated Files to Root (For Deployment)
+
+rsync -av code/main/Ride_Rentals/ .
+rm -rf code  # Clean up unnecessary folders
+
+6. Commit and Push Changes to deploy
+
+git add .
+git commit -m "Merged latest updates from main to deploy without conflicts"
 git push origin deploy
-
 
 # Redeploy on Render
 Now, go to Render and trigger a redeploy, or allow auto-deployment if enabled.
