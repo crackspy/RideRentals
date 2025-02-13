@@ -1,0 +1,16 @@
+# Ignore non-essential files in deploy-branch
+code/backend/
+code/frontend/
+code/ref/
+doc/
+README.md
+requirements.txt
+
+# Ignore Python and Django temporary files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+.venv/
+.vscode/
