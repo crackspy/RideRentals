@@ -40,7 +40,7 @@ urlpatterns = [
          name='change_password'),
     path('profile/change_password/done/',
         auth_views.PasswordChangeDoneView.as_view(template_name='mainapp/profile/change_password_done.html'),
-        name='change_password_done'),
+        name='password_change_done'),
     path('profile/update/', views.update_profile, name='update_profile'),
 
     # Car rental URLs
