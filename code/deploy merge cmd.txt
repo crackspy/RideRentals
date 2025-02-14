@@ -27,5 +27,10 @@ git add .
 git commit -m "Merged latest updates from main to deploy without conflicts"
 git push origin deploy
 
+
+7. goto main
+
+git checkout main
+
 # Redeploy on Render
 Now, go to Render and trigger a redeploy, or allow auto-deployment if enabled.
