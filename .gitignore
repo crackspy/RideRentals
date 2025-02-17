@@ -5,6 +5,8 @@ code/ref/
 doc/
 README.md
 
+.env
+
 # Ignore Python and Django temporary files
 *.pyc
 *.pyo
