@@ -74,14 +74,13 @@ if DATABASE_URL:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": url.path[1:],  # Remove the leading slash
+            "NAME": url.path[1:],  # Remove the leading slash from the db name
             "USER": url.username,
             "PASSWORD": url.password,
-            "HOST": url.hostname,
-            "PORT": url.port,
+            "HOST": url.hostname,  # Should be postgres.railway.internal
+            "PORT": url.port,      # Should be 5432 (default)
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -126,7 +125,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Media files settings
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/data/media/'
 
 
 # Default primary key field type
