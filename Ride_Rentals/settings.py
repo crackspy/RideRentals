@@ -2,7 +2,6 @@ from pathlib import Path
 import os
 import dj_database_url
 from django.conf import settings
-from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,17 +67,17 @@ WSGI_APPLICATION = 'Ride_Rentals.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASE_URL = "postgresql://postgres:DCuRiliHwomJBqzexoYJanaxKYREZrkT@mainline.proxy.rlwy.net:42188/railway"
 
 if DATABASE_URL:
-    url = urlparse(DATABASE_URL)
+    DATABASES = {
+        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+    }
+else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": url.path[1:],  # Remove the leading slash from the db name
-            "USER": url.username,
-            "PASSWORD": url.password,
-            "HOST": url.hostname,  # Should be postgres.railway.internal
-            "PORT": url.port,      # Should be 5432 (default)
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 
