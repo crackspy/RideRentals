@@ -1,0 +1,18 @@
+{
+    "build": {
+      "commands": [
+        "pip install -r requirements.txt",
+        "python manage.py migrate",
+        "mkdir -p /data/media",
+        "cp -r media/* /data/media/",
+        "python manage.py collectstatic --noinput"
+      ]
+    },
+    "start": {
+      "command": "gunicorn Ride_Rentals.wsgi:application"
+    },
+    "volumes": {
+      "media": "/data/media"
+    }
+  }
+  
