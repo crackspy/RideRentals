@@ -1,5 +1,0 @@
-build command :
-pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
-
-start command :
-gunicorn Ride_Rentals.wsgi:application

@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Navigate to Ride Rentals Directory",
+            "type": "shell",
+            "command": "zsh",
+            "args": [
+                "-c",
+                "cd ./code/main/Ride_Rentals && exec zsh"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Run Django Development Server",
+            "type": "shell",
+            "command": "zsh",
+            "args": [
+                "-c",
+                "cd ./code/main/Ride_Rentals && python3 manage.py runserver 0.0.0.0:8000"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}
