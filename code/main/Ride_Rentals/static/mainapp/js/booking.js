@@ -5,6 +5,7 @@ const pickupDateInput = document.getElementById("pickup-date");
 const returnDateInput = document.getElementById("return-date");
 
 // calcualte total price
+
 function calculateRentalPrice() {
     // Parse the car price (monthly)
     const carPricePerMonth = parseFloat(
@@ -18,7 +19,11 @@ function calculateRentalPrice() {
         const newMinReturnDate = new Date(pickupDate);
         newMinReturnDate.setDate(newMinReturnDate.getDate() + 1); // Add 1 day
         returnDateInput.min = newMinReturnDate.toISOString().split("T")[0];
-        returnDateInput.value = newMinReturnDate.toISOString().split("T")[0];
+
+        // Only reset return date if it's before the min allowed return date
+        if (returnDate < newMinReturnDate || isNaN(returnDate)) {
+            returnDateInput.value = newMinReturnDate.toISOString().split("T")[0];
+        }
     }
 
     // Check if dates are invalid

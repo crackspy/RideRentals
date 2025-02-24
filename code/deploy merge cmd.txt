@@ -36,3 +36,44 @@ git checkout main
 
 # Redeploy on Render
 Now, go to Render and trigger a redeploy, or allow auto-deployment if enabled.
+
+
+
+Railway
+--------------------------------------------------------------------------------
+settings.py set for a specific platform deployment (ignore settings.py from main)
+--------------------------------------------------------------------------------
+
+ Updated Workflow: Merge main into deploy Without Conflicts & Preserve settings.py
+1️⃣ Switch to main and Pull Latest Changes
+
+git checkout main
+git pull origin main
+
+2️⃣ Switch to deploy Branch
+
+git checkout deploy-railway
+git pull origin deploy-railway
+
+3️⃣ Merge main into deploy While Keeping settings.py
+
+git merge --no-commit main
+git checkout --ours Ride_Rentals/settings.py  # Keep deploy version of settings.py
+git add Ride_Rentals/settings.py  # Stage it without changes
+git commit -m "Merged latest updates from main to deploy while preserving settings.py"
+
+🚀 Now deploy has all updates from main, but keeps its own settings.py!
+✅ 4️⃣ Copy Only Necessary Files From main
+
+git checkout main -- code/main/Ride_Rentals
+
+✅ 5️⃣ Move Updated Files to Root (For Deployment)
+
+rsync -av code/main/Ride_Rentals/ .
+rm -rf code  # Clean up unnecessary folders
+
+✅ 6️⃣ Commit and Push Changes to deploy
+
+git add .
+git commit -m "Merged latest updates from main to deploy"
+git push origin deploy-railway
