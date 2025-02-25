@@ -3,6 +3,7 @@ code/backend/
 code/frontend/
 code/ref/
 doc/
+code/
 README.md
 
 .env
