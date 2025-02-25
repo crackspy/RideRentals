@@ -67,7 +67,7 @@ def send_booking_confirm_email(modeladmin, request, queryset):
 
         try:
             send_booking_email(recipient_email, booking_details, subject="Booking update - Ride Rentals")
-            messages.success(request, "Booking update email send successfully!")
+            messages.success(request, f"To: {booking.cus_email} Booking update email send successfully!")
         except:
             pass
 

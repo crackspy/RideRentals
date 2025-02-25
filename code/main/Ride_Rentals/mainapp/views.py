@@ -209,8 +209,8 @@ def confirm_booking(request, slug):
 
         try:
             send_booking_email(booking.cus_email, booking_details)
-        except:
-            pass
+        except Exception as e:
+            print(f"Error sending booking email: {e}")
 
         # Clear session data after successful booking
         del request.session['booking_data']
