@@ -97,5 +97,4 @@ This project is licensed under the **MIT License**. Feel free to use and modify 
 For any queries or suggestions, contact:
 - ✉️ Email: crackspy.log232@gmail.com
 - 🌐 Project GitHub: [https://github.com/crackspy/RideRentals](https://github.com/crackspy/RideRentals)
-
 ---
