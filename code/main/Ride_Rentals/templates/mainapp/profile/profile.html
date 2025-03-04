@@ -28,7 +28,7 @@
         <h5 class="usrname m-b-10 fz-18">{{ user.username|title }}</h5>
         <p class="email m-b-10">{{ user.email }}</p>
         <button onclick="openSettingsPopup()">Settings</button>
-        <button>Logout</button>
+        <button><a href="{% url 'logout' %}">Logout</a></button>
     </div>
 
     <!-- Main Content -->
