@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Booking Confirmation</title>
+
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                font-size: 14px;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+
+            h1 {
+                font-family: 'Arial', sans-serif;
+                font-size: 24px;
+                font-weight: 600;
+                color: #4caf50;
+            }
+
+            p,
+            td {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                color: #333;
+            }
+
+            .bold-text {
+                font-weight: 600;
+            }
+        </style>
+    </head>
+
+    <body>
+        <table
+            style="width: 100%; max-width: 600px; margin: 20px auto; background: #ffffff; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Header Section -->
+            <tr>
+                <td style="padding: 20px; text-align: center;">
+                    <h1>Your Booking has been Confirmed!</h1>
+                    <p>Dear {{ booking_details.cus_name }},</p>
+                    <p>Thank you for choosing Ride Rentals.</p>
+                    <p>Below are the details of your booking. Please review them carefully.
+                        If you have any questions or need further assistance, feel free to reach out to us.</p>
+                    <p>We appreciate your trust in us and are committed to ensuring a seamless rental process for you.</p>
+                </td>
+            </tr>
+
+            <!-- Booking Details -->
+            <tr>
+                <td style="padding: 20px;">
+                    <h3 style="text-align: center; font-size: 22px; color: black; font-weight: 600;">
+                        {{ booking_details.name|capfirst }} - {{ booking_details.year }}
+                    </h3>
+                    <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Rent :</td>
+                            <td style="padding: 8px; text-align: right;">₹{{ booking_details.rent }}/month</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Pick-up Date :</td>
+                            <td style="padding: 8px; text-align: right;">{{ booking_details.pickup_date }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Return Date :</td>
+                            <td style="padding: 8px; text-align: right;">{{ booking_details.return_date }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Total Rent :</td>
+                            <td style="padding: 8px; text-align: right;">₹{{ booking_details.total_rent }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Payment Status :</td>
+                            <td style="padding: 8px; text-align: right;">
+                                <span style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: 600; 
+                                    background-color: {% if booking_details.payment_status == 'Paid' %} #28a745 {% else %} #ffc107 {% endif %};">
+                                    {{ booking_details.payment_status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% if booking_details.payment_status == "Paid" %}
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Payment Method:</td>
+                            <td style="padding: 8px; text-align: right;">
+                                <span style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: 600; 
+                                    background-color: #28a745;">
+                                    {{ booking_details.payment_method }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Booking Status :</td>
+                            <td style="padding: 8px; text-align: right;">
+                                {% if booking_details.status %}
+                                <span style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: 600;
+                                        background-color: {% if booking_details.status == 'Booked' %} #ffc107
+                                            {% elif booking_details.status == 'Completed' %}
+                                                #28a745
+                                            {% else %}
+                                                #007bff
+                                            {% endif %};">
+                                    {{ booking_details.status|capfirst }}
+                                </span>
+                                {% else %}
+                                <span style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: 600;
+                                        background-color: #ffc107;">Booked</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Footer Section -->
+            <tr>
+                <td style="padding: 20px; text-align: center; font-size: 12px; color: #888;">
+                    <p class="bold-text" style="margin: 0; font-family: 'Nunito', sans-serif;">Ride Rentals</p>
+                    <p style="margin: 5px 0;">&copy; 2025 Ride Rentals™</p>
+                    <p style="margin: 5px 0;">If you have any questions, <a href="mailto:riderentals10@gmail.com"
+                            style="color: #4caf50; text-decoration: none;">contact us</a>.</p>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

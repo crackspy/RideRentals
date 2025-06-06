@@ -1,0 +1,186 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %} Profile - {{ user.username }} {% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'mainapp/css/profile.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Sidebar Toggle Button -->
+    <div class="sidebar-toggle" id="sidebarToggle">
+        <ion-icon name="arrow-forward"></ion-icon>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="profile-icon">
+            {% if user_profile.profile_picture and user_profile.profile_picture.url %}
+            <img src="{{ user_profile.profile_picture.url }}" alt="Profile Image" />
+            {% else %}
+            <img src="{% static 'mainapp/images/home/profile.png' %}" alt="Default Profile Image" />
+            {% endif %}
+        </div>
+        <h5 class="usrname m-b-10 fz-18">{{ user.username|title }}</h5>
+        <p class="email m-b-10">{{ user.email }}</p>
+        <button onclick="openSettingsPopup()">Settings</button>
+        <button><a href="{% url 'logout' %}">Logout</a></button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Wishlist Card -->
+        <div class="card">
+            <h5>Wishlist</h5>
+            {% if wishlist_item %}
+            <p>{{ wishlist_item.car.name }}</p>
+            <button onclick="openWishlistPopup()">View All Wishlist</button>
+            {% else %}
+            <p>Your wishlist is empty.</p>
+            {% endif %}
+        </div>
+
+        <!-- Bookings Card -->
+        <div class="card">
+            <h5>Your Bookings</h5>
+            {% if booking_item %}
+            <p>{{ booking_item.car.name }}</p>
+            <button onclick="openBookingPopup()">View All Bookings</button>
+            {% else %}
+            <p>You have no bookings yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Popup for Settings -->
+<div id="settingsPopup" class="popup">
+    <div class="popup-head">
+        <h3>Settings</h3>
+        <span class="close" onclick="closeSettingsPopup()">&times;</span>
+    </div>
+
+    <div class="popup-content">
+        <!-- Change Password Section -->
+        <div class="settings-card">
+            <div class="card-body">
+                <h4>Change Password</h4>
+                <p>
+                    If you'd like to update your password, click the button
+                    below:
+                </p>
+                <a href="{% url 'change_password' %}" class="btn btn-change_p">
+                    <i><ion-icon name="lock-closed-outline"></ion-icon></i>
+                    <span>Change Password</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Update Profile Section -->
+        <div class="settings-card">
+            <div class="card-body">
+                <h4>Update Profile</h4>
+                <p>Update your personal information:</p>
+                <a href="{% url 'update_profile' %}" class="btn btn-update">
+                    <i><ion-icon name="create-outline"></ion-icon> </i>
+                    <span>Update Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popup for All Wishlist Items -->
+<div id="wishlistPopup" class="popup">
+    <div class="popup-head">
+        <h3>Your Wishlist</h3>
+        <span class="close" onclick="closeWishlistPopup()">&times;</span>
+    </div>
+
+    <div class="popup-content">
+        {% for item in all_wishlist_items %}
+        <div class="item">
+            <div class="item-icon">
+                <img src="{{ item.car.img.url }}" alt="{{ car.name }}" loading="lazy" width="200" height="150" />
+            </div>
+            <div class="item-content">
+                <h1>{{ item.car.name }} - {{ item.car.year }}</h1>
+                <div class="pos-b">
+                    <ul>
+                        <li>Rent : ₹{{ item.car.rent }}/ month</li>
+                    </ul>
+                    <a href="{% url 'remove_from_wishlist' item.car.slug %}" class="fav-btn btn"
+                        aria-label="Remove from favourite list">
+                        <ion-icon name="heart-dislike-outline"></ion-icon>
+                    </a>
+                    {% if item.car.available %}
+                    <a href="{% url 'booking' item.car.slug %}" class="btn">Book Now</a>
+                    {% else %}
+                    <span class="not-available">Not Available</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Popup for All Bookings -->
+<div id="bookingPopup" class="popup">
+    <div class="popup-head">
+        <h3>Your Bookings</h3>
+        <span class="close" onclick="closeBookingPopup()">&times;</span>
+    </div>
+
+    <div class="popup-content">
+        {% for item in all_bookings %}
+        <div class="item">
+            <div class="item-icon">
+                <img src="{{ item.car.img.url }}" alt="{{ car.name }}" loading="lazy" width="200" height="150" />
+            </div>
+            <div class="item-content">
+                <h1>{{ item.car.name }} - {{ item.car.year }}</h1>
+                <div class="booking-info">
+                    <ul>
+                        <li>
+                            <ion-icon name="cash-outline" class="icon-b"></ion-icon>
+                            <strong>Rent :</strong> ₹{{ item.car.rent }}/month
+                        </li>
+                        <li>
+                            <ion-icon name="calendar-outline" class="icon-b"></ion-icon>
+                            <strong>Pick-up Date :</strong>{{ item.pickup_date }}
+                        </li>
+                        <li>
+                            <ion-icon name="calendar-outline" class="icon-b"></ion-icon>
+                            <strong>Return Date :</strong>{{ item.return_date }}
+                        </li>
+                        <li>
+                            <ion-icon name="calculator-outline" class="icon-b"></ion-icon>
+                            <strong>Total Rent :</strong>₹{{ item.total_rent }}
+                        </li>
+                        <li>
+                            <ion-icon name="cog" class="icon-b"></ion-icon>
+                            <strong>Payment Status :</strong>
+                            <span class="status {{ item.payment_status | lower }}">
+                                {{ item.payment_status | title }}</span>
+                        </li>
+                        <li>
+                            <ion-icon name="book" class="icon-b"></ion-icon>
+                            <strong>Booking Status :</strong>
+                            <span class="status {{ item.status | lower }}">{{ item.status | title }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{% static 'mainapp/js/profile.js' %}"></script>
+
+{% endblock %}

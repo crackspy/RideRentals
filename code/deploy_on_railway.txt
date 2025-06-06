@@ -1,0 +1,53 @@
+1. Deploying Django on Railway
+a. Create a Railway Account and Project
+
+Sign Up: Visit Railway.app and sign up using your preferred method.
+Create New Project: After logging in, click on "New Project" and select "Deploy from GitHub repo". Connect your GitHub account and select your Django project repository.
+b. Add PostgreSQL Database
+
+Add Plugin: Within your Railway project dashboard, click on "Add Plugin" and choose "PostgreSQL". Railway will provision a PostgreSQL database for you.
+Obtain Connection Details: Navigate to the "Connect" tab of the PostgreSQL plugin to find your database connection URL.
+c. Configure Environment Variables
+
+Set Variables: In your project dashboard, go to the "Variables" section and add the following:
+SECRET_KEY: Your Django secret key.
+DEBUG: Set to False for production.
+DATABASE_URL: The PostgreSQL connection URL obtained earlier.
+2. Migrating Data from SQLite to PostgreSQL
+a. Install Required Packages
+
+Ensure psycopg2 is installed:
+
+pip install psycopg2-binary
+b. Backup SQLite Data
+
+Create a JSON backup of your current SQLite data:
+
+python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 4 > datadump.json
+c. Configure Django to Use PostgreSQL
+
+In your settings.py, modify the DATABASES setting:
+
+import os
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
+Ensure dj_database_url is installed:
+
+pip install dj-database-url
+d. Apply Migrations and Load Data
+
+Delete Old Migrations: Remove existing migration files to avoid conflicts.
+
+Create New Migrations: Run:
+
+python manage.py makemigrations
+Migrate Database: Apply migrations:
+
+python manage.py migrate
+
+Load Data: Import the data from your JSON backup:
+
+python manage.py loaddata datadump.json

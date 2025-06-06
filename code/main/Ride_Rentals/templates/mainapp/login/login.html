@@ -1,0 +1,117 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'mainapp/css/login.css' %}" />
+<link href="{% static 'mainapp/css/font-awesome/css/all.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<!-- Background Image -->
+<div class="background-image"></div>
+
+<div class="body-div">
+    <div class="main-container">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('login')">
+                Login
+            </button>
+            <button class="tab-button" onclick="openTab('register')">
+                Register
+            </button>
+        </div>
+
+        <!-- Login Tab Content -->
+        <div id="login" class="login-container tab-content active">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+                <p>Login to continue your journey</p>
+            </div>
+
+            <form id="loginForm" action="/login/" method="post">
+                {% csrf_token %}
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+                <!-- Username Input -->
+                <div class="form-group">
+                    <input type="text" class="form-input" id="username" name="username"
+                        placeholder="Enter your username" required />
+                    <i class="input-icon fas fa-user"></i>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <i class="input-icon fas fa-lock"></i>
+                    <input type="password" class="form-input" id="password" name="password" placeholder="Password"
+                        required />
+                    <i class="visibility-toggle-icon" onclick="togglePassword('password', 'toggleIconLogin')">
+                        <ion-icon id="toggleIconLogin" name="eye-outline"></ion-icon>
+                    </i>
+                </div>
+
+                <button type="submit" class="submit-button">Login</button>
+            </form>
+
+            <div class="additional-options">
+                <a href="{% url 'password_reset' %}">Forgot password?</a>
+            </div>
+        </div>
+
+        <!-- Register Tab Content -->
+        <div id="register" class="login-container tab-content">
+            <div class="login-header">
+                <h1>Welcome Back</h1>
+                <p>Register to continue your journey</p>
+            </div>
+
+            <form id="registerForm" action="/register/" method="post">
+                {% csrf_token %}
+                <!-- Username Input -->
+                <div class="form-group">
+                    <input type="text" class="form-input" id="reg_username" name="username"
+                        placeholder="Enter your username" required />
+                    <i class="input-icon fas fa-user"></i>
+                </div>
+
+                <!-- Email Input -->
+                <div class="form-group">
+                    <input type="email" class="form-input" id="email" name="email" placeholder="Email address"
+                        required />
+                    <i class="input-icon fas fa-envelope"></i>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <i class="input-icon fas fa-lock"></i>
+                    <input type="password" class="form-input" id="reg_password" name="reg_password"
+                        placeholder="Enter your password" required />
+                    <i class="visibility-toggle-icon" onclick="togglePassword('reg_password', 'toggleIconReg_p1')">
+                        <ion-icon id="toggleIconReg_p1" name="eye-outline"></ion-icon>
+                    </i>
+                </div>
+
+                <!-- Confirm Password Input -->
+                <div class="form-group">
+                    <i class="input-icon fas fa-rotate"></i>
+                    <input type="password" class="form-input" id="confirm_password" name="confirm_password"
+                        placeholder="Confirm your password" required />
+                    <i class="visibility-toggle-icon" onclick="togglePassword('confirm_password', 'toggleIconReg_p2')">
+                        <ion-icon id="toggleIconReg_p2" name="eye-outline"></ion-icon>
+                    </i>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    Register
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'mainapp/js/login.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'mainapp/base.html' %}
+{% load static %} 
+
+{% block title %} Book YourRide {% endblock %} 
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'mainapp/css/booking.css' %}" />
+
+{% endblock %} {% block content %}
+<div class="main-container">
+    <div class="card-container">
+        <ul class="featured-car-list">
+            <li>
+                <div class="featured-car-card">
+                    <figure class="card-banner">
+                        <img
+                            src="{{ car.img.url }}"
+                            alt="{{ car.name }}"
+                            loading="lazy"
+                            width="440"
+                            height="300"
+                            class="w-100"
+                        />
+                    </figure>
+
+                    <div class="card-content">
+                        <div class="card-title-wrapper">
+                            <h3 class="h3 card-title">
+                                <a href="#">{{ car.name|capfirst }}</a>
+                            </h3>
+
+                            <data class="year" value="{{ car.year }}"
+                                >{{ car.year }}</data
+                            >
+                        </div>
+
+                        <ul class="card-list">
+                            <li class="card-list-item">
+                                <ion-icon name="people-outline"></ion-icon>
+
+                                <span class="card-item-text"
+                                    >{{ car.capacity }} People</span
+                                >
+                            </li>
+
+                            <li class="card-list-item">
+                                <ion-icon name="flash-outline"></ion-icon>
+
+                                <span class="card-item-text"
+                                    >{{ car.engine|capfirst }}</span
+                                >
+                            </li>
+
+                            <li class="card-list-item">
+                                <ion-icon name="speedometer-outline"></ion-icon>
+
+                                <span class="card-item-text"
+                                    >{{ car.mileage }} km / 1-litre</span
+                                >
+                            </li>
+
+                            <li class="card-list-item">
+                                <ion-icon
+                                    name="hardware-chip-outline"
+                                ></ion-icon>
+
+                                <span class="card-item-text"
+                                    >{{ car.transmission|capfirst }}</span
+                                >
+                            </li>
+                        </ul>
+
+                        <div class="card-price-wrapper">
+                            <p class="card-price">
+                                <strong id="car_price">₹{{ car.rent }}</strong>
+                                / month
+                            </p>
+                            <div id="total_rent" class="total-rent">
+                                <!-- Real-time rental price will be displayed here -->
+                                Total Rent: ₹0.00
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="booking-container">
+        <div class="booking-head-div">
+            <i
+                ><a href="{% url 'explore_cars' %}">
+                    <ion-icon name="arrow-back-circle-outline"></ion-icon>
+                </a>
+            </i>
+            <div class="booking-head">
+                <h1>Book Your Luxury Ride</h1>
+            </div>
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <!-- Pass the car ID -->
+            <input type="hidden" name="car_id" value="{{ car.id }}" />
+
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input
+                    type="text"
+                    id="full-name"
+                    name="full_name"
+                    placeholder="Enter your full name"
+                    value="{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email address"
+                    value="{{ user.email }}"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    value="{% if user.profile.phone_number %} {{ user.profile.phone_number }} {% else %}''{% endif %}"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="pickup-date">Pick-Up Date : MM/DD/YYYY</label>
+                <input
+                    type="date"
+                    id="pickup-date"
+                    name="pickup_date"
+                    min="{{ today_date }}"
+                    value="{{ today_date }}"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="return-date">Return Date : MM/DD/YYYY</label>
+                <input
+                    type="date"
+                    id="return-date"
+                    name="return_date"
+                    min=""
+                    value="{{ min_date }}"
+                    required
+                />
+                <!-- <span class="field-error">This is an error</span> -->
+            </div>
+
+            <button type="submit" class="btn">Book Now</button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'mainapp/js/booking.js' %}"></script>
+
+{% endblock %}

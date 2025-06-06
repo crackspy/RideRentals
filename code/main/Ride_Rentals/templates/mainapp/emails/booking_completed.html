@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Car Rental Completed</title>
+
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                font-size: 14px;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+
+            h1 {
+                font-family: 'Arial', sans-serif;
+                font-size: 24px;
+                font-weight: 600;
+                color: #4caf50;
+            }
+
+            p,
+            td {
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 400;
+                font-size: 16px;
+                color: #333;
+            }
+
+            .bold-text {
+                font-weight: 600;
+            }
+        </style>
+    </head>
+
+    <body>
+        <table
+            style="width: 100%; max-width: 600px; margin: 20px auto; background: #ffffff; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Header Section -->
+            <tr>
+                <td style="padding: 20px; text-align: center;">
+                    <h1>Your Car Rental is Completed!</h1>
+                    <p>Dear {{ booking_details.cus_name }},</p>
+                    <p>We hope you had a great experience with Ride Rentals! Your car rental period has now been
+                        successfully completed.</p>
+                    <p>Below are the details of your recent booking:</p>
+                </td>
+            </tr>
+
+            <!-- Booking Details -->
+            <tr>
+                <td style="padding: 20px;">
+                    <h3 style="text-align: center; font-size: 22px; color: black; font-weight: 600;">
+                        {{ booking_details.car_name }} - {{ booking_details.year }}
+                    </h3>
+                    <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Total Rent :</td>
+                            <td style="padding: 8px; text-align: right;">₹{{ booking_details.total_rent }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; font-weight: 600;">Payment Status :</td>
+                            <td style="padding: 8px; text-align: right;">
+                                <span
+                                    style="padding: 5px 10px; border-radius: 4px; color: #fff; font-weight: 600; background-color: #28a745;">
+                                    Paid
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Thank You Message -->
+            <tr>
+                <td style="padding: 20px; text-align: center;">
+                    <p>Thank you for choosing us for your travel needs. We appreciate your trust and look forward to serving
+                        you again in the future.</p>
+                    <p>If you have any questions or feedback, feel free to reach out.</p>
+                </td>
+            </tr>
+
+            <!-- Footer Section -->
+            <tr>
+                <td style="padding: 20px; text-align: center; font-size: 12px; color: #888;">
+                    <p class="bold-text" style="margin: 0; font-family: 'Nunito', sans-serif;">Ride Rentals</p>
+                    <p style="margin: 5px 0;">&copy; 2025 Ride Rentals™</p>
+                    <p style="margin: 5px 0;">If you have any questions, <a href="mailto:riderentals10@gmail.com"
+                            style="color: #4caf50; text-decoration: none;">contact us</a>.</p>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

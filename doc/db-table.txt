@@ -1,0 +1,58 @@
+columns in tables of models
+
+# auth_user -
+
+id
+password
+last_login
+is_superuser
+cus_username
+last_name
+email
+is_staff
+is_active
+date_joined
+first_name
+
+
+
+# Car_info -
+
+id 
+name
+capacity
+mileage
+engine
+gear
+availabe
+slug
+year
+rent
+img
+
+
+
+# Booking -
+
+id
+cus_name
+cus_ph
+cus_email
+pickup_date
+return_date
+booked_on
+notes
+car_id              foreign-key
+total_rent
+payment_status
+status
+rent
+cus_username        foreign-key
+
+
+# Wishlist - 
+
+id
+added_on
+car_id              foreign-key
+user_id             foreign-key

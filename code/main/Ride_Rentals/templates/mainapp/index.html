@@ -1,0 +1,147 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %} Ride Rentals {% endblock %}
+
+<!-- # Built by crackspy -->
+
+{% block head %}
+
+<!--
+    - custom css link
+  -->
+<link rel="stylesheet" href="{% static 'mainapp/css/home-style.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<main>
+    <article class="home-article">
+
+        <!--
+      - #HERO
+    -->
+
+        <section class="section hero" id="home">
+            <div class="container">
+
+                <div class="hero-content">
+                    <h2 class="h1 hero-title">The easy way to takeover a lease</h2>
+
+                    <p class="hero-text">
+                        Discover India: Rent a Car for Your Next Adventure!
+                    </p>
+                </div>
+
+                <div class="hero-banner"></div>
+
+            </div>
+        </section>
+
+
+        <!--
+      - #FEATURED CAR
+    -->
+
+        <section class="section featured-car" id="featured-car">
+            <div class="container">
+
+                <div class="title-wrapper">
+                    <h2 class="h2 section-title">Featured cars</h2>
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'explore_cars' %}" class="featured-car-link">
+                        <span>View more</span>
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'auth' %}" class="featured-car-link">
+                        <span>View more</span>
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                <ul class="featured-car-list">
+                    {% for car in car_list %}
+                        {% if car.available %}
+                            <li>
+                                <div class="featured-car-card">
+                                    <figure class="card-banner">
+                                        <img src="{{ car.img.url }}" alt="{{ car.name }}" loading="lazy" width="440"
+                                            height="300" class="w-100" />
+                                    </figure>
+
+                                    <div class="card-content">
+                                        <div class="card-title-wrapper">
+                                            <h3 class="h3 card-title">
+                                                <a href="#">{{ car.name|capfirst }}</a>
+                                            </h3>
+
+                                            <data class="year" value="{{ car.year }}">{{ car.year }}</data>
+                                        </div>
+
+                                        <ul class="card-list">
+                                            <li class="card-list-item">
+                                                <ion-icon name="people-outline"></ion-icon>
+
+                                                <span class="card-item-text">{{ car.capacity }} People</span>
+                                            </li>
+
+                                            <li class="card-list-item">
+                                                <ion-icon name="flash-outline"></ion-icon>
+
+                                                <span class="card-item-text">{{ car.engine|capfirst }}</span>
+                                            </li>
+
+                                            <li class="card-list-item">
+                                                <ion-icon name="speedometer-outline"></ion-icon>
+
+                                                <span class="card-item-text">{{ car.mileage }} km / 1-litre</span>
+                                            </li>
+
+                                            <li class="card-list-item">
+                                                <ion-icon name="hardware-chip-outline"></ion-icon>
+
+                                                <span class="card-item-text">{{ car.transmission|capfirst }}</span>
+                                            </li>
+                                        </ul>
+
+                                        <div class="card-price-wrapper">
+                                            <p class="card-price">
+                                                <strong>₹{{ car.rent }}</strong> / month
+                                            </p>
+
+                                            <a href="{% url 'add_to_wishlist' car.slug %}" class="btn fav-btn"
+                                                aria-label="Add to favourite list">
+                                                <ion-icon name="heart-outline"></ion-icon>
+                                            </a>
+
+                                            <a href="{% url 'booking' car.slug %}" class="btn">Rent now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                <div class="bottom-btn-viewmore">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'explore_cars' %}" class="featured-car-link">
+                        <span>View more</span>
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'auth' %}" class="featured-car-link">
+                        <span>View more</span>
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </article>
+</main>
+
+{% endblock %}

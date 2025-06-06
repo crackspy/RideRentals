@@ -1,0 +1,322 @@
+{% load static %}
+<!-- # Built by crackspy -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %} {% endblock %}</title>
+
+        <!--
+      - favicon
+    -->
+        <link rel="shortcut icon" href="{% static 'mainapp/images/favicon.png' %}" type="image/svg+xml">
+
+        <!--
+      - custom css link
+    -->
+        <link rel="stylesheet" href="{% static 'mainapp/css/base-style.css' %}">
+
+        <link rel="stylesheet" href="{% static 'mainapp/css/fonts.css' %}">
+
+        {% block head %} {% endblock %}
+
+    </head>
+
+    <body>
+
+        <!-- Preloader -->
+        <div class="loader" id="preloader">
+            <div class="justify-content-center jimu-primary-loading"></div>
+        </div>
+
+        <!--
+    - #HEADER
+  -->
+
+        <header class="header" data-header>
+            <div class="header-container">
+
+                <div class="overlay" data-overlay></div>
+
+                <a href="#" class="logo">
+                    <span>Ride Rentals</span>
+                </a>
+
+                <nav class="navbar" data-navbar>
+                    <ul class="navbar-list">
+
+                        <li>
+                            <a href="{% url 'home' %}" class="navbar-link" data-nav-link>Home</a>
+                        </li>
+
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'explore_cars' %}" class="navbar-link" data-nav-link>Explore cars</a>
+                        </li>
+
+                        <li>
+                            <a href="#about-us" class="navbar-link" data-nav-link>About us</a>
+                        </li>
+
+                        {% if user.is_superuser %}
+                        <li>
+                            <a href="/admin" class="navbar-link" data-nav-link>Admin Panel</a>
+                        </li>
+                        {% endif %}
+
+                        {% else %}
+                        <li>
+                            <a href="{% url 'home' %}#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'home' %}#about-us" class="navbar-link" data-nav-link>About us</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+
+                    {% if user.is_authenticated %}
+
+                    <a href="{% url 'logout' %}" class="head-btn" aria-labelledby="aria-label-txt">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <span id="aria-label-txt">Logout</span>
+                    </a>
+
+                    <a href="{% url 'profile' %}" class="head-btn user-btn" aria-label="Profile">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </a>
+
+                    {% else %}
+                    <a href="{% url 'auth' %}" class="head-btn" aria-labelledby="aria-label-txt">
+                        <ion-icon name="lock-open-outline"></ion-icon>
+                        <span id="aria-label-txt">Login</span>
+                    </a>
+                    {% endif %}
+
+                    <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+                        <span class="one"></span>
+                        <span class="two"></span>
+                        <span class="three"></span>
+                    </button>
+
+                </div>
+
+            </div>
+            <progress class="post-progress" id="progressBar" value="0" max="100"></progress>
+        </header>
+
+        <div id="notifi-popup">
+            <div id="notification-box" class="notification">
+                <p id="notification-message">This is a notification message!</p>
+            </div>
+        </div>
+
+        {% block content %} {% endblock %}
+
+        <!--
+    - #FOOTER
+  -->
+        <section class="footer" id="about-us">
+            <footer class="footer">
+                <div class="footer-container">
+
+                    <div class="footer-top">
+
+                        <div class="footer-brand">
+                            <a href="#" class="logo">
+                                <span>Ride Rentals</span>
+                            </a>
+
+                            <p class="footer-text">
+                                Search for premium rental cars in India. With a diverse fleet of 19,000 vehicles, Waydex
+                                offers its
+                                consumers an
+                                attractive and fun selection.
+                            </p>
+                        </div>
+
+                        <ul class="footer-list">
+
+                            <li>
+                                <p class="footer-list-title">Company</p>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link">About us</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link">Pricing plans</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link">Contacts</a>
+                            </li>
+
+                        </ul>
+
+                        <ul class="footer-list">
+
+                            <li>
+                                <p class="footer-list-title">Support</p>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link">Help center</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link">Ask a question</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link">Privacy policy</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link">Terms & conditions</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="footer-bottom">
+
+                        <ul class="social-list">
+
+                            <li>
+                                <a href="#" class="social-link">
+                                    <ion-icon name="logo-facebook"></ion-icon>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="social-link">
+                                    <ion-icon name="logo-instagram"></ion-icon>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="social-link">
+                                    <ion-icon name="logo-twitter"></ion-icon>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="social-link">
+                                    <ion-icon name="logo-linkedin"></ion-icon>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="social-link">
+                                    <ion-icon name="logo-skype"></ion-icon>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="mailto:riderentals10@gmail.com" class="social-link">
+                                    <ion-icon name="mail-outline"></ion-icon>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <p class="copyright">
+                            &copy; 2025 Ride Rentals™. All Rights Reserved
+                        </p>
+
+                    </div>
+
+                </div>
+            </footer>
+
+            <!--
+    - custom js link
+  -->
+            <script src="{% static 'mainapp/js/base-script.js' %}"></script>
+
+            <!--
+    - ionicon link
+  -->
+            <script type="module" src="{% static 'mainapp/js/ionicons/ionicons.esm.js' %}"></script>
+            <script nomodule src="{% static 'mainapp/js/ionicons/ionicons.js' %}"></script>
+
+            <script>
+                // preloader
+
+                // window.onload = function () {
+                //     setTimeout(() => {
+                //         document.getElementById("preloader").style.display = "none";
+                //     }, 1000); // Simulated delay for smoother effect
+                // };
+
+                document.addEventListener("DOMContentLoaded", function () {
+    let preloader = document.getElementById("preloader");
+
+    // Wait for 500ms before starting the fade-out animation
+    setTimeout(() => {
+        preloader.style.transition = "opacity 0.5s ease-out";
+        preloader.style.opacity = "0";
+
+        // Remove the preloader from the DOM after the fade-out
+        setTimeout(() => {
+            preloader.style.display = "none";
+        }, 500); // Matches the transition duration
+    }, 500); // Initial delay before starting the fade-out
+});
+
+
+
+
+                /**
+                 * Django notification messages
+                 */
+
+                // Show notifications dynamically
+                function showNotifications(messages) {
+                    const notificationBox = document.getElementById("notification-box");
+                    const notificationMessage = document.getElementById("notification-message");
+                    const notificationPopup = document.getElementById("notifi-popup");
+
+                    if (!messages || !messages.length) return;
+
+                    messages.forEach((msg, index) => {
+                        setTimeout(() => {
+                            // Set the message and style
+                            notificationMessage.textContent = msg.message;
+                            notificationBox.className = `notification visible ${msg.tags}`;
+
+                            // Hide the notification after 5 seconds
+                            setTimeout(() => {
+                                notificationBox.className = `notification hidden`;
+                            }, 3500);
+                        }, index * 6000); // Delay for consecutive messages
+                    });
+                }
+
+                // Load messages from Django
+                document.addEventListener("DOMContentLoaded", () => {
+                    const messages = [
+                        //{% for message in messages %}
+                        {
+                            message: "{{ message|escapejs }}",
+                            tags: "{{ message.tags }}",
+                        },
+                        //{% endfor %}
+                    ];
+                    showNotifications(messages);
+                });
+            </script>
+    </body>
+
+</html>

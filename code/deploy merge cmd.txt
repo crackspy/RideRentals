@@ -1,0 +1,53 @@
+
+Railway
+--------------------------------------------------------------------------------
+settings.py set for a specific platform deployment (ignore settings.py from main)
+--------------------------------------------------------------------------------
+
+1️⃣ Switch to main and Pull Latest Changes
+
+git checkout main
+git pull origin main
+2️⃣ Switch to deploy-railway Branch
+
+git checkout deploy-railway
+git pull origin deploy-railway
+3️⃣ Copy Only the Necessary Files From main to deploy
+Since your structure is different, do NOT merge. Instead, manually copy only the required files.
+
+Method 1: Checkout Specific Files (Preferred)
+To extract only the necessary updates:
+
+
+git checkout main -- code/main/Ride_Rentals/
+This brings the latest version of Ride_Rentals without affecting settings.py or urls.py.
+
+Or, for specific files:
+
+
+git checkout main -- code/main/Ride_Rentals/app.py
+git checkout main -- code/main/Ride_Rentals/models.py
+# Add more files as needed
+4️⃣ Move Extracted Files to Root (For Deployment)
+Since deploy has files at the root level, we need to move files out of code/main/Ride_Rentals/ and into the root directory.
+
+For Linux/macOS (or Git Bash on Windows)
+
+rsync -av code/main/Ride_Rentals/ .
+rm -rf code  # Clean up unnecessary folders
+For Windows (Command Prompt)
+
+robocopy code\main\Ride_Rentals . /E /MOVE
+rd /s /q code  # Clean up unnecessary folders
+5️⃣ Restore settings.py & urls.py (If Overwritten)
+Just in case these files were modified, restore them from the existing deploy version:
+
+
+git checkout --ours Ride_Rentals/settings.py
+git checkout --ours Ride_Rentals/urls.py
+git add Ride_Rentals/settings.py Ride_Rentals/urls.py
+6️⃣ Commit and Push the Changes
+
+git add .
+git commit -m "Synced updates from main to deploy while preserving settings.py and urls.py"
+git push origin deploy-railway

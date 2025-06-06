@@ -1,0 +1,27 @@
+# Navigate to your project directory
+cd path/to/your/repo
+
+# Create and checkout a new branch named 'deploy'
+git checkout -b deploy
+
+# Remove all files except the ones in 'code/main/Ride_Rentals'
+git rm -rf . 
+
+# Restore only the necessary deployment files
+git checkout main -- code/main/Ride_Rentals
+
+# Move the contents of 'code/main/Ride_Rentals' to the root of the deploy branch
+mv code/main/Ride_Rentals/* . 
+mv code/main/Ride_Rentals/.* . 2>/dev/null # Move hidden files if any (ignore errors)
+
+# Clean up empty directories
+rm -rf code
+
+# Stage the changes
+git add .
+
+# Commit the changes
+git commit -m "Set up deploy branch with necessary files"
+
+# Push the branch to remote
+git push origin deploy

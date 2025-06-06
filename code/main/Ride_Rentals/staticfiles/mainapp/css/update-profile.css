@@ -1,0 +1,190 @@
+/* Profile Picture Section */
+.profile-image-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.profile-image-preview {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.profile-image-preview img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 12px;
+    right: 40px;
+    font-size: 25px;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+}
+
+.upload-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+    z-index: 1500;
+    overflow: auto;
+    /* Enable scrolling inside popup */
+    display: none;
+}
+
+.dashed-border {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: #673ab7;
+    margin-bottom: 10px;
+}
+
+.upload-icon ion-icon {
+    width: 100%;
+}
+
+.upload-text {
+    color: #757575;
+    margin-bottom: 10px;
+}
+
+.file-size-info {
+    color: #9e9e9e;
+    font-size: 14px;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1100;
+    display: block;
+}
+
+.file-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.ok-btn {
+    margin-top: 10px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 5px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Set Default Button */
+.set-default-btn {
+    background-color: #ff5722;
+    /* Orange color */
+}
+
+.set-default-btn:hover {
+    background-color: #e64a19;
+    /* Darker orange */
+    transform: scale(1.05);
+}
+
+.set-default-btn:active {
+    background-color: #d84315;
+    /* Even darker on click */
+    transform: scale(0.95);
+}
+
+.revert-btn {
+    background: #007bff;
+}
+
+.revert-btn:hover {
+    background-color: #0056b3;
+    /* Darker blue */
+    transform: scale(1.05);
+}
+
+.revert-btn:active {
+    background-color: #004494;
+    /* Even darker blue on click */
+    transform: scale(0.95);
+}
+
+/* Align Set Default Button */
+.image-btn-div {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 5px;
+}
+
+.image-btn-div button {
+    font-size: 14px;
+    width: 100px;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.form-input-error {
+    display: block !important;
+    margin-bottom: 10px;
+}
+
+.field-error {
+    color: #ff0606;
+    text-align: center;
+    padding: 3px;
+    font-size: 15px;
+}
+
+@media screen and (max-width: 550px) {
+    .image-btn-div {
+        width: 100%;
+    }
+
+    .upload-popup {
+        width: 80%;
+    }
+
+    .upload-popup {
+        padding: 15px;
+    }
+
+    .dashed-border {
+        padding: 10px;
+    }
+}

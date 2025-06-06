@@ -1,0 +1,69 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block title %} Select Payment Method {% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'mainapp/css/confirm-booking.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="payment-container">
+        <div class="payment-head-div">
+            <i><a href="{% url 'booking' car.slug %}">
+                    <ion-icon name="arrow-back-circle-outline"></ion-icon>
+                </a>
+            </i>
+
+            <div class="payment-head">
+                <h1>Select Payment Method</h1>
+            </div>
+        </div>
+
+        <div class="total-amount">
+            <span>Total Amount :</span>
+            <strong>{{ total_amount }} ₹</strong>
+        </div>
+
+        <form method="POST" action="{% url 'confirm_booking' slug=car.slug %}">
+            {% csrf_token %}
+            <div class="payment-options">
+                <label class="payment-option unavailable" data-message="Currently unavailable">
+                    <input type="radio" name="payment_method" value="Google Pay" disabled />
+                    <img src="{% static 'mainapp/images/payment/googlepay.svg' %}" alt="Google Pay" class="payment-icon" />
+                    <span>Google Pay</span>
+                </label>
+            </div>
+
+            <div class="payment-options">
+                <label class="payment-option unavailable" data-message="Currently unavailable">
+                    <input type="radio" name="payment_method" value="Net Banking" disabled />
+                    <img src="{% static 'mainapp/images/payment/banking.png' %}" alt="Net Banking" class="payment-icon" />
+                    <span>Net Banking</span>
+                </label>
+            </div>
+
+            <div class="payment-options">
+                <label class="payment-option cod selected">
+                    <input type="radio" name="payment_method" value="Cash on Delivery" required checked />
+                    <img src="{% static 'mainapp/images/payment/cash.png' %}" alt="Cash Icon" class="payment-icon" />
+                    <span>Cash on Delivery</span>
+                </label>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-primary">
+                    Proceed to Payment
+                </button>
+            </div>
+        </form>
+
+        <p class="secure-note">All transactions are securely processed</p>
+    </div>
+</div>
+<script src="{% static 'mainapp/js/confirm_booking.js' %}"></script>
+{% endblock %}
+
