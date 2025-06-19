@@ -29,7 +29,7 @@ cd RideRentals
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-cd code/main/RideRentals
+cd code/main/Ride_Rentals
 ```
 
 3. **Install Dependencies:**
@@ -41,8 +41,6 @@ pip install -r requirements.txt
 Create a `.env` file in code/main/RideRentals:
 ```
 DEBUG=True
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
 EMAIL_HOST_USER=your-email@gmail.com
 EMAIL_HOST_PASSWORD=your-email-password
 ```
