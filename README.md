@@ -1,8 +1,7 @@
 <div align="center">
 
 # RideRentals 🚗
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/crackspy/RideRentals?color=black&label=Stable&logo=github)](https://github.com/crackspy/RideRentals/releases/latest/)
-[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/crackspy/RideRentals?include_prereleases&label=Preview&logo=Github)](https://github.com/crackspy/RideRentals/releases/)
+[![Stable Release](https://img.shields.io/badge/Stable-1.0-black?style=for-the-badge&logo=github)](https://github.com/crackspy/RideRentals)
 
 A full-stack car rental marketplace built with Django. RideRentals allows users to seamlessly browse and book vehicles, while providing a comprehensive dashboard for administrators to manage the platform.
 
