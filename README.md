@@ -23,9 +23,9 @@ A full-stack car rental marketplace built with Django. RideRentals allows users 
 
 | **Home** | **Explore Cars** |
 | :---: | :---: |
-| ![Home page Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/doc/screenshots/home_page.png) | ![Explore Cars Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/doc/screenshots/explore_cars.png) |
+| ![Home page Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/refs/heads/main/doc/screenshots/home_page.png) | ![Explore Cars Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/refs/heads/main/doc/screenshots/explore_cars.png) |
 | **Login** | **Booking** |
-| ![Login Page Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/doc/screenshots/login_page.png) | ![Booking Page Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/doc/screenshots/booking_page.png) |
+| ![Login Page Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/refs/heads/main/doc/screenshots/login_page.png) | ![Booking Page Screenshot](https://raw.githubusercontent.com/crackspy/RideRentals/refs/heads/main/doc/screenshots/booking_page.png) |
 
 
 ---
