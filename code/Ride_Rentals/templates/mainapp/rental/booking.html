@@ -136,7 +136,7 @@
                     id="phone"
                     name="phone"
                     placeholder="Enter your phone number"
-                    value="{% if user.profile.phone_number %} {{ user.profile.phone_number }} {% else %}''{% endif %}"
+                    value="{% if user.profile.phone_number %} {{ user.profile.phone_number }} {% else %} {% endif %}"
                     required
                 />
             </div>
